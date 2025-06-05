@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "408609875847",
+    "project_id": "loodoscrypto",
+    "storage_bucket": "loodoscrypto.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408609875847:android:3e06cfbad02ac72071d522",
+        "android_client_info": {
+          "package_name": "com.necdetzr.loodoscrypto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_Sq2pkRwNUuPJWFxkQ9imuekz1Jqmnl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

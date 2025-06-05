@@ -1,0 +1,21 @@
+package com.necdetzr.loodoscrypto.navigation
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.necdetzr.loodoscrypto.R
+
+//Routes for Bottom Navigation Bar
+sealed class TopLevelRoute(
+    val route:String,
+    val icon: ImageVector,
+    val label:Int
+) {
+    object Home : TopLevelRoute("home",Icons.Outlined.Home, R.string.home)
+    object Search : TopLevelRoute("search",Icons.Outlined.Search,R.string.search)
+    object Market : TopLevelRoute("market", Icons.Filled.TrendingUp,R.string.market)
+    object Profile : TopLevelRoute("profile",Icons.Outlined.Person,R.string.profile)
+}
