@@ -8,12 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel
 import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.LoginPage
 import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.RegisterPage
 import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.WelcomePage
 
 @Composable
-fun AuthNav(contentPadding: PaddingValues) {
+fun AuthNav(contentPadding: PaddingValues,authViewModel: AuthViewModel) {
     val navController = rememberNavController()
     
     NavHost(
@@ -21,15 +22,17 @@ fun AuthNav(contentPadding: PaddingValues) {
         startDestination = "welcome",
         modifier = Modifier.padding(contentPadding)
     ) {
+
         composable("welcome") {
             WelcomePage(navController)
         }
         composable("login") {
-            LoginPage()
+            LoginPage(navController,authViewModel)
         }
         composable("register") {
-            RegisterPage()
+            RegisterPage(navController)
         }
+
 
     }
 

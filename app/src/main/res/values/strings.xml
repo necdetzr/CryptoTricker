@@ -19,4 +19,17 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="have_account">Have an Account?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="hi_there">Hi There!</string>
+    <string name="which_crypto">Which crypto are you looking for today?</string>
+    <string name="search_crypto_title">Search for a Crypto</string>
+    <string name="search_crypto_placeholder">Search Crypto...</string>
+    <string name="favorite_list">Favorite List</string>
+    <string name="star_emoji">⭐</string>
+    <string name="my_fav_list">My Favorite List</string>
+    <string name="fav_list_subtext">You can fetch changes by adding coin</string>
+    <string name="popular_cryptos">Popular Cryptos</string>
+    <string name="last_24h">Last 24h</string>
+    <string name="see_all">See All ></string>
 </resources>

@@ -2,6 +2,7 @@ package com.necdetzr.loodoscrypto.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.necdetzr.loodoscrypto.data.api.CoinApi
 import com.necdetzr.loodoscrypto.data.local.FirebaseAuthManager
 import com.necdetzr.loodoscrypto.utils.NetworkConstants.BASE_URL
 import dagger.Module
@@ -23,6 +24,12 @@ class NetworkModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    }
+    @Singleton
+    @Provides
+    fun provideCoinApi(retrofit: Retrofit): CoinApi {
+        return retrofit.create(CoinApi::class.java)
     }
     @Singleton
     @Provides

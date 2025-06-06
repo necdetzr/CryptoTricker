@@ -1,0 +1,26 @@
+package com.necdetzr.loodoscrypto.presentation.ui.components
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.unit.dp
+
+
+@Composable
+fun LinearProgressBar() {
+    LinearProgressIndicator(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(6.dp),
+
+        color = Color(0xFF3F72AF),
+        strokeCap = StrokeCap.Round
+
+
+
+    )
+}

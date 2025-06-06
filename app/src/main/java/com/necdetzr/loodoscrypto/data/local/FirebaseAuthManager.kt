@@ -6,7 +6,6 @@ import kotlinx.coroutines.tasks.await
 class FirebaseAuthManager(
     private val firebaseAuth:FirebaseAuth =FirebaseAuth.getInstance()
 ) {
-    //Complex Auth Functions
     suspend fun login(email:String,password:String):Result<Unit>{
         return try {
             firebaseAuth.signInWithEmailAndPassword(email,password).await()
@@ -40,7 +39,6 @@ class FirebaseAuthManager(
 
 
 
-    //Basic Auth Functions
     fun isUserLoggedIn():Boolean = firebaseAuth.currentUser != null
     fun getCurrentUserId():String? = firebaseAuth.currentUser?.uid
     fun signOut() = firebaseAuth.signOut()
