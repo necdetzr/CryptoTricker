@@ -65,3 +65,7 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
 
 ## 💬 Contact & Support
 For questions or issues, please open an issue or contact me at [necdet03fb@hotmail.com].
+
+## 📝 Notes
+Data provided by [CoinGecko](https://www.coingecko.com/)
+
