@@ -69,3 +69,7 @@ For questions or issues, please open an issue or contact me at [necdet03fb@hotma
 ## 📝 Notes
 Data provided by [CoinGecko](https://www.coingecko.com/)
 
+## 📄 License
+Licensed under the [MIT License](https://opensource.org/licenses/MIT)
+
+
