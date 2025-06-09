@@ -12,12 +12,15 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
 - 📦 viewModelScope to Decrease Memory Leak
 - 📦 Coil Async Image Builder
 - 📦 DataStore Preference Management (Multilanguage Support)
+- 📦 Usage of Coil and LazyColumn / LazyVerticalGrid for smoother UI and faster loading.
 
 ## 🎯 Use Cases
-- ✅ Real-time Price Tracking: Users can view live prices of multiple cryptocurrencies including Bitcoin, Ethereum, and altcoins.
-- ✅ Portfolio Management: Users can add their holdings and track the overall value and performance of their crypto portfolio.
-- ✅ Favorites & Watchlist: Users can bookmark favorite coins to monitor easily.
-- ✅ Market Stats: Users can see Top Gainer, Top Losers or Top Market Value cryptos.
+- ✅ **Real-time Price Tracking:** Users can view live prices of multiple cryptocurrencies including Bitcoin, Ethereum, and altcoins.
+- ✅ **Portfolio Management:** Users can add their holdings and track the overall value and performance of their crypto portfolio.
+- ✅ **Favorites & Watchlist:** Users can bookmark favorite coins to monitor easily.
+- ✅ **Market Stats:** Users can see Top Gainer, Top Losers or Top Market Value cryptos.
+- ✅ **Multilanguage Support:** Users can select between Turkish and English languages.
+- ✅ **UI/UX enhancements:** Modern and user-friendly interface to improve overall experience.
 
 ## 📸 Screenshots
 <table>
@@ -52,9 +55,11 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
    `npm run`
 
 ## 🔮 Future Improvements
-- ✨ Multilanguage Support: Users can select between Turkish and English languages.
-- ⚡ Performance optimizations: Usage of Coil and LazyColumn / LazyVerticalGrid for smoother UI and faster loading.
-- 🎨 UI/UX enhancements: Modern and user-friendly interface to improve overall experience.
+- 🌙 **Dark Mode:** Add a dark theme option to enhance user experience during night usage and reduce eye strain.
+- 🔔 **Notification System:** Implement real-time push notifications for price alerts, news, and portfolio updates.
+- 📈 **Graphical Price Tracking:** Integrate interactive charts and graphs for better visualization of cryptocurrency price trends over time.
+
+
 
 ## 💬 Contact & Support
 For questions or issues, please open an issue or contact me at [necdet03fb@hotmail.com].
