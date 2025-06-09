@@ -17,14 +17,17 @@ import com.necdetzr.loodoscrypto.presentation.theme.LightGray
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTextField(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     value:String,
     placeholder:String,
     onValueChange:(String) -> Unit,
+    enabled:Boolean = true,
 ){
     OutlinedTextField(
         value =  value,
         placeholder = {Text(placeholder)},
+        enabled = enabled,
         onValueChange = onValueChange,
         leadingIcon = {Icon(imageVector = icon, contentDescription = "icon")},
         singleLine = true,
@@ -40,7 +43,7 @@ fun CustomTextField(
 
 
         ),
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
 
     )
 }

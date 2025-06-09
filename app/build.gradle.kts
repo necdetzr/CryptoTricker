@@ -5,6 +5,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("kotlin-parcelize")
+
 
 }
 
@@ -84,6 +86,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //Material Icons
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    //Firestore
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.10.3")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

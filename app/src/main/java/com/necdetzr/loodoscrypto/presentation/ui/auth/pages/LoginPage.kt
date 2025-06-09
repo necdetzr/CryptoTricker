@@ -105,12 +105,12 @@ fun LoginPage(
             Text(stringResource(R.string.sign_in_your_account_h2), style = MaterialTheme.typography.bodyMedium, color = Blue)
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(
-                Icons.Outlined.Email,
-                email,
-                stringResource(R.string.email),
+                icon = Icons.Outlined.Email,
+                value = email,
+                placeholder = stringResource(R.string.email),
+                onValueChange =
                 {
                     email = it
-
                 }
             )
             Spacer(modifier = Modifier.height(20.dp))

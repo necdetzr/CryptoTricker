@@ -1,6 +1,7 @@
 package com.necdetzr.loodoscrypto.presentation.ui.main.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.request.ImageResult
@@ -31,12 +33,18 @@ import com.necdetzr.loodoscrypto.utils.FormatFunctions
 
 @Composable
 fun CoinCard(
-    coin: Coin
+    coin: Coin,
+    navController : NavHostController
 ){
 
 
         Card(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .clickable(
+                    onClick = {
+                        navController.navigate("detail/${coin.id}")
+                    }
+                ),
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
             )

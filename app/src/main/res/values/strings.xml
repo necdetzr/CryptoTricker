@@ -32,4 +32,18 @@
     <string name="popular_cryptos">Popular Cryptos</string>
     <string name="last_24h">Last 24h</string>
     <string name="see_all">See All ></string>
+    <string name="all_coins">All Coins</string>
+    <string name="error">Error</string>
+    <string name="too_many_request">Too Many Request</string>
+    <string name="i_dont_have_money">I don\'t have money for full plan :(</string>
+    <string name="all_cryptocurrencies">All Cryptocurrencies</string>
+    <string name="crypto_marketplace">Crypto Marketplace</string>
+    <string name="top_gainers">Top Gainers</string>
+    <string name="top_losers">Top Losers</string>
+    <string name="top_market_values">Top Market Values</string>
+    <string name="general_settings">General Settings</string>
+    <string name="language_settings">Language Settings</string>
+    <string name="log_out">Log Out</string>
+    <string name="profile_settings">Profile Settings</string>
+
 </resources>

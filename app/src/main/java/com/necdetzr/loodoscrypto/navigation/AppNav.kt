@@ -42,6 +42,7 @@ fun AppNav(authViewModel: AuthViewModel, contentPadding: PaddingValues) {
         composable("main") {
             MainNav()
         }
+
     }
 }
 

@@ -20,7 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -29,12 +28,17 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.presentation.theme.Gray
 import com.necdetzr.loodoscrypto.presentation.ui.components.CustomTextField
 import com.necdetzr.loodoscrypto.presentation.ui.components.CoinSlider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
@@ -48,6 +52,7 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostController){
     val topCoins by viewModel.topCoins.collectAsState()
     val state by viewModel.uiState.collectAsState()
+
     val coins = listOf(
         R.drawable.solana,
         R.drawable.bitcoin_svg,
@@ -79,10 +84,24 @@ fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostCo
         Section(firstTitle = stringResource(R.string.search_crypto_title))
         Spacer(modifier = Modifier.height(16.dp))
         CustomTextField(
+            modifier = Modifier.clickable(
+                onClick = {
+                    navController.navigate("search"){
+                        launchSingleTop = true
+                        popUpTo(navController.graph.startDestinationId){
+                            saveState = true
+                        }
+                        restoreState = true
+
+                    }
+                }
+            ),
             icon = Icons.Default.Search,
+            enabled = false,
             value = "",
             placeholder = stringResource(R.string.search_crypto_placeholder),
-            onValueChange = {}
+            onValueChange = {},
+
         )
         Spacer(Modifier.height(32.dp))
         Section(firstTitle = stringResource(R.string.favorite_list))
@@ -130,14 +149,22 @@ fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostCo
                     LinearProgressBar()
                 }
             }else if(state.isError){
-                ErrorCard()
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    ErrorCard(
+
+                    )
+                }
             }else{
                 LazyColumn(
                     modifier = Modifier.padding(vertical = 12.dp)
                 ) {
                     items(items = topCoins) {coin->
                         Spacer(Modifier.height(20.dp))
-                        CoinCard(coin)
+                        CoinCard(coin,navController)
 
                     } }
             }

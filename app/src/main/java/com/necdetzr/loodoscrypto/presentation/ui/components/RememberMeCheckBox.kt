@@ -33,7 +33,7 @@ fun RememberMeCheckBox(
 
 
         )
-        Text(text = stringResource(R.string.remember), style = MaterialTheme.typography.bodySmall)
+        Text(text = "Privacy Policy", style = MaterialTheme.typography.bodySmall)
 
     }
 

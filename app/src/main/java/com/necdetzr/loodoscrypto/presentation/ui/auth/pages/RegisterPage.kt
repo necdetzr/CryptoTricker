@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,11 +20,15 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,26 +38,64 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.presentation.theme.Blue
 import com.necdetzr.loodoscrypto.presentation.theme.DarkBlue
+import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel
 import com.necdetzr.loodoscrypto.presentation.ui.components.AuthButton
 import com.necdetzr.loodoscrypto.presentation.ui.components.AuthPasswordTextField
 import com.necdetzr.loodoscrypto.presentation.ui.components.CustomTextField
+import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
 import com.necdetzr.loodoscrypto.presentation.ui.components.RememberMeCheckBox
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun RegisterPage(
-    navController: NavHostController
+    navController: NavHostController,
+    authViewModel: AuthViewModel = hiltViewModel()
 ){
     var email by remember { mutableStateOf("") }
     var password by remember {mutableStateOf("")}
     var password1 by remember { mutableStateOf("")}
     var checked by remember {mutableStateOf(false)}
+    var isLoadings by remember{
+        mutableStateOf(false)
+    }
     var name by remember {mutableStateOf("")}
     var surname by remember {mutableStateOf("")}
+    val registerState by authViewModel.registerState.collectAsState()
+    var wasRegisterAttempted by remember {mutableStateOf(false)}
+    var registerError by remember { mutableStateOf<String?>(null) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(registerState,wasRegisterAttempted) {
+        registerState?.let { result ->
+            isLoadings = false
+            result.onSuccess {
+                registerError = null
+                wasRegisterAttempted = false
+                navController.navigate("main"){
+                    popUpTo("login"){
+                        inclusive = true
+                        saveState = true
+                    }
+
+                }
+            }
+            result.onFailure { error->
+                registerError = error.message ?: "Invalid Email or Password"
+                scope.launch {
+                    snackbarHostState.showSnackbar("Invalid Email or Password")
+                }
+
+            }
+
+        }
+    }
 
     Scaffold { innerPadding->
 
@@ -67,26 +112,27 @@ fun RegisterPage(
             Text(stringResource(R.string.create_an_account_h2), style = MaterialTheme.typography.bodyMedium, color = Blue)
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(
-                Icons.Outlined.Person,
-                name,
-                stringResource(R.string.name),
-                {name = it}
+                icon =Icons.Outlined.Person,
+                value = name,
+                placeholder = stringResource(R.string.name),
+                onValueChange = {name = it}
 
             )
             Spacer(Modifier.height(20.dp))
             CustomTextField(
-                Icons.Outlined.Person,
-                surname,
-                stringResource(R.string.surname),
-                {surname = it}
+                icon = Icons.Outlined.Person,
+                value = surname,
+                placeholder = stringResource(R.string.surname),
+                onValueChange = {surname = it}
 
             )
             Spacer(Modifier.height(20.dp))
 
             CustomTextField(
-                Icons.Outlined.Email,
-                email,
-                stringResource(R.string.email),
+                icon = Icons.Outlined.Email,
+                value = email,
+                placeholder = stringResource(R.string.email),
+                onValueChange =
                 {
                     email = it
 
@@ -136,12 +182,41 @@ fun RegisterPage(
                 ))
             }
             Spacer(Modifier.height(4.dp))
-            AuthButton(
-                text = stringResource(R.string.signup),
-                onClick = { /*TODO*/ },
-                containerColor = DarkBlue,
-                contentColor = Color.White
-            )
+
+            if(isLoadings){
+                LinearProgressBar()
+            }else{
+                AuthButton(
+                    text = stringResource(R.string.signup),
+                    onClick = {
+
+                        if(password != password1){
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Passwords do not match")
+                            }
+                        }else if(name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty()){
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Please fill all the fields")
+                            }
+                        }else if(!checked){
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Please accept the terms and conditions")
+                            }
+                        }
+                        isLoadings =true
+                        wasRegisterAttempted = true
+                        authViewModel.register(
+                            name = name,
+                            surname = surname,
+                            email = email,
+                            password = password
+                        )
+                    },
+                    containerColor = DarkBlue,
+                    contentColor = Color.White
+                )
+            }
+
 
 
         }

@@ -4,10 +4,13 @@ import com.necdetzr.loodoscrypto.domain.model.Coin
 import com.necdetzr.loodoscrypto.domain.repository.CoinRepository
 import javax.inject.Inject
 
-class GetTopCoinsUseCase @Inject constructor(
+class GetTopLosersUseCase @Inject constructor(
     private val repository: CoinRepository
 ) {
     suspend operator fun invoke(): List<Coin>{
-        return repository.getCoins(perPage = 160,page = 1)
+        val allCoins = repository.getCoins(perPage = 160, page = 1)
+        return allCoins
+            .sortedBy { it.priceChangePercentage24h }
+            .take(10)
     }
 }

@@ -38,7 +38,7 @@ class FirebaseAuthManager(
 
 
 
-
+    fun getCurrentUser() = firebaseAuth.currentUser
     fun isUserLoggedIn():Boolean = firebaseAuth.currentUser != null
     fun getCurrentUserId():String? = firebaseAuth.currentUser?.uid
     fun signOut() = firebaseAuth.signOut()

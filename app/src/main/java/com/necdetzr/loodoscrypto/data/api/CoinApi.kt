@@ -1,7 +1,10 @@
 package com.necdetzr.loodoscrypto.data.api
 
 import com.necdetzr.loodoscrypto.data.model.CoinModel
+import com.necdetzr.loodoscrypto.data.model.DetailCoinModel
+import com.necdetzr.loodoscrypto.domain.model.Coin
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -15,4 +18,12 @@ interface CoinApi{
         @Query("page") page:Int = 1,
         @Query("sparkline") sparkline:Boolean = false,
     ):List<CoinModel>
+
+    @GET("coins/{id}")
+    suspend fun getCoinById(
+        @Path("id") id:String,
+
+
+    ): DetailCoinModel
+
 }
