@@ -97,7 +97,10 @@ fun RegisterPage(
         }
     }
 
-    Scaffold { innerPadding->
+    Scaffold(
+        containerColor = Color.White
+    ) { innerPadding->
+
 
         Column(
             modifier = Modifier.padding(innerPadding)

@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(
                 while(isActive){
                     _coins.value = getCoinsUseCase()
                     requestCount++
-                    println("🔥 API request getCoins #$requestCount for coin")
+                    println("API request getCoins #$requestCount for coin")
                     _uiState.value = _uiState.value.copy(isLoading = false)
                     delay(300_000)
                 }

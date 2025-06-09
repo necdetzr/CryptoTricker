@@ -48,7 +48,7 @@ class CoinDetailViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(isLoading = true)
                 while (isActive) {
                     requestCount++
-                    println("🔥 API request getCoinByID #$requestCount for coin $id")
+                    println("API request getCoinByID #$requestCount for coin $id")
 
                     _coin.value = getCoinByIdUseCase(id)
 

@@ -51,7 +51,7 @@ class MarketViewModel @Inject constructor(
                     }
 
                     requestCount++
-                    println("🔥 Market Api #$requestCount")
+                    println("Market Api #$requestCount")
 
                     _topCoins.value = allCoins.sortedByDescending { it.marketCap }.take(10)
                     _topGainers.value = allCoins.sortedByDescending { it.priceChangePercentage24h }.take(10)

@@ -55,7 +55,6 @@ fun LoginPage(
 ){
     var email by remember { mutableStateOf("") }
     var password by remember {mutableStateOf("")}
-    var checked by remember {mutableStateOf(false)}
     var isLoadings by remember{
         mutableStateOf(false)
     }
@@ -90,7 +89,10 @@ fun LoginPage(
     }
 
 
-    Scaffold { innerPadding->
+    Scaffold(
+        containerColor = Color.White
+    ) { innerPadding->
+
 
         Column(
             modifier = Modifier.padding(innerPadding)
@@ -125,14 +127,11 @@ fun LoginPage(
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.End,
                 modifier = Modifier.fillMaxWidth()
 
             ) {
-                RememberMeCheckBox(
-                    checked = checked,
-                    onChecked  = {checked = !checked}
-                )
+
                 Text(
                     text = stringResource(R.string.forgot_password),
                     style = MaterialTheme.typography.bodySmall,

@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    //THIS function gets just top 10 Coin 😢 😢 😢
+    //THIS function gets just top 10 Coin
      fun getTopCoins(){
         viewModelScope.launch {
             try {
@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
                 while(isActive){
                     _topCoins.value = allCoins.sortedByDescending{ it.marketCap }.take(10)
                     requestCount++
-                    println("🔥 API request home GetTOpCoins #$requestCount for coin")
+                    println(" API request home GetTopCoins #$requestCount for coin")
                     _uiState.value = _uiState.value.copy(isLoading = false)
                     delay(60_000)
 
