@@ -16,7 +16,7 @@ object OptionsFunctions {
 
     }
     fun restartAppWithLocale(activity: Activity, languageCode: String) {
-        val newContext = setLocale(activity,languageCode)
+        setLocale(activity,languageCode)
         val intent = activity.intent
 
         activity.finish()

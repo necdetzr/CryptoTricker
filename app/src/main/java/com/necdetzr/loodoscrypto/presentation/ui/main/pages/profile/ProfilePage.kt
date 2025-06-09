@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,11 +30,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.necdetzr.loodoscrypto.R
+import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.SettingsCard
 import com.necdetzr.loodoscrypto.utils.OptionsFunctions
 import com.necdetzr.loodoscrypto.utils.OptionsFunctions.restartAppWithLocale
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
@@ -44,6 +47,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
     var expanded by remember { mutableStateOf(false) }
     val userName by viewModel.userName.collectAsState()
     val userEmail by viewModel.userEmail.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -73,14 +77,23 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
                 text = {Text("English")},
                 onClick = {
                     expanded = false
-                    restartAppWithLocale(activity =activity,"en" )
+                    coroutineScope.launch {
+                        DataStoreManager(activity.applicationContext).setLanguage("en")
+                        restartAppWithLocale(activity =activity,"en" )
+
+                    }
+
                 }
             )
             DropdownMenuItem(
                 text = { Text("Türkçe") },
                 onClick = {
                     expanded = false
-                    restartAppWithLocale(activity, "tr")
+                    coroutineScope.launch {
+                        DataStoreManager(activity.applicationContext).setLanguage("tr")
+                        restartAppWithLocale(activity, "tr")
+
+                    }
                 }
             )
         }
