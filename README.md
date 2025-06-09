@@ -59,6 +59,7 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
 - 🌙 **Dark Mode:** Add a dark theme option to enhance user experience during night usage and reduce eye strain.
 - 🔔 **Notification System:** Implement real-time push notifications for price alerts, news, and portfolio updates.
 - 📈 **Graphical Price Tracking:** Integrate interactive charts and graphs for better visualization of cryptocurrency price trends over time.
+- ❗️ **API 426 Issue:** In this demo application, I used free version of cryptocurrency API. It will give 5-10 request per minute. If user send many request, application will give 426 error. In future versions, if i buy pro version of API, it will works well.
 
 
 
