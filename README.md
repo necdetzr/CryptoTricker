@@ -13,7 +13,7 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
 - 🖼️ Coil Async Image Builder
 - 🌐 DataStore Preference Management (Multilanguage Support)
 - 🚀 Usage of Coil and LazyColumn / LazyVerticalGrid for smoother UI and faster loading
-
+- Modular Navigation
 
 ## 🎯 Use Cases
 - ✅ **Real-time Price Tracking:** Users can view live prices of multiple cryptocurrencies including Bitcoin, Ethereum, and altcoins.
