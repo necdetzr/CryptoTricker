@@ -19,27 +19,40 @@
 
     @Composable
     fun MainNav() {
-        val navController = rememberNavController()
+        val appState = rememberAppState()
 
         Scaffold(
             containerColor = Color.White,
             bottomBar = {
-                BottomNavBar(navController = navController)
+                if(appState.shouldShowBar){
+                    BottomNavBar(appState.navController)
+                }
             }
         ) { innerPadding ->
             NavHost(
-                navController = navController,
+                navController = appState.navController,
                 startDestination = TopLevelRoute.HOME.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(TopLevelRoute.HOME.route) { HomePage(navController = navController) }
-                composable(TopLevelRoute.SEARCH.route) { SearchPage(navController =navController) }
-                composable(TopLevelRoute.MARKET.route) { MarketPage(navController =navController) }
-                composable(TopLevelRoute.PROFILE.route) { ProfilePage() }
-                composable("favorites"){ FavoritePage(navController = navController) }
+                homeSection(
+                    onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail,
+                    onNavigateToFavorite = appState.navigationDestination::navigateToFavorite,
+                    onNavigateToMarket = appState.navigationDestination::navigateToMarket,
+                    onNavigateToSearch = appState.navigationDestination::navigateToSearch
+                )
+                searchSection(
+                    onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
+                )
+                marketSection(
+                    onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
+                )
+                profileSection()
+
+
+                composable("favorites"){ FavoritePage(navController = appState.navController) }
                 composable("detail/{coinId}") { backStackEntry ->
                     val coinId = backStackEntry.arguments?.getString("coinId") ?: ""
-                    CoinDetailPage(coinId = coinId, navController = navController)
+                    CoinDetailPage(coinId = coinId, navController = appState.navController)
                 }
 
             }

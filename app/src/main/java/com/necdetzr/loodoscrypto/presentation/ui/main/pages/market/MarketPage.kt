@@ -32,7 +32,8 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
 @Composable
 fun MarketPage(
     viewModel: MarketViewModel = hiltViewModel(),
-    navController : NavHostController
+    onNavigateToCoin:(String)->Unit,
+
 ){
     val topCoins by viewModel.topCoins.collectAsState()
     val topGainers by viewModel.topGainers.collectAsState()
@@ -65,7 +66,7 @@ fun MarketPage(
                 LazyColumn {
                     items(items = topGainers) { coin ->
                         Spacer(Modifier.height(20.dp))
-                        CoinCard(coin,navController)
+                        CoinCard(coin,onNavigateToCoin)
 
 
                     }
@@ -97,7 +98,7 @@ fun MarketPage(
                     LazyColumn {
                         items(items = topLosers) { coin ->
                             Spacer(Modifier.height(20.dp))
-                            CoinCard(coin,navController)
+                            CoinCard(coin,onNavigateToCoin)
 
 
                         }
@@ -129,7 +130,7 @@ fun MarketPage(
                 LazyColumn {
                     items(items = topCoins) { coin ->
                         Spacer(Modifier.height(20.dp))
-                        CoinCard(coin,navController)
+                        CoinCard(coin,onNavigateToCoin)
 
 
                     }

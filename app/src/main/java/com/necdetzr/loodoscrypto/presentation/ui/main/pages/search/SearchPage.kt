@@ -33,7 +33,7 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.CoinCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
 
 @Composable
-fun SearchPage(viewModel: SearchViewModel = hiltViewModel(),navController : NavHostController){
+fun SearchPage(viewModel: SearchViewModel = hiltViewModel(),onNavigateToCoin:(String)->Unit){
     val coins by viewModel.coins.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
@@ -72,7 +72,7 @@ fun SearchPage(viewModel: SearchViewModel = hiltViewModel(),navController : NavH
                 ) {
                     items(filteredCoin,key = {it.id}) { coin ->
                         Spacer(Modifier.height(20.dp))
-                        CoinCard(coin,navController)
+                        CoinCard(coin, onNavigateToCoin )
                     }
 
                 }

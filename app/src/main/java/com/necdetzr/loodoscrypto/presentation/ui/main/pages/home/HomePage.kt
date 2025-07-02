@@ -49,7 +49,14 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 
 @Composable
-fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostController){
+fun HomePage(
+    viewModel: HomeViewModel = hiltViewModel(),
+    onNavigateToSearch: ()-> Unit,
+    onNavigateToFavorite:()-> Unit,
+    onNavigateToMarket:()-> Unit,
+    onNavigateToCoin:(String)->Unit,
+)
+{
     val topCoins by viewModel.topCoins.collectAsState()
     val state by viewModel.uiState.collectAsState()
 
@@ -86,14 +93,7 @@ fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostCo
         CustomTextField(
             modifier = Modifier.clickable(
                 onClick = {
-                    navController.navigate("search"){
-                        launchSingleTop = true
-                        popUpTo(navController.graph.startDestinationId){
-                            saveState = true
-                        }
-                        restoreState = true
-
-                    }
+                    onNavigateToSearch()
                 }
             ),
             icon = Icons.Default.Search,
@@ -110,13 +110,7 @@ fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostCo
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth().clickable(
                 onClick = {
-                    navController.navigate("favorites"){
-                        launchSingleTop = true
-                        popUpTo(navController.graph.startDestinationId){
-                            saveState = true
-                        }
-                        restoreState = true
-                    }
+                    onNavigateToFavorite()
                 }
             )
         ) {
@@ -164,7 +158,7 @@ fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostCo
                 ) {
                     items(items = topCoins) {coin->
                         Spacer(Modifier.height(20.dp))
-                        CoinCard(coin,navController)
+                        CoinCard(coin,onNavigateToCoin)
 
                     } }
             }
@@ -181,13 +175,7 @@ fun HomePage(viewModel: HomeViewModel = hiltViewModel(),navController: NavHostCo
                 fontSize = 14.sp,
                 modifier = Modifier.clickable(
                     onClick = {
-                        navController.navigate("market") {
-                            launchSingleTop = true
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            restoreState = true
-                        }
+                        onNavigateToMarket()
 
 
                     }

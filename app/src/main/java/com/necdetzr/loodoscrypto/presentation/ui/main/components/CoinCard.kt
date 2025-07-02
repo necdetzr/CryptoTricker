@@ -34,7 +34,7 @@ import com.necdetzr.loodoscrypto.utils.FormatFunctions
 @Composable
 fun CoinCard(
     coin: Coin,
-    navController : NavHostController
+    onNavigateToCoin:(String)->Unit
 ){
 
 
@@ -42,7 +42,7 @@ fun CoinCard(
             modifier = Modifier.fillMaxWidth()
                 .clickable(
                     onClick = {
-                        navController.navigate("detail/${coin.id}")
+                        onNavigateToCoin(coin.id)
                     }
                 ),
             colors = CardDefaults.cardColors(
