@@ -29,13 +29,13 @@
         ) { innerPadding ->
             NavHost(
                 navController = navController,
-                startDestination = TopLevelRoute.Home.route,
+                startDestination = TopLevelRoute.HOME.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(TopLevelRoute.Home.route) { HomePage(navController = navController) }
-                composable(TopLevelRoute.Search.route) { SearchPage(navController =navController) }
-                composable(TopLevelRoute.Market.route) { MarketPage(navController =navController) }
-                composable(TopLevelRoute.Profile.route) { ProfilePage() }
+                composable(TopLevelRoute.HOME.route) { HomePage(navController = navController) }
+                composable(TopLevelRoute.SEARCH.route) { SearchPage(navController =navController) }
+                composable(TopLevelRoute.MARKET.route) { MarketPage(navController =navController) }
+                composable(TopLevelRoute.PROFILE.route) { ProfilePage() }
                 composable("favorites"){ FavoritePage(navController = navController) }
                 composable("detail/{coinId}") { backStackEntry ->
                     val coinId = backStackEntry.arguments?.getString("coinId") ?: ""

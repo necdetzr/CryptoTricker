@@ -15,10 +15,10 @@ import com.necdetzr.loodoscrypto.navigation.TopLevelRoute
 @Composable
 fun BottomNavBar(navController: NavHostController) {
     val items = listOf(
-        TopLevelRoute.Home,
-        TopLevelRoute.Search,
-        TopLevelRoute.Market,
-        TopLevelRoute.Profile
+        TopLevelRoute.HOME,
+        TopLevelRoute.SEARCH,
+        TopLevelRoute.MARKET,
+        TopLevelRoute.PROFILE
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
