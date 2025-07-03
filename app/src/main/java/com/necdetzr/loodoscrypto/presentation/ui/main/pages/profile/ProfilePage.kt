@@ -54,7 +54,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
         Text("Profile", style = MaterialTheme.typography.headlineSmall)
         Spacer(Modifier.height(10.dp))
         ProfileCard(
-            name = userName ?: "Guest User",
+            name = userName ?: "New Guest User",
             email = userEmail ?: ""
         )
         Spacer(Modifier.height(20.dp))
