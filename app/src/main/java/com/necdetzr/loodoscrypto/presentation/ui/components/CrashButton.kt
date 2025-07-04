@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun CrashButton() {
+fun CrashButton(onClick:()-> Unit) {
     Button(
-        onClick = { throw RuntimeException("Test Crash") },
+        onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
