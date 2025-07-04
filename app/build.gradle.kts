@@ -77,7 +77,8 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-compiler:2.51.1")
-
+    //Timber
+    implementation ("com.jakewharton.timber:timber:5.0.1")
 
     // Hilt Navigation Compose
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
