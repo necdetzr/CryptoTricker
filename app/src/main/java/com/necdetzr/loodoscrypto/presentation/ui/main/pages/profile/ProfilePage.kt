@@ -121,7 +121,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
         Spacer(Modifier.height(12.dp))
         CrashButton(
             onClick = {
-                val city = "Istanbul"
+                val city = "Izmir"
                 crashlytics.setCustomKeys {
                     key("city",city)
                     key("module","main_module")
