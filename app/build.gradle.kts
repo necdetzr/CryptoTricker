@@ -6,6 +6,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("kotlin-parcelize")
+    id("com.google.firebase.crashlytics")
 
 
 }
@@ -70,11 +71,14 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     //Firebase Auth
     implementation("com.google.firebase:firebase-auth:22.3.0")
-
+    // Firebase Crashlytics and Analytics
+    implementation("com.google.firebase:firebase-crashlytics-ndk")
+    implementation("com.google.firebase:firebase-analytics")
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-compiler:2.51.1")
-
+    //Timber
+    implementation ("com.jakewharton.timber:timber:5.0.1")
 
     // Hilt Navigation Compose
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")

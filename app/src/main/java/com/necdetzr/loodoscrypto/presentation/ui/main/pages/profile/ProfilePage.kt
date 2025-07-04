@@ -29,8 +29,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.setCustomKeys
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
+import com.necdetzr.loodoscrypto.presentation.ui.components.CrashButton
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.SettingsCard
@@ -48,13 +51,17 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
     val userName by viewModel.userName.collectAsState()
     val userEmail by viewModel.userEmail.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    //Crashlytics
+    val crashlytics = FirebaseCrashlytics.getInstance()
+
+
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
         Text("Profile", style = MaterialTheme.typography.headlineSmall)
         Spacer(Modifier.height(10.dp))
         ProfileCard(
-            name = userName ?: "Guest User",
+            name = userName ?: "New Guest User",
             email = userEmail ?: ""
         )
         Spacer(Modifier.height(20.dp))
@@ -110,6 +117,20 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
             buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight,
             iconColor = Color(0xFF5D0000),
             textColor = Color(0xFF5D0000)
+        )
+        Spacer(Modifier.height(12.dp))
+        CrashButton(
+            onClick = {
+                val city = "Izmir"
+                crashlytics.setCustomKeys {
+                    key("city",city)
+                    key("module","main_module")
+                }
+                crashlytics.log("Crash detected: $city")
+
+                throw RuntimeException("Test Crash")
+
+            }
         )
 
     }
