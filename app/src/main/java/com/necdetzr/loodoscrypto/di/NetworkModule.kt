@@ -1,10 +1,12 @@
 package com.necdetzr.loodoscrypto.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.gson.Gson
 import com.necdetzr.loodoscrypto.data.api.CoinApi
 import com.necdetzr.loodoscrypto.data.local.FirebaseAuthManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseFirestoreManager
+import com.necdetzr.loodoscrypto.data.local.FirebaseRemoteConfigManager
 import com.necdetzr.loodoscrypto.utils.NetworkConstants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -37,6 +39,14 @@ class NetworkModule {
     fun provideFirebaseFirestoreManager(): FirebaseFirestoreManager {
         return FirebaseFirestoreManager()
     }
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfigManager(firebaseRemoteConfig:FirebaseRemoteConfig) : FirebaseRemoteConfigManager{
+        return FirebaseRemoteConfigManager(firebaseRemoteConfig)
+    }
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfig():FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
     @Singleton
     @Provides
     fun providesFirebaseAuth():FirebaseAuth = FirebaseAuth.getInstance()

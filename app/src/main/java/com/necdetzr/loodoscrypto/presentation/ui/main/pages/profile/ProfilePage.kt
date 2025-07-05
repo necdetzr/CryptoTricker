@@ -29,20 +29,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.google.firebase.Firebase
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.setCustomKeys
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.ui.components.CrashButton
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.SettingsCard
+import com.necdetzr.loodoscrypto.presentation.ui.main.viewmodels.RemoteConfigViewModel
 import com.necdetzr.loodoscrypto.utils.OptionsFunctions
 import com.necdetzr.loodoscrypto.utils.OptionsFunctions.restartAppWithLocale
 import kotlinx.coroutines.launch
 
 @Composable
-fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
+fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : RemoteConfigViewModel = hiltViewModel()){
     val context = LocalContext.current
 
     val activity = context as Activity
@@ -53,6 +58,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
     val coroutineScope = rememberCoroutineScope()
     //Crashlytics
     val crashlytics = FirebaseCrashlytics.getInstance()
+    val adviceText by remoteViewModel.adviceText
 
 
     Column(
@@ -132,6 +138,8 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel()){
 
             }
         )
+        Text(text = adviceText)
+
 
     }
 }
