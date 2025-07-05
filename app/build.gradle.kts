@@ -74,6 +74,9 @@ dependencies {
     // Firebase Crashlytics and Analytics
     implementation("com.google.firebase:firebase-crashlytics-ndk")
     implementation("com.google.firebase:firebase-analytics")
+    //Firebase Remote Config
+    implementation("com.google.firebase:firebase-config")
+
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-compiler:2.51.1")
