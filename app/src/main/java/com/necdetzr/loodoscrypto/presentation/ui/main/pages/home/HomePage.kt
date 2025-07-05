@@ -51,12 +51,11 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 @Composable
 fun HomePage(
     viewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToSearch: ()-> Unit,
-    onNavigateToFavorite:()-> Unit,
-    onNavigateToMarket:()-> Unit,
-    onNavigateToCoin:(String)->Unit,
-)
-{
+    onNavigateToSearch: () -> Unit,
+    onNavigateToFavorite: () -> Unit,
+    onNavigateToMarket: () -> Unit,
+    onNavigateToCoin: (String) -> Unit,
+) {
     val topCoins by viewModel.topCoins.collectAsState()
     val state by viewModel.uiState.collectAsState()
 
@@ -69,19 +68,32 @@ fun HomePage(
         R.drawable.shiba_coin_logo
     )
     Column(
-        modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
 
-    ) {
+        ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(12.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
         ) {
             Column(
 
             ) {
-                Text(stringResource(R.string.hi_there), style = MaterialTheme.typography.headlineMedium)
-                Text(stringResource(R.string.which_crypto), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium, color = Color.Gray, modifier = Modifier.width(260.dp))
+                Text(
+                    stringResource(R.string.hi_there),
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Text(
+                    stringResource(R.string.which_crypto),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.Gray,
+                    modifier = Modifier.width(260.dp)
+                )
             }
             CoinSlider(coins)
 
@@ -102,47 +114,68 @@ fun HomePage(
             placeholder = stringResource(R.string.search_crypto_placeholder),
             onValueChange = {},
 
-        )
+            )
         Spacer(Modifier.height(32.dp))
         Section(firstTitle = stringResource(R.string.favorite_list))
         Spacer(Modifier.height(20.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().clickable(
-                onClick = {
-                    onNavigateToFavorite()
-                }
-            )
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    onClick = {
+                        onNavigateToFavorite()
+                    }
+                )
         ) {
             Box(
                 modifier = Modifier
-                    .border(width = 1.dp, color = Color.LightGray, shape = MaterialTheme.shapes.medium)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.surface,
+                        shape = MaterialTheme.shapes.medium
+                    )
 
-            ){
-                Text(stringResource(R.string.star_emoji), modifier = Modifier.padding(horizontal = 10.dp, vertical = 20.dp))
+            ) {
+                Text(
+                    stringResource(R.string.star_emoji),
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 20.dp)
+                )
 
             }
             Spacer(Modifier.width(10.dp))
             Column(
                 modifier = Modifier.padding(4.dp)
             ) {
-                Text(stringResource(R.string.my_fav_list), style = MaterialTheme.typography.headlineSmall)
+                Text(
+                    stringResource(R.string.my_fav_list),
+                    style = MaterialTheme.typography.headlineSmall
+                )
                 Spacer(Modifier.height(6.dp))
-                Text(stringResource(R.string.fav_list_subtext), style = MaterialTheme.typography.bodyMedium, color = Gray)
+                Text(
+                    stringResource(R.string.fav_list_subtext),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Gray
+                )
             }
 
         }
         Spacer(Modifier.height(32.dp))
-        Section(firstTitle = stringResource(R.string.popular_cryptos), lastTitle = stringResource(R.string.last_24h))
-        Box(modifier = Modifier.height(280.dp).fillMaxWidth()){
-            if(state.isLoading){
+        Section(
+            firstTitle = stringResource(R.string.popular_cryptos),
+            lastTitle = stringResource(R.string.last_24h)
+        )
+        Box(modifier = Modifier
+            .height(280.dp)
+            .fillMaxWidth()) {
+            if (state.isLoading) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                 ) {
                     LinearProgressBar()
                 }
-            }else if(state.isError){
+            } else if (state.isError) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
@@ -152,15 +185,16 @@ fun HomePage(
 
                     )
                 }
-            }else{
+            } else {
                 LazyColumn(
                     modifier = Modifier.padding(vertical = 12.dp)
                 ) {
-                    items(items = topCoins) {coin->
+                    items(items = topCoins) { coin ->
                         Spacer(Modifier.height(20.dp))
-                        CoinCard(coin,onNavigateToCoin)
+                        CoinCard(coin, onNavigateToCoin)
 
-                    } }
+                    }
+                }
             }
 
         }
