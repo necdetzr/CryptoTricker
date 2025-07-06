@@ -3,7 +3,6 @@ package com.necdetzr.loodoscrypto.presentation.ui.main.pages.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.necdetzr.loodoscrypto.domain.model.Coin
-import com.necdetzr.loodoscrypto.domain.use_case.GetCoinsUseCase
 import com.necdetzr.loodoscrypto.domain.use_case.GetTopCoinsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -12,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
 
 
     //THIS function gets just top 10 Coin
-     fun getTopCoins(){
+    private fun getTopCoins(){
         viewModelScope.launch {
             try {
                 _uiState.value = _uiState.value.copy(isLoading = true)
@@ -49,17 +49,18 @@ class HomeViewModel @Inject constructor(
                 while(isActive){
                     _topCoins.value = allCoins.sortedByDescending{ it.marketCap }.take(10)
                     requestCount++
-                    println(" API request home GetTopCoins #$requestCount for coin")
+                    Timber.i("API request home GetTopCoins $requestCount for coin")
                     _uiState.value = _uiState.value.copy(isLoading = false)
                     delay(60_000)
 
                 }
+
             }catch (e: Exception){
-                //PRINT ERROR IF THERE ANY
-                e.printStackTrace()
+                Timber.e(e)
                 _uiState.value = _uiState.value.copy(isError = true)
 
             }
         }
+
     }
 }
