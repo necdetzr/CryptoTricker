@@ -34,7 +34,7 @@ fun WelcomePage(
     navController: NavHostController
 ) {
     Scaffold(
-        containerColor = Color.White
+        containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding ->
 
         Column(
@@ -55,12 +55,12 @@ fun WelcomePage(
                 contentScale = ContentScale.Fit,
 
                 )
-            Text(text = stringResource(id = R.string.welcome_loodos_h1), style = MaterialTheme.typography.headlineLarge, color = DarkBlue, textAlign = TextAlign.Center)
+            Text(text = stringResource(id = R.string.welcome_loodos_h1), style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.onBackground, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.welcome_loodos_h2),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Blue,
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(60.dp))
@@ -76,8 +76,8 @@ fun WelcomePage(
                         println("Navigation to register attempted") // Debug log
 
                 },
-                containerColor = DarkBlue,
-                contentColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(stringResource(id = R.string.or), style = MaterialTheme.typography.headlineSmall)
@@ -88,8 +88,8 @@ fun WelcomePage(
                 } },
                 text = stringResource(id = R.string.sign_in),
 
-                containerColor = Color.White,
-                contentColor = DarkBlue,
+                containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                contentColor = MaterialTheme.colorScheme.primaryContainer,
 
                 )
 
