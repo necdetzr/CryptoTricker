@@ -90,7 +90,7 @@ fun LoginPage(
 
 
     Scaffold(
-        containerColor = Color.White
+        containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding->
 
 
@@ -102,9 +102,9 @@ fun LoginPage(
         ){
             Image(painter = painterResource(R.drawable.logo2_removebg_preview), contentScale = ContentScale.Fit, contentDescription = "Logo", modifier = Modifier.size(140.dp))
             Spacer(modifier = Modifier.height(10.dp))
-            Text(stringResource(R.string.sign_in_your_account_h1), style = MaterialTheme.typography.headlineLarge, color = DarkBlue)
+            Text(stringResource(R.string.sign_in_your_account_h1), style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.onBackground)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(stringResource(R.string.sign_in_your_account_h2), style = MaterialTheme.typography.bodyMedium, color = Blue)
+            Text(stringResource(R.string.sign_in_your_account_h2), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onBackground)
             Spacer(modifier = Modifier.height(20.dp))
             CustomTextField(
                 icon = Icons.Outlined.Email,
@@ -135,15 +135,15 @@ fun LoginPage(
                 Text(
                     text = stringResource(R.string.forgot_password),
                     style = MaterialTheme.typography.bodySmall,
-                    color = Blue
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row {
-                Text(stringResource(R.string.dont_have), style = MaterialTheme.typography.bodySmall, color = Blue)
+                Text(stringResource(R.string.dont_have), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onBackground)
                 Spacer(Modifier.width(4.dp))
-                Text(stringResource(R.string.signup), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = DarkBlue, modifier = Modifier.clickable(
+                Text(stringResource(R.string.signup), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground, modifier = Modifier.clickable(
                     onClick = {
                         navController.navigate("register") {
                             popUpTo("login") {
@@ -168,8 +168,8 @@ fun LoginPage(
                         viewModel.login(email, password)
 
                     },
-                    containerColor = Color.White,
-                    contentColor = DarkBlue
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
             SnackbarHost(

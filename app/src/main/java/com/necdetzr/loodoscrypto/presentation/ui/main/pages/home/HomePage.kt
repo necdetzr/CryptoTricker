@@ -91,7 +91,7 @@ fun HomePage(
                     stringResource(R.string.which_crypto),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.width(260.dp)
                 )
             }
@@ -155,7 +155,7 @@ fun HomePage(
                 Text(
                     stringResource(R.string.fav_list_subtext),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Gray
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -205,7 +205,7 @@ fun HomePage(
             Text(
                 stringResource(R.string.see_all),
                 style = MaterialTheme.typography.headlineSmall,
-                color = Blue,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp,
                 modifier = Modifier.clickable(
                     onClick = {

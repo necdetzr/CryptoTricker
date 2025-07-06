@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,8 +33,8 @@ fun ErrorCard(
     Card(
         modifier = Modifier.size(200.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF700000),
-            contentColor = Color.White
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer
         )
     ){
         Column(
@@ -43,10 +44,10 @@ fun ErrorCard(
         ) {
             Icon(Icons.Default.Warning, tint = Color.Yellow, contentDescription = "warning")
             Spacer(Modifier.height(10.dp))
-            Text(stringResource(R.string.error),style = androidx.compose.material3.MaterialTheme.typography.headlineSmall,color = Color.White)
+            Text(stringResource(R.string.error),style = androidx.compose.material3.MaterialTheme.typography.headlineSmall,color = MaterialTheme.colorScheme.onErrorContainer)
             Spacer(Modifier.height(10.dp))
-            Text(stringResource(R.string.too_many_request),style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,color = Color.White)
-            Text(stringResource(R.string.i_dont_have_money),style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,color = Color.White, textAlign = TextAlign.Center)
+            Text(stringResource(R.string.too_many_request),style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,color = MaterialTheme.colorScheme.onErrorContainer)
+            Text(stringResource(R.string.i_dont_have_money),style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,color = MaterialTheme.colorScheme.onErrorContainer, textAlign = TextAlign.Center)
             Spacer(Modifier.height(6.dp))
             IconButton(onClick = {onClick()}) {
                 Icon(Icons.Default.Refresh, contentDescription = "refresh")

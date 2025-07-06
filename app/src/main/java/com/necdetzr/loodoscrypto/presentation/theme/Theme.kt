@@ -13,23 +13,62 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkBlue,
-    secondary = Blue,
-    onSurface = Color.DarkGray,
-    surfaceContainerLow = Color.LightGray,
-    background = Color(0xFF101010)
+    primary = Color(0xFF80CBC4),            // Ana renk, butonlar ve aktif elemanlar
+    onPrimary = Color.Black,                // Primary rengin üstündeki yazı rengi
+    primaryContainer = Color(0xFF004D40),   // Kart veya buton arka planı (primary varyantı)
+    onPrimaryContainer = Color.White,       // Primary container üzerindeki yazı rengi
+
+    secondary = Color(0xFFB39DDB),          // Yardımcı (accent) renk
+    onSecondary = Color.Black,              // Secondary üstü yazı rengi
+    secondaryContainer = Color(0xFF4A148C), // Secondary varyantı, kart vb.
+    onSecondaryContainer = Color.White,     // Secondary container üstü yazı rengi
+
+    background = Color(0xFF121212),         // Genel ekran arka planı
+    onBackground = Color.White,             // Background üzerindeki metin
+
+    surface = Color(0xFF1E1E1E),            // Kart, dialog gibi yüzeyler
+    onSurface = Color.White,                // Surface üstündeki yazılar
+
+    surfaceVariant = Color(0xFF2C2C2C),     // Daha alt seviye yüzey (örn. input arka planı)
+    onSurfaceVariant = Color.LightGray,     // Surface variant üstü yazı
+
+    outline = Color(0xFF888888),            // Kenarlıklar, divider'lar
+
+    error = Color(0xFFCF6679),              // Hatalı durum rengi (form hatası vb.)
+    onError = Color.Black,                  // Hata renginin üstü yazı rengi
+    errorContainer = Color(0xFFB00020),     // Hata kutusu arka planı
+    onErrorContainer = Color.White          // Hata kutusu yazı rengi
 )
+
 
 private val LightColorScheme = lightColorScheme(
-    primary = DarkBlue,
-    secondary = Blue,
-    onSurface = Color.DarkGray,
-    surfaceContainerLow = Color.LightGray,
-    background = Color.White,
-    outline = DarkBlue
+    primary = Color(0xFF00796B),            // Ana renk, butonlar ve aktif elemanlar
+    onPrimary = Color.White,                // Primary rengin üstündeki yazı rengi
+    primaryContainer = Color(0xFFB2DFDB),   // Kart veya buton arka planı (primary varyantı)
+    onPrimaryContainer = Color.Black,       // Primary container üzerindeki yazı rengi
 
+    secondary = Color(0xFF9575CD),          // Yardımcı (accent) renk
+    onSecondary = Color.White,              // Secondary üstü yazı rengi
+    secondaryContainer = Color.White, // Secondary varyantı, kart vb.
+    onSecondaryContainer = Color.Black,     // Secondary container üstü yazı rengi
 
+    background = Color.White,         // Genel ekran arka planı
+    onBackground = Color.Black,             // Background üzerindeki metin
+
+    surface = Color(0xFFFFFFFF),            // Kart, dialog gibi yüzeyler
+    onSurface = Color.Black,                // Surface üstündeki yazılar
+
+    surfaceVariant = Color(0xFFF0F0F0),     // Daha alt seviye yüzey (örn. input arka planı)
+    onSurfaceVariant = Color.DarkGray,      // Surface variant üstü yazı
+
+    outline = Color(0xFF444444),            // Kenarlıklar, divider'lar
+
+    error = Color(0xFFB00020),              // Hatalı durum rengi (form hatası vb.)
+    onError = Color.White,                  // Hata renginin üstü yazı rengi
+    errorContainer = Color(0xFFFFDAD4),     // Hata kutusu arka planı
+    onErrorContainer = Color(0xFF370617)    // Hata kutusu yazı rengi
 )
+
 
 @Composable
 fun LoodosCryptoTheme(
