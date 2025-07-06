@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,12 +56,12 @@ class SearchViewModel @Inject constructor(
                 while(isActive){
                     _coins.value = getCoinsUseCase()
                     requestCount++
-                    println("API request getCoins #$requestCount for coin")
+                    Timber.i("API request getCoins $requestCount for coin")
                     _uiState.value = _uiState.value.copy(isLoading = false)
                     delay(300_000)
                 }
             }catch(e: Exception){
-                e.printStackTrace()
+                Timber.e(e)
                 _uiState.value = _uiState.value.copy(isError = true)
 
             }
