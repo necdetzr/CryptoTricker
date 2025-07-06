@@ -58,7 +58,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : 
     val coroutineScope = rememberCoroutineScope()
     //Crashlytics
     val crashlytics = FirebaseCrashlytics.getInstance()
-    val adviceText by remoteViewModel.adviceText
+    val adviceText by remoteViewModel.adviceText.collectAsState()
 
 
     Column(
@@ -138,7 +138,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : 
 
             }
         )
-        Text(text = adviceText)
+        Text(text = adviceText.toString())
 
 
     }
