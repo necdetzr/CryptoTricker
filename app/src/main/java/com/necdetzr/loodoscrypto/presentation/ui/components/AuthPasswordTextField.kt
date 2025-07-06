@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -55,12 +56,12 @@ fun AuthPasswordTextField(
         singleLine = true,
         shape = RoundedCornerShape(12.dp),
         colors = TextFieldDefaults.textFieldColors(
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
+            focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            unfocusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            containerColor = LightGray,
-            cursorColor = Color.Black
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            cursorColor = MaterialTheme.colorScheme.outline
 
 
 

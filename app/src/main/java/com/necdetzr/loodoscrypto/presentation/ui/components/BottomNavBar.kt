@@ -25,7 +25,7 @@ fun BottomNavBar(navController: NavHostController) {
     val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationBar(
-        containerColor = Color.White,
+        containerColor = Color.White, // MaterialTheme background doesn't work!!
         tonalElevation = 10.dp
     ) {
         items.forEach { item ->
@@ -47,14 +47,14 @@ fun BottomNavBar(navController: NavHostController) {
                 label = {
                     Text(
                         text = stringResource(id = item.label),
-                        color = if (isSelected) Color(0xFF1E88E5) else Color.Gray
+                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 icon = {
                     Icon(
                         imageVector = item.icon,
                         contentDescription = null,
-                        tint = if (isSelected) Color(0xFF1E88E5) else Color.Gray,
+                        tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(if (isSelected) 28.dp else 24.dp)
                     )
                 },
