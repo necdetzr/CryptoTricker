@@ -31,7 +31,7 @@ fun ProfileCard(name:String,email:String){
     Card(
         modifier = Modifier.fillMaxWidth().padding(16.dp).height(100.dp),
         colors = CardDefaults.cardColors(
-            containerColor = DarkBlue
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Row(
@@ -46,9 +46,9 @@ fun ProfileCard(name:String,email:String){
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(name, style = MaterialTheme.typography.bodyLarge, color = Color.White)
+                Text(name, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onPrimaryContainer)
                 Spacer(Modifier.height(4.dp))
-                Text(email, style = MaterialTheme.typography.bodySmall, color = Gray)
+                Text(email, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer)
 
 
             }

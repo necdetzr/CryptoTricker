@@ -17,7 +17,7 @@ fun DetailText(
     Column(
         modifier = Modifier.padding(12.dp)
     ) {
-        Text(title, style = MaterialTheme.typography.bodySmall,color = Gray)
+        Text(title, style = MaterialTheme.typography.bodySmall,color = MaterialTheme.colorScheme.onSurface)
         Text(text, style = MaterialTheme.typography.bodyMedium)
 
 

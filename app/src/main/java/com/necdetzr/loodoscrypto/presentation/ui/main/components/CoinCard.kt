@@ -46,7 +46,7 @@ fun CoinCard(
                     }
                 ),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Color.White //Material Theme doesn't work for White Background Color??
             )
         ) {
             Row(
@@ -69,11 +69,11 @@ fun CoinCard(
                 Column {
                     Text(coin.symbol.uppercase(), style = MaterialTheme.typography.bodyLarge)
                     Spacer(Modifier.height(2.dp))
-                    Text("$${coin.currentPrice}", style = MaterialTheme.typography.bodyMedium, color = Gray)
+                    Text("$${coin.currentPrice}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Spacer(Modifier.weight(1f))
                 val formattedChange = FormatFunctions.formatChange(coin.priceChangePercentage24h)
-                val color = if (coin.priceChangePercentage24h >= 0) Color(0xFF007C06) else Color(0xFFA10808)
+                val color = if (coin.priceChangePercentage24h >= 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                 Text(formattedChange, style = MaterialTheme.typography.bodyMedium, color = color)
 
 

@@ -27,16 +27,15 @@ fun SettingsCard(
     title:String,
     onClick:() -> Unit,
     buttonIcon:ImageVector,
-    iconColor:Color = Color.Black,
-    textColor:Color = Color.Black
+    iconColor:Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    textColor:Color = MaterialTheme.colorScheme.onPrimaryContainer
 ){
     Card(
-        border = CardDefaults.outlinedCardBorder(),
         modifier = Modifier.fillMaxWidth().clickable(
             onClick = onClick
         ),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ){
         Row(

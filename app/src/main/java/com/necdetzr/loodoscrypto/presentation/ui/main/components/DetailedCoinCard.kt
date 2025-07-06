@@ -50,7 +50,7 @@ fun DetailedCoinCard(
                 }
             ),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Row(
@@ -75,16 +75,16 @@ fun DetailedCoinCard(
                 Text(
                     text = coin?.currentPrice?.let { "$$it" } ?: "N/A",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Gray
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
             Spacer(Modifier.weight(1f))
 
             coin?.priceChangePercentage24h?.let { change ->
                 val formattedChange = FormatFunctions.formatChange(change)
-                val color = if (change >= 0) Color(0xFF007C06) else Color(0xFFA10808)
+                val color = if (change >= 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                 Text(formattedChange, style = MaterialTheme.typography.bodyMedium, color = color)
-            } ?: Text("N/A", style = MaterialTheme.typography.bodyMedium, color = LightGray)
+            } ?: Text("N/A", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
         }
     }
 }

@@ -25,7 +25,7 @@ fun Section(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(firstTitle, style = MaterialTheme.typography.headlineSmall, color = Color.DarkGray, fontSize = 14.sp)
-        Text(lastTitle, style = MaterialTheme.typography.headlineSmall,color = Gray, fontSize = 12.sp)
+        Text(firstTitle, style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onSurface, fontSize = 14.sp)
+        Text(lastTitle, style = MaterialTheme.typography.headlineSmall,color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 12.sp)
     }
 }
