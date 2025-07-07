@@ -7,18 +7,15 @@
     import androidx.compose.ui.graphics.Color
     import androidx.navigation.compose.NavHost
     import androidx.navigation.compose.composable
-    import androidx.navigation.compose.rememberNavController
     import com.necdetzr.loodoscrypto.presentation.ui.components.BottomNavBar
-    import com.necdetzr.loodoscrypto.presentation.ui.main.pages.home.HomePage
-    import com.necdetzr.loodoscrypto.presentation.ui.main.pages.market.MarketPage
-    import com.necdetzr.loodoscrypto.presentation.ui.main.pages.profile.ProfilePage
-    import com.necdetzr.loodoscrypto.presentation.ui.main.pages.search.SearchPage
     import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.detail.CoinDetailPage
     import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.favorite.FavoritePage
 
 
     @Composable
-    fun MainNav() {
+    fun MainNav(
+        logOut:()->Unit
+    ) {
         val appState = rememberAppState()
 
         Scaffold(
@@ -46,7 +43,7 @@
                 marketSection(
                     onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
                 )
-                profileSection()
+                profileSection({logOut()})
 
 
                 composable("favorites"){ FavoritePage(navController = appState.navController) }
