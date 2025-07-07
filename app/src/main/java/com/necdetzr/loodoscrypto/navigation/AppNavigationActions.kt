@@ -20,6 +20,11 @@ class AppNavigationActions(private val navController: NavHostController){
             restoreState = true
         }
     }
+    fun logOut(){
+        navController.navigate("auth"){
+            popUpTo(0)
+        }
+    }
     fun navigateToSearch(){
         navController.navigate(TopLevelRoute.SEARCH.route){
             launchSingleTop = true

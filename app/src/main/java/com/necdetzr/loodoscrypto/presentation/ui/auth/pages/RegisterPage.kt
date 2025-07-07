@@ -169,21 +169,7 @@ fun RegisterPage(
 
             }
             Spacer(modifier = Modifier.height(40.dp))
-            Row {
-                Text(stringResource(R.string.have_account), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onBackground)
-                Spacer(Modifier.width(4.dp))
-                Text(stringResource(R.string.sign_in), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground, modifier = Modifier.clickable(
-                    onClick = {
-                        navController.navigate("login") {
-                            popUpTo("register") {
-                                inclusive = true
-                                saveState = true
-                            }
-                        }
-                    }
 
-                ))
-            }
             Spacer(Modifier.height(4.dp))
 
             if(isLoadings){
@@ -218,6 +204,22 @@ fun RegisterPage(
                     containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     contentColor = MaterialTheme.colorScheme.primaryContainer
                 )
+            }
+            Spacer(Modifier.weight(1f))
+            Row {
+                Text(stringResource(R.string.have_account), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onBackground)
+                Spacer(Modifier.width(4.dp))
+                Text(stringResource(R.string.sign_in), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground, modifier = Modifier.clickable(
+                    onClick = {
+                        navController.navigate("login") {
+                            popUpTo("register") {
+                                inclusive = true
+                                saveState = true
+                            }
+                        }
+                    }
+
+                ))
             }
 
 

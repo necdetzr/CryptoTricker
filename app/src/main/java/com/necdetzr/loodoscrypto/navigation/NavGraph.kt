@@ -1,7 +1,6 @@
 package com.necdetzr.loodoscrypto.navigation
 
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.necdetzr.loodoscrypto.presentation.ui.main.pages.home.HomePage
 import com.necdetzr.loodoscrypto.presentation.ui.main.pages.market.MarketPage
@@ -54,8 +53,9 @@ fun NavGraphBuilder.marketSection(
 }
 
 fun NavGraphBuilder.profileSection(
+    onNavigateToLogOut:()->Unit
 ){
     composable(TopLevelRoute.PROFILE.route){
-        ProfilePage()
+        ProfilePage(onNavigateToLogOut = onNavigateToLogOut)
     }
 }
