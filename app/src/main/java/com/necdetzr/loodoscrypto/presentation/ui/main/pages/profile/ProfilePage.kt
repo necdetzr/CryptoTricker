@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.google.firebase.Firebase
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.setCustomKeys
@@ -47,7 +48,7 @@ import com.necdetzr.loodoscrypto.utils.OptionsFunctions.restartAppWithLocale
 import kotlinx.coroutines.launch
 
 @Composable
-fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : RemoteConfigViewModel = hiltViewModel()){
+fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : RemoteConfigViewModel = hiltViewModel(),onNavigateToLogOut:()->Unit){
     val context = LocalContext.current
 
     val activity = context as Activity
@@ -118,7 +119,7 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : 
             title = stringResource(R.string.log_out),
             onClick = {
                 viewModel.logOut()
-                activity.finish()
+                onNavigateToLogOut()
             },
             buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight,
             iconColor = Color(0xFF5D0000),
