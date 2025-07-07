@@ -8,7 +8,9 @@ import com.necdetzr.loodoscrypto.data.datastore.PreferenceKeys.LANGUAGE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import androidx.datastore.preferences.core.Preferences
+import com.necdetzr.loodoscrypto.data.datastore.PreferenceKeys.REMEMBER
 import dagger.hilt.android.qualifiers.ApplicationContext
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -21,8 +23,18 @@ class DataStoreManager @Inject constructor(@ApplicationContext private val conte
 
         }
     }
+    suspend fun setRemember(remember:Boolean){
+        Timber.d("Remember setted as $remember")
+
+        context.dataStore.edit { preferences->
+            preferences[REMEMBER] = remember
+        }
+    }
 
     val languageFlow: Flow<String?> = context.dataStore.data
         .map { preferences->preferences[LANGUAGE] }
+
+    val rememberMe : Flow<Boolean> = context.dataStore.data
+        .map { it[REMEMBER] ?: false}
 
 }
