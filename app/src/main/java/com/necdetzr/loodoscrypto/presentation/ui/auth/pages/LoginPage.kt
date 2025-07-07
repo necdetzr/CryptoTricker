@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.necdetzr.loodoscrypto.R
+import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.theme.Blue
 import com.necdetzr.loodoscrypto.presentation.theme.DarkBlue
 import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel
@@ -45,19 +46,24 @@ import com.necdetzr.loodoscrypto.presentation.ui.components.AuthPasswordTextFiel
 import com.necdetzr.loodoscrypto.presentation.ui.components.CustomTextField
 import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
 import com.necdetzr.loodoscrypto.presentation.ui.components.RememberMeCheckBox
+import com.necdetzr.loodoscrypto.presentation.ui.main.components.RememberMe
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 @Composable
 fun LoginPage(
     navController: NavHostController,
-    viewModel: AuthViewModel
+    viewModel: AuthViewModel,
+    dataStoreManager: DataStoreManager
 ){
     var email by remember { mutableStateOf("") }
     var password by remember {mutableStateOf("")}
     var isLoadings by remember{
         mutableStateOf(false)
     }
+    var checked by remember {mutableStateOf(false)}
     var wasLoginAttempted by remember {mutableStateOf(false)}
     val loginState by viewModel.loginState.collectAsState()
     var loginError by remember { mutableStateOf<String?>(null) }
@@ -69,6 +75,7 @@ fun LoginPage(
             result.onSuccess {
                 loginError = null
                 wasLoginAttempted = false
+                Timber.d("Remember me value = $checked")
                 navController.navigate("main"){
                     popUpTo("login"){
                         inclusive = true
@@ -127,10 +134,23 @@ fun LoginPage(
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
 
             ) {
+                RememberMe(
+                    checked =  checked,
+                     onCheckedChange = { isChecked->
+                        checked =isChecked
+                        scope.launch{
+                            dataStoreManager.setRemember(checked)
+
+                        }
+                        }
+
+
+
+                )
 
                 Text(
                     text = stringResource(R.string.forgot_password),
@@ -140,20 +160,7 @@ fun LoginPage(
 
             }
             Spacer(modifier = Modifier.height(40.dp))
-            Row {
-                Text(stringResource(R.string.dont_have), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onBackground)
-                Spacer(Modifier.width(4.dp))
-                Text(stringResource(R.string.signup), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground, modifier = Modifier.clickable(
-                    onClick = {
-                        navController.navigate("register") {
-                            popUpTo("login") {
-                                inclusive = true
-                                saveState = true
-                            }
-                        }
-                    }
-                ))
-            }
+
             Spacer(Modifier.height(4.dp))
             if(isLoadings){
                 Spacer(Modifier.height(32.dp))
@@ -171,6 +178,21 @@ fun LoginPage(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
+            }
+            Spacer(Modifier.weight(1f))
+            Row {
+                Text(stringResource(R.string.dont_have), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onBackground)
+                Spacer(Modifier.width(4.dp))
+                Text(stringResource(R.string.signup), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground, modifier = Modifier.clickable(
+                    onClick = {
+                        navController.navigate("register") {
+                            popUpTo("login") {
+                                inclusive = true
+                                saveState = true
+                            }
+                        }
+                    }
+                ))
             }
             SnackbarHost(
                 hostState = snackbarHostState)
