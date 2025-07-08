@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowRight
 import androidx.compose.material.icons.rounded.DarkMode
@@ -25,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
@@ -38,27 +36,22 @@ import com.necdetzr.loodoscrypto.presentation.ui.components.CrashButton
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.SettingsCard
-import com.necdetzr.loodoscrypto.presentation.ui.main.viewmodels.RemoteConfigViewModel
 import com.necdetzr.loodoscrypto.utils.OptionsFunctions.restartAppWithLocale
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @Composable
 fun ProfilePage(
     viewModel: ProfileViewModel = hiltViewModel(),
-    remoteViewModel : RemoteConfigViewModel = hiltViewModel(),
     onNavigateToLogOut:()->Unit
 ){
     val context = LocalContext.current
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
     //from ProfileViewModel
-    val darkMode by viewModel.darkMode.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
     //Crashlytics
     val crashlytics = FirebaseCrashlytics.getInstance()
-    val adviceText by remoteViewModel.adviceTest.collectAsState()
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -132,7 +125,7 @@ fun ProfilePage(
 
                     }
                 },
-                checked = darkMode
+                checked = uiState.darkMode
 
 
             )
@@ -164,7 +157,7 @@ fun ProfilePage(
 
                 }
             )
-            Text(text = adviceText)
+            Text(text = uiState.adviceTest)
             }
 
 
