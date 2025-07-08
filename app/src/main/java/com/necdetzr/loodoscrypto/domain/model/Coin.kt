@@ -6,15 +6,15 @@ import com.necdetzr.loodoscrypto.data.model.High24h
 
 //Readable Model Coin
 data class Coin(
-    val id: String,
-    val image: String,
-    val name: String,
-    val symbol: String,
-    val currentPrice: Double,
-    val marketCap: Double,
-    val totalVolume: Double,
-    val marketCapRank: Int,
-    val priceChangePercentage24h: Double
+    val id: String = "",
+    val image: String = "",
+    val name: String = "",
+    val symbol: String = "",
+    val currentPrice: Double = 0.0,
+    val marketCap: Double = 0.0,
+    val totalVolume: Double = 0.0,
+    val marketCapRank: Int= 0,
+    val priceChangePercentage24h: Double = 0.0
 )
 data class DetailCoin(
     val id: String = "",
