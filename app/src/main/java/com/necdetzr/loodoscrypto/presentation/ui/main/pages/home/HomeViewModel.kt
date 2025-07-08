@@ -22,10 +22,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private var requestCount = 0
 
-    //Top Coins value with mutable state flow ;)
-    private val _topCoins = MutableStateFlow<List<Coin>>(emptyList())
-    //Top Coins value with immutable state flow ;)
-    val topCoins : StateFlow<List<Coin>> = _topCoins
+
     //Ui state
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState : StateFlow<HomeUiState> = _uiState
@@ -35,29 +32,29 @@ class HomeViewModel @Inject constructor(
         getTopCoins()
     }
 
-
+    //view state oluştur
     //THIS function gets just top 10 Coin
     private fun getTopCoins(){
         viewModelScope.launch {
             try {
-                _uiState.value = _uiState.value.copy(isLoading = true)
-                //TRIED GET TOP COINS UPDATE PER 60 SECOND.
-                //I USED THIS WAY BECAUSE I DON'T HAVE ANY WEBSOCKET
+               _uiState.value=_uiState.value.copy(isLoading = true)
+
                 val allCoins = withTimeout(5000) {
                     getTopCoinsUseCase()
                 }
                 while(isActive){
-                    _topCoins.value = allCoins.sortedByDescending{ it.marketCap }.take(10)
+                    _uiState.value=_uiState.value.copy(coins =allCoins.sortedByDescending{ it.marketCap }.take(10) )
+
                     requestCount++
                     Timber.i("API request home GetTopCoins $requestCount for coin")
-                    _uiState.value = _uiState.value.copy(isLoading = false)
+                    _uiState.value=_uiState.value.copy(isLoading = false)
                     delay(60_000)
 
                 }
 
             }catch (e: Exception){
                 Timber.e(e)
-                _uiState.value = _uiState.value.copy(isError = true)
+                _uiState.value= _uiState.value.copy(isError = true)
 
             }
         }
