@@ -1,7 +1,6 @@
 package com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.detail
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,23 +10,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarOutline
-import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,8 +28,6 @@ import androidx.compose.material3.Scaffold
 
 
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -51,21 +39,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
-import com.necdetzr.loodoscrypto.presentation.theme.DarkBlue
-import com.necdetzr.loodoscrypto.presentation.ui.components.CustomTextField
 import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.DetailText
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.DetailedCoinCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.favorite.FavoriteViewModel
 import com.necdetzr.loodoscrypto.utils.FormatFunctions
 
 
@@ -74,16 +55,13 @@ import com.necdetzr.loodoscrypto.utils.FormatFunctions
 @Composable
 fun CoinDetailPage(
     viewModel: CoinDetailViewModel = hiltViewModel(),
-    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
     coinId : String,
     navController: NavHostController
 ) {
-    var settingText by remember { mutableStateOf("300") }
-    var refreshText by remember { mutableStateOf("") }
-    var refreshTime = refreshText.toLongOrNull()?.times(1000L) ?: 300_000L
     val uiState by viewModel.uiState.collectAsState()
-    val currentUser by favoriteViewModel.userId.collectAsState()
-    val coin by viewModel.coin.collectAsState()
+    val userId = uiState.userId
+
+    val coin = uiState.coin
     val infoList = listOf(
         ("Market Cap" to coin?.marketCap),
         ("Total Volume" to coin?.totalVolume),
@@ -93,15 +71,14 @@ fun CoinDetailPage(
         ("High 24h" to coin?.high24h),
         ("Low 24h" to coin?.low24h),
         ("Hash Algorithm") to coin?.hashAlgorithm,
-
         )
     var favorited by remember { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = coinId, key2 = refreshTime) {
-        viewModel.getCoinById(coinId,refreshTime)
-        favoriteViewModel.getUserId()
-        if (!currentUser.isNullOrEmpty()) {
-            val result = favoriteViewModel.isFavorite(currentUser!!, coinId)
+    LaunchedEffect(key1 = uiState.coin) {
+
+        val userId = uiState.userId
+        if (coin != null && !userId.isNullOrEmpty()) {
+            val result = viewModel.isFavorite(userId,coin.id)
             favorited = result
         }
 
@@ -130,13 +107,13 @@ fun CoinDetailPage(
                 if (favorited) {
                     IconButton(onClick = {
                         favorited = false
-                        favoriteViewModel.removeFavorite(currentUser ?: "", coinId)
+                        viewModel.removeFavorite(userId.toString(),coinId)
                     }) {
                         Icon(Icons.Default.Star, contentDescription = "star", tint = Color(0xFFBDAD0D))
                     }
                 } else {
                     IconButton(onClick = {
-                        favoriteViewModel.addFavorite(currentUser ?: "", coin)
+                        viewModel.addFavorite(userId.toString(),uiState.coin)
                         favorited = true
                     }) {
                         Icon(Icons.Default.StarOutline, contentDescription = "star")
@@ -188,38 +165,7 @@ fun CoinDetailPage(
 
             }
             Spacer(Modifier.height(20.dp))
-            Section("Settings")
-            Spacer(Modifier.height(10.dp))
-            CustomTextField(
-                icon = Icons.Default.Timer,
-                value = refreshText,
-                placeholder = "Enter Refresh Time In Seconds",
-                onValueChange = {
-                    refreshText = it
-                }
-            )
-            Spacer(Modifier.height(10.dp))
-            Row(
 
-                verticalAlignment = Alignment.CenterVertically
-            ) { Button(
-                onClick = {
-                    refreshTime = refreshText.toLongOrNull()?.times(1000L) ?: 30_000L
-                    settingText = refreshText
-                },
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = DarkBlue,
-                    contentColor = Color.White
-                )
-            ) {
-                Text("Set Refresh Time")
-            }
-                Spacer(Modifier.width(12.dp))
-                Text("Refresh time is $settingText seconds", style = MaterialTheme.typography.bodyMedium)
-            }
-
-            Spacer(Modifier.height(20.dp))
 
             Section("Information")
 

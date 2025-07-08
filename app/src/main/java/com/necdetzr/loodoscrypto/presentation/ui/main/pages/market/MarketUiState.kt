@@ -6,5 +6,8 @@ data class MarketUiState(
     val isTopGainersLoading: Boolean = false,
     val isTopLosersLoading: Boolean = false,
     val isTopCoinsLoading: Boolean = false,
-    val isError: Boolean = false
+    val isError: Boolean = false,
+    val topCoins:List<Coin> = emptyList(),
+    val topGainers:List<Coin> = emptyList(),
+    val topLosers:List<Coin> = emptyList()
 )

@@ -30,10 +30,9 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.DetailedCoinCar
 
 @Composable
 fun FavoritePage(navController: NavHostController,favoriteViewModel: FavoriteViewModel = hiltViewModel()){
-    val coins by favoriteViewModel.favorites.collectAsState()
-    val userId by favoriteViewModel.userId.collectAsState()
-
+    val uiState by favoriteViewModel.uiState.collectAsState()
     LaunchedEffect(Unit) {
+        val userId = uiState.userId
         favoriteViewModel.loadFavorites(userId.toString())
     }
 
@@ -65,6 +64,7 @@ fun FavoritePage(navController: NavHostController,favoriteViewModel: FavoriteVie
                 LazyColumn(
 
                 ) {
+                    val coins = uiState.favorites
                     items(coins.size) {
                         DetailedCoinCard(coin = coins[it], navController = navController)
                         Spacer(Modifier.height(16.dp))

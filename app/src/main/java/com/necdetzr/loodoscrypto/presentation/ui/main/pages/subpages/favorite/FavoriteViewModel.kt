@@ -8,6 +8,7 @@ import com.necdetzr.loodoscrypto.domain.model.DetailCoin
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,40 +17,28 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
    private val  firestoreManager: FirebaseFirestoreManager,
     private val authManager: FirebaseAuthManager
-): ViewModel(){
-    private val _favorites = MutableStateFlow<List<DetailCoin?>>(emptyList())
-    val favorites: StateFlow<List<DetailCoin?>> = _favorites
-    private val _userId = MutableStateFlow<String?>(null)
-    val userId: StateFlow<String?> = _userId
+): ViewModel() {
+    private val _uiState = MutableStateFlow(FavoriteUiState())
+    val uiState: StateFlow<FavoriteUiState> = _uiState
 
-    fun loadFavorites(userId:String){
+    fun loadFavorites(userId: String) {
         viewModelScope.launch {
-             firestoreManager.getFavorites(userId).collect {
-                 _favorites.value = it
-             }
+            firestoreManager.getFavorites(userId).collect {coinList->
+                _uiState.update { it.copy(favorites = coinList) }
+            }
         }
     }
-    init{
+
+    init {
         getUserId()
 
     }
-    fun getUserId(){
+
+    fun getUserId() {
         viewModelScope.launch {
-            _userId.value = authManager.getCurrentUserId()
-        }
-    }
-    fun addFavorite(userId: String, coin: DetailCoin?){
-        viewModelScope.launch {
-            firestoreManager.addToFavorite(userId,coin)
-        }
-    }
-    fun removeFavorite(userId: String, coinId: String){
-        viewModelScope.launch {
-            firestoreManager.removeFromFavorite(userId,coinId)
+            val userId = authManager.getCurrentUserId()
+            _uiState.update { it.copy(userId = userId) }
         }
 
-    }
-    suspend fun isFavorite(userId: String, coinId: String): Boolean {
-        return firestoreManager.isFavorite(userId, coinId)
     }
 }

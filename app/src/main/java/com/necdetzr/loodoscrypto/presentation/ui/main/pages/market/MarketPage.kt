@@ -23,7 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.CoinCard
@@ -35,9 +34,7 @@ fun MarketPage(
     onNavigateToCoin:(String)->Unit,
 
 ){
-    val topCoins by viewModel.topCoins.collectAsState()
-    val topGainers by viewModel.topGainers.collectAsState()
-    val topLosers by viewModel.topLosers.collectAsState()
+
     val uiState by viewModel.uiState.collectAsState()
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -67,7 +64,7 @@ fun MarketPage(
                     }
                 } else {
                     LazyColumn {
-                        items(items = topGainers) { coin ->
+                        items(items = uiState.topCoins) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin,onNavigateToCoin)
 
@@ -99,7 +96,7 @@ fun MarketPage(
                     }
                 } else {
                     LazyColumn {
-                        items(items = topLosers) { coin ->
+                        items(items = uiState.topLosers) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin,onNavigateToCoin)
 
@@ -131,7 +128,7 @@ fun MarketPage(
                     }
                 } else {
                     LazyColumn {
-                        items(items = topCoins) { coin ->
+                        items(items = uiState.topCoins) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin,onNavigateToCoin)
 

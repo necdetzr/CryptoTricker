@@ -57,7 +57,6 @@ fun HomePage(
     onNavigateToMarket: () -> Unit,
     onNavigateToCoin: (String) -> Unit,
 ) {
-    val topCoins by viewModel.topCoins.collectAsState()
     val state by viewModel.uiState.collectAsState()
 
     val coins = listOf(
@@ -191,7 +190,7 @@ fun HomePage(
                     LazyColumn(
                         modifier = Modifier.padding(vertical = 12.dp)
                     ) {
-                        items(items = topCoins) { coin ->
+                        items(items = state.coins) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin, onNavigateToCoin)
 
