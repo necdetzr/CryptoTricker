@@ -45,7 +45,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : RemoteConfigViewModel = hiltViewModel(),onNavigateToLogOut:()->Unit){
-    //Context and Activity
     val context = LocalContext.current
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
@@ -162,6 +161,9 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : 
                 }
             )
             Text(text = adviceText)
+            }
+        )
+        Text(text = adviceText.toString())
 
 
         }
