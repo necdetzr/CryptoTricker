@@ -50,7 +50,7 @@ fun DetailedCoinCard(
                 }
             ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = MaterialTheme.colorScheme.background
         )
     ) {
         Row(

@@ -4,6 +4,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.necdetzr.loodoscrypto.R
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,6 +24,7 @@ class FirebaseRemoteConfigManager @Inject constructor(
         return try {
             firebaseRemoteConfig.fetchAndActivate().await()
         } catch (e: Exception) {
+            Timber.e(e,"Failed to fetch remote config")
             false
         }
     }

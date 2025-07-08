@@ -35,6 +35,8 @@ fun AppNav(authViewModel: AuthViewModel, contentPadding: PaddingValues,dataStore
         val isRemembered = dataStoreManager.rememberMe.first()
         val currentUser = FirebaseAuth.getInstance().currentUser
 
+//Recomposition..
+
         if(isRemembered && currentUser != null){
             Timber.d("Remembered = $isRemembered")
             navController.navigate("main"){

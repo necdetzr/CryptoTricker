@@ -31,7 +31,7 @@ fun ProfileCard(name:String,email:String){
     Card(
         modifier = Modifier.fillMaxWidth().padding(16.dp).height(100.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     ) {
         Row(

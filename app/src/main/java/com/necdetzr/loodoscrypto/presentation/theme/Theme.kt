@@ -74,6 +74,7 @@ private val LightColorScheme = lightColorScheme(
 fun LoodosCryptoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

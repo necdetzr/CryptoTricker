@@ -48,6 +48,7 @@
         <string name="language_settings">Dil Ayarları</string>
         <string name="log_out">Çıkış Yap</string>
         <string name="profile_settings">Profil Ayarları</string>
+        <string name="dark_mode">Karanlık Tema</string>
 
 
 </resources>

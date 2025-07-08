@@ -1,18 +1,22 @@
 package com.necdetzr.loodoscrypto.presentation.ui.auth
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseAuthManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val authManager:FirebaseAuthManager
+    private val authManager:FirebaseAuthManager,
 ) : ViewModel() {
     private val _registerState = MutableStateFlow<Result<Unit>?>(null)
     val registerState: StateFlow<Result<Unit>?> = _registerState
@@ -32,4 +36,5 @@ class AuthViewModel @Inject constructor(
             _loginState.value = authManager.login(email, password)
         }
     }
+
 }
