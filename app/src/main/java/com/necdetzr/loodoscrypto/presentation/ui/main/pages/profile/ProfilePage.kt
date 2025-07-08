@@ -49,11 +49,9 @@ fun ProfilePage(viewModel: ProfileViewModel = hiltViewModel(),remoteViewModel : 
     val context = LocalContext.current
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
-
     //from ProfileViewModel
     val darkMode by viewModel.darkMode.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
-
     var expanded by remember { mutableStateOf(false) }
     //Crashlytics
     val crashlytics = FirebaseCrashlytics.getInstance()
