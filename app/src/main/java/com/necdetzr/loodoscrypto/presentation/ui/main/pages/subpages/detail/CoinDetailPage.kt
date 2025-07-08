@@ -106,157 +106,161 @@ fun CoinDetailPage(
         }
 
     }
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background
+    ) { padding->
+        Column(
+            modifier = Modifier.padding(12.dp)
+                .verticalScroll(rememberScrollState()),
 
-    Column(
-        modifier = Modifier.padding(12.dp)
-            .verticalScroll(rememberScrollState()),
-
-        ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = {
-                navController.popBackStack()
-            }) {
-                Icon(
-                    Icons.AutoMirrored.Rounded.ArrowBack, contentDescription =
-                        "back"
-                )
-            }
-            Text("${coin?.name} Information", style = MaterialTheme.typography.headlineSmall)
-            Spacer(Modifier.weight(1f))
-            if (favorited) {
+            ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 IconButton(onClick = {
-                    favorited = false
-                    favoriteViewModel.removeFavorite(currentUser ?: "", coinId)
+                    navController.popBackStack()
                 }) {
-                    Icon(Icons.Default.Star, contentDescription = "star", tint = Color(0xFFBDAD0D))
+                    Icon(
+                        Icons.AutoMirrored.Rounded.ArrowBack, contentDescription =
+                            "back"
+                    )
                 }
-            } else {
-                IconButton(onClick = {
-                    favoriteViewModel.addFavorite(currentUser ?: "", coin)
-                    favorited = true
-                }) {
-                    Icon(Icons.Default.StarOutline, contentDescription = "star")
+                Text("${coin?.name} Information", style = MaterialTheme.typography.headlineSmall)
+                Spacer(Modifier.weight(1f))
+                if (favorited) {
+                    IconButton(onClick = {
+                        favorited = false
+                        favoriteViewModel.removeFavorite(currentUser ?: "", coinId)
+                    }) {
+                        Icon(Icons.Default.Star, contentDescription = "star", tint = Color(0xFFBDAD0D))
+                    }
+                } else {
+                    IconButton(onClick = {
+                        favoriteViewModel.addFavorite(currentUser ?: "", coin)
+                        favorited = true
+                    }) {
+                        Icon(Icons.Default.StarOutline, contentDescription = "star")
+                    }
                 }
+
+
             }
-
-
-        }
-        Spacer(Modifier.height(20.dp))
-        if (uiState.isLoading) {
-            LinearProgressBar()
-        } else if (uiState.isError) {
-            ErrorCard()
-        } else {
-            DetailedCoinCard(coin = coin, navController = navController)
-
-
-        }
-
-        Spacer(Modifier.height(60.dp))
-        Section("Description")
-        Spacer(Modifier.height(10.dp))
-        Card(
-            modifier = Modifier.height(200.dp).fillMaxWidth()
-                .verticalScroll(state = rememberScrollState()),
-            border = CardDefaults.outlinedCardBorder()
-
-        ) {
+            Spacer(Modifier.height(20.dp))
             if (uiState.isLoading) {
-                Column(
-                    modifier = Modifier.fillMaxHeight().padding(12.dp),
-                    verticalArrangement = Arrangement.Center,
-
-                    ) {
-                    LinearProgressBar()
-
-                }
+                LinearProgressBar()
             } else if (uiState.isError) {
                 ErrorCard()
             } else {
-                Text(
-                    text = coin?.description ?: "No Description.",
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.padding(12.dp)
-                )
+                DetailedCoinCard(coin = coin, navController = navController)
+
 
             }
 
+            Spacer(Modifier.height(60.dp))
+            Section("Description")
+            Spacer(Modifier.height(10.dp))
+            Card(
+                modifier = Modifier.height(200.dp).fillMaxWidth()
+                    .verticalScroll(state = rememberScrollState()),
+                border = CardDefaults.outlinedCardBorder()
 
-        }
-        Spacer(Modifier.height(20.dp))
-        Section("Settings")
-        Spacer(Modifier.height(10.dp))
-        CustomTextField(
-            icon = Icons.Default.Timer,
-            value = refreshText,
-            placeholder = "Enter Refresh Time In Seconds",
-            onValueChange = {
-                refreshText = it
-            }
-        )
-        Spacer(Modifier.height(10.dp))
-        Row(
-
-            verticalAlignment = Alignment.CenterVertically
-        ) { Button(
-            onClick = {
-                refreshTime = refreshText.toLongOrNull()?.times(1000L) ?: 30_000L
-                settingText = refreshText
-            },
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = DarkBlue,
-                contentColor = Color.White
-            )
-        ) {
-            Text("Set Refresh Time")
-        }
-            Spacer(Modifier.width(12.dp))
-            Text("Refresh time is $settingText seconds", style = MaterialTheme.typography.bodyMedium)
-        }
-
-        Spacer(Modifier.height(20.dp))
-
-        Section("Information")
-
-
-        Box(modifier = Modifier.height(260.dp)){
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier.padding(8.dp).fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(infoList.size) { item ->
-                    val (label, size) = infoList[item]
-                    val formattedText = FormatFunctions.formatAnyNumber(size)
-                    val finalText = when (label) {
-                        "Market Cap", "Total Volume", "High 24h", "Low 24h" -> "$formattedText$"
-                        else -> formattedText
-                    }
-                    if (uiState.isLoading) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            modifier = Modifier.fillMaxHeight().padding(32.dp)
+                if (uiState.isLoading) {
+                    Column(
+                        modifier = Modifier.fillMaxHeight().padding(12.dp),
+                        verticalArrangement = Arrangement.Center,
+
                         ) {
-                            LinearProgressBar()
-
-                        }
-                    } else if (uiState.isError) {
-                        ErrorCard()
-                    } else {
-                        DetailText(title = label, text = finalText)
+                        LinearProgressBar()
 
                     }
-
+                } else if (uiState.isError) {
+                    ErrorCard()
+                } else {
+                    Text(
+                        text = coin?.description ?: "No Description.",
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.padding(12.dp)
+                    )
 
                 }
+
+
             }
+            Spacer(Modifier.height(20.dp))
+            Section("Settings")
+            Spacer(Modifier.height(10.dp))
+            CustomTextField(
+                icon = Icons.Default.Timer,
+                value = refreshText,
+                placeholder = "Enter Refresh Time In Seconds",
+                onValueChange = {
+                    refreshText = it
+                }
+            )
+            Spacer(Modifier.height(10.dp))
+            Row(
+
+                verticalAlignment = Alignment.CenterVertically
+            ) { Button(
+                onClick = {
+                    refreshTime = refreshText.toLongOrNull()?.times(1000L) ?: 30_000L
+                    settingText = refreshText
+                },
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = DarkBlue,
+                    contentColor = Color.White
+                )
+            ) {
+                Text("Set Refresh Time")
+            }
+                Spacer(Modifier.width(12.dp))
+                Text("Refresh time is $settingText seconds", style = MaterialTheme.typography.bodyMedium)
+            }
+
+            Spacer(Modifier.height(20.dp))
+
+            Section("Information")
+
+
+            Box(modifier = Modifier.height(260.dp)){
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(infoList.size) { item ->
+                        val (label, size) = infoList[item]
+                        val formattedText = FormatFunctions.formatAnyNumber(size)
+                        val finalText = when (label) {
+                            "Market Cap", "Total Volume", "High 24h", "Low 24h" -> "$formattedText$"
+                            else -> formattedText
+                        }
+                        if (uiState.isLoading) {
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxHeight().padding(32.dp)
+                            ) {
+                                LinearProgressBar()
+
+                            }
+                        } else if (uiState.isError) {
+                            ErrorCard()
+                        } else {
+                            DetailText(title = label, text = finalText)
+
+                        }
+
+
+                    }
+                }
+            }
+
+
         }
-
-
     }
+
 
 
 }

@@ -14,6 +14,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,39 +37,44 @@ fun FavoritePage(navController: NavHostController,favoriteViewModel: FavoriteVie
         favoriteViewModel.loadFavorites(userId.toString())
     }
 
-    Column(
-        modifier = Modifier.padding(12.dp),
-
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            IconButton(
-                onClick = {
-                    navController.popBackStack()
-                }
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background
+    ) { padding->
+        Column(
+            modifier = Modifier.padding(12.dp),
 
             ) {
-                Icon(Icons.AutoMirrored.Default.ArrowBack,"back")
-            }
-            Spacer(Modifier.width(10.dp))
-            Text("Favorite Coins", style = MaterialTheme.typography.headlineSmall)
-        }
-        Spacer(Modifier.height(20.dp))
-        Box(
-            modifier = Modifier.fillMaxWidth().height(400.dp)
-        ) {
-            LazyColumn(
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                IconButton(
+                    onClick = {
+                        navController.popBackStack()
+                    }
 
+                ) {
+                    Icon(Icons.AutoMirrored.Default.ArrowBack,"back")
+                }
+                Spacer(Modifier.width(10.dp))
+                Text("Favorite Coins", style = MaterialTheme.typography.headlineSmall)
+            }
+            Spacer(Modifier.height(20.dp))
+            Box(
+                modifier = Modifier.fillMaxWidth().height(400.dp)
             ) {
-                items(coins.size) {
-                    DetailedCoinCard(coin = coins[it], navController = navController)
-                    Spacer(Modifier.height(16.dp))
+                LazyColumn(
+
+                ) {
+                    items(coins.size) {
+                        DetailedCoinCard(coin = coins[it], navController = navController)
+                        Spacer(Modifier.height(16.dp))
+                    }
                 }
             }
+
+
+
         }
-
-
-
     }
+
 }

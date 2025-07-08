@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,46 +39,50 @@ fun SearchPage(viewModel: SearchViewModel = hiltViewModel(),onNavigateToCoin:(St
     val uiState by viewModel.uiState.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val filteredCoin by viewModel.filteredCoins.collectAsState()
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background
+    ) { padding->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(12.dp),
+        ) {
+            Text(stringResource(R.string.all_cryptocurrencies),style = MaterialTheme.typography.headlineSmall)
+            Spacer(Modifier.height(20.dp))
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(12.dp),
-    ) {
-        Text(stringResource(R.string.all_cryptocurrencies),style = MaterialTheme.typography.headlineSmall)
-        Spacer(Modifier.height(20.dp))
-
-        CustomTextField(
-            icon = Icons.Default.Search,
-            value = searchQuery,
-            placeholder = stringResource(R.string.search_crypto_placeholder),
-            onValueChange = {viewModel.onSearchQueryChanged(it)}
-        )
-        Spacer(Modifier.height(20.dp))
-        Section(stringResource(R.string.all_coins),stringResource(R.string.last_24h))
-        Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(1f)){
-            if(uiState.isLoading){
-                LinearProgressBar()
-            }else if (uiState.isError){
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    ErrorCard()
-                }
-
-            }else {
-                LazyColumn(
-                    modifier = Modifier.padding(vertical = 12.dp)
-
-                ) {
-                    items(filteredCoin,key = {it.id}) { coin ->
-                        Spacer(Modifier.height(20.dp))
-                        CoinCard(coin, onNavigateToCoin )
+            CustomTextField(
+                icon = Icons.Default.Search,
+                value = searchQuery,
+                placeholder = stringResource(R.string.search_crypto_placeholder),
+                onValueChange = {viewModel.onSearchQueryChanged(it)}
+            )
+            Spacer(Modifier.height(20.dp))
+            Section(stringResource(R.string.all_coins),stringResource(R.string.last_24h))
+            Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(1f)){
+                if(uiState.isLoading){
+                    LinearProgressBar()
+                }else if (uiState.isError){
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        ErrorCard()
                     }
 
+                }else {
+                    LazyColumn(
+                        modifier = Modifier.padding(vertical = 12.dp)
+
+                    ) {
+                        items(filteredCoin,key = {it.id}) { coin ->
+                            Spacer(Modifier.height(20.dp))
+                            CoinCard(coin, onNavigateToCoin )
+                        }
+
+                    }
                 }
             }
         }
     }
+
 
 }

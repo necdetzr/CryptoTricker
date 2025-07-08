@@ -15,26 +15,29 @@ import javax.inject.Inject
 class RemoteConfigViewModel @Inject constructor(
     private val remoteConfigManager: FirebaseRemoteConfigManager
 ) : ViewModel() {
-    private val _adviceText=MutableStateFlow("Advice Test")
-    val adviceText : StateFlow<String> = _adviceText
+    private val _adviceTest = MutableStateFlow("Loading")
+    val adviceTest : StateFlow<String> = _adviceTest
 
     init {
-        fetchConfig()
+        viewModelScope.launch {
+            remoteConfigManager.initializeRemoteConfig()
+            fetchConfig()
+        }
     }
 
     private fun fetchConfig() {
         viewModelScope.launch {
-            println("AMK")
-            remoteConfigManager.initializeRemoteConfig()
+
+            val localValue = remoteConfigManager.getString("advice_test")
+            if(localValue.isNotBlank()){
+                _adviceTest.value = localValue
+                Timber.d("Cached value = $localValue")
+            }
+
             val success = remoteConfigManager.fetchAndActivate()
             if (success) {
-                val advice = remoteConfigManager.getString("advice_test")
-                _adviceText.value = advice
-                Timber.d("Fetched advice: $advice")
-
-            } else {
-                Timber.e("Remote config fetch failed.")
-
+                _adviceTest.value = remoteConfigManager.getString("advice_test")
+                Timber.d("New remote Config Data: ${_adviceTest.value}")
             }
         }
     }

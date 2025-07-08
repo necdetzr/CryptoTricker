@@ -29,9 +29,6 @@ fun RememberMeCheckBox(
         Checkbox(
             onCheckedChange = {onChecked()},
             checked = checked,
-
-
-
         )
         Text(text = "Privacy Policy", style = MaterialTheme.typography.bodySmall)
 
