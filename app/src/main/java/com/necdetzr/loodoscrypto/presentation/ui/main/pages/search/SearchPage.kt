@@ -35,9 +35,7 @@ import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
 
 @Composable
 fun SearchPage(viewModel: SearchViewModel = hiltViewModel(),onNavigateToCoin:(String)->Unit){
-    val coins by viewModel.coins.collectAsState()
     val uiState by viewModel.uiState.collectAsState()
-    val searchQuery by viewModel.searchQuery.collectAsState()
     val filteredCoin by viewModel.filteredCoins.collectAsState()
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -50,7 +48,7 @@ fun SearchPage(viewModel: SearchViewModel = hiltViewModel(),onNavigateToCoin:(St
 
             CustomTextField(
                 icon = Icons.Default.Search,
-                value = searchQuery,
+                value = uiState.searchQuery,
                 placeholder = stringResource(R.string.search_crypto_placeholder),
                 onValueChange = {viewModel.onSearchQueryChanged(it)}
             )

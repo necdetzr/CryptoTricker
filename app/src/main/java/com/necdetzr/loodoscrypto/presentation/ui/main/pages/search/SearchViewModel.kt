@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -22,48 +24,45 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val getCoinsUseCase: GetCoinsUseCase,
 ) : ViewModel(){
-    private val _coins = MutableStateFlow<List<Coin>>(emptyList())
-    val coins : StateFlow<List<Coin>> = _coins
+
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState : StateFlow<SearchUiState> = _uiState
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery : StateFlow<String> = _searchQuery
-    private var requestCount = 0
+
 
     @OptIn(FlowPreview::class)
-    val filteredCoins: StateFlow<List<Coin>> = _searchQuery
-        .debounce(300L).
-        combine(_coins) { query, coins ->
-        if (query.isBlank()) coins
-        else coins.filter {
-            it.name.contains(query, ignoreCase = true) ||
-                    it.symbol.contains(query, ignoreCase = true)
+    val filteredCoins: StateFlow<List<Coin>> = _uiState
+        .map {  state->
+            val query = state.searchQuery
+            val coins = state.coins
+
+            if (query.isBlank()) coins
+            else coins.filter {
+                it.name.contains(query, ignoreCase = true) || it.symbol.contains(query, ignoreCase = true)
+            }
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .debounce (300L)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     init {
         getCoins()
     }
 
     fun onSearchQueryChanged(query:String){
-        _searchQuery.value = query
+        _uiState.update { it.copy(searchQuery = query) }
     }
 
 
     private fun getCoins(){
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, isError = false) }
             try {
-                _uiState.value = _uiState.value.copy(isLoading = true)
-                while(isActive){
-                    _coins.value = getCoinsUseCase()
-                    requestCount++
-                    Timber.i("API request getCoins $requestCount for coin")
-                    _uiState.value = _uiState.value.copy(isLoading = false)
-                    delay(300_000)
-                }
-            }catch(e: Exception){
-                Timber.e(e)
-                _uiState.value = _uiState.value.copy(isError = true)
-
+                val coins = getCoinsUseCase()
+                _uiState.update { it.copy(
+                    coins = coins,
+                    isLoading = false
+                ) }
+            }catch (e: Exception){
+                _uiState.update { it.copy(isLoading = false, isError = true) }
+                Timber.d(e,"Error during getCoins")
             }
         }
 
