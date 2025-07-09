@@ -58,6 +58,7 @@ android {
 }
 
 dependencies {
+
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
     //Data Store
@@ -73,12 +74,13 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.0")
     // Firebase Crashlytics and Analytics
     implementation("com.google.firebase:firebase-crashlytics-ndk")
-    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-analytics-ktx:22.5.0")
     //Firebase Remote Config
     implementation("com.google.firebase:firebase-config")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(project(":analytics"))
     ksp("com.google.dagger:hilt-compiler:2.51.1")
     //Timber
     implementation ("com.jakewharton.timber:timber:5.0.1")
