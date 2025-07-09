@@ -27,8 +27,6 @@ class SearchViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState : StateFlow<SearchUiState> = _uiState
-
-
     @OptIn(FlowPreview::class)
     val filteredCoins: StateFlow<List<Coin>> = _uiState
         .map {  state->

@@ -9,8 +9,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -75,5 +77,10 @@ class ProfileViewModel @Inject constructor(
     }
     fun logOut(){
         authManager.signOut()
+        viewModelScope.launch {
+            dataStore.setRemember(false)
+            Timber.d("LOGOUT VIEWMODEL ${dataStore.rememberMe.first()}")
+        }
+
     }
 }

@@ -3,6 +3,7 @@ package com.necdetzr.loodoscrypto.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,10 +31,11 @@ import timber.log.Timber
 @Composable
 fun AppNav(authViewModel: AuthViewModel, contentPadding: PaddingValues,dataStoreManager: DataStoreManager) {
     val navController = rememberNavController()
+    val isRemembered by dataStoreManager.rememberMe.collectAsState(initial = false)
+    val currentUser = FirebaseAuth.getInstance().currentUser
 
     LaunchedEffect(Unit) {
-        val isRemembered = dataStoreManager.rememberMe.first()
-        val currentUser = FirebaseAuth.getInstance().currentUser
+        Timber.d("APPANV REMEMBR $isRemembered")
 
 //Recomposition..
 
