@@ -23,4 +23,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "LoodosCrypto"
 include(":app")
- 
+include(":analytics")
