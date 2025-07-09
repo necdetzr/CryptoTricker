@@ -28,6 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.necdetzr.loodoscrypto.CryptoApp
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
@@ -45,6 +48,7 @@ fun ProfilePage(
     val context = LocalContext.current
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
+    val analyticsHelper = (context.applicationContext as CryptoApp).analyticsHelper
     //from ProfileViewModel
     val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
@@ -134,6 +138,10 @@ fun ProfilePage(
                 titleIcon = Icons.Rounded.DoorBack,
                 title = stringResource(R.string.log_out),
                 onClick = {
+                    analyticsHelper.logEvent(
+                        "logout_card_clicked",
+                        mapOf("source" to "profile_page")
+                    )
                     openAlertDialog = true
                 },
                 buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight,
@@ -142,7 +150,8 @@ fun ProfilePage(
             )
             if(openAlertDialog){
                 WarningPopUp(
-                    onAcceptRequest = {viewModel.logOut()
+                    onAcceptRequest = {
+                        viewModel.logOut()
                         openAlertDialog = false
                         onNavigateToLogOut()},
                     onDismissRequest = {openAlertDialog = false},
