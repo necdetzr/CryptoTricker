@@ -17,7 +17,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,41 +27,42 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.google.firebase.crashlytics.setCustomKeys
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.necdetzr.loodoscrypto.R
 import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
-import com.necdetzr.loodoscrypto.presentation.ui.components.CrashButton
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.SettingsCard
+import com.necdetzr.loodoscrypto.presentation.ui.main.components.WarningPopUp
 import com.necdetzr.loodoscrypto.utils.OptionsFunctions.restartAppWithLocale
 import kotlinx.coroutines.launch
 
 @Composable
 fun ProfilePage(
     viewModel: ProfileViewModel = hiltViewModel(),
-    onNavigateToLogOut:()->Unit
-){
+    onNavigateToLogOut: () -> Unit
+) {
     val context = LocalContext.current
     val activity = context as Activity
     val coroutineScope = rememberCoroutineScope()
     //from ProfileViewModel
     val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
-    //Crashlytics
-    val crashlytics = FirebaseCrashlytics.getInstance()
+    var openAlertDialog by remember{mutableStateOf(false)}
+
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
-    ) { contentPadding->
+    ) { contentPadding ->
         Column(
-            modifier = Modifier.padding(16.dp).padding(contentPadding)
+            modifier = Modifier
+                .padding(16.dp)
+                .padding(contentPadding)
         ) {
             Text("Profile", style = MaterialTheme.typography.headlineSmall)
             Spacer(Modifier.height(10.dp))
             ProfileCard(
-                name = uiState.userName ,
+                name = uiState.userName,
                 email = uiState.email
             )
             Spacer(Modifier.height(20.dp))
@@ -78,16 +78,16 @@ fun ProfilePage(
             )
             DropdownMenu(
                 expanded = expanded,
-                onDismissRequest = {expanded = false},
+                onDismissRequest = { expanded = false },
                 offset = DpOffset(x = 260.dp, y = (-160).dp)
             ) {
                 DropdownMenuItem(
-                    text = {Text("English")},
+                    text = { Text("English") },
                     onClick = {
                         expanded = false
                         coroutineScope.launch {
                             DataStoreManager(activity.applicationContext).setLanguage("en")
-                            restartAppWithLocale(activity =activity,"en" )
+                            restartAppWithLocale(activity = activity, "en")
 
                         }
 
@@ -134,33 +134,32 @@ fun ProfilePage(
                 titleIcon = Icons.Rounded.DoorBack,
                 title = stringResource(R.string.log_out),
                 onClick = {
-                    viewModel.logOut()
-                    onNavigateToLogOut()
+                    openAlertDialog = true
                 },
                 buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight,
                 iconColor = MaterialTheme.colorScheme.error,
                 textColor = MaterialTheme.colorScheme.error
             )
-
-
-            Spacer(Modifier.height(32.dp))
-            CrashButton(
-                onClick = {
-                    val city = "Izmir"
-                    crashlytics.setCustomKeys {
-                        key("city",city)
-                        key("module","main_module")
-                    }
-                    crashlytics.log("Crash detected: $city")
-
-                    throw RuntimeException("Test Crash")
-
-                }
-            )
-            Text(text = uiState.adviceTest)
+            if(openAlertDialog){
+                WarningPopUp(
+                    onAcceptRequest = {viewModel.logOut()
+                        openAlertDialog = false
+                        onNavigateToLogOut()},
+                    onDismissRequest = {openAlertDialog = false},
+                    title = "Log Out?",
+                    text = "Are you sure to log out from application?",
+                    firstButton = "Cancel",
+                    secondButton = "Log Out"
+                )
             }
 
 
+            Spacer(Modifier.height(32.dp))
+
+            Text(text = uiState.adviceTest)
         }
+
+
     }
+}
 
