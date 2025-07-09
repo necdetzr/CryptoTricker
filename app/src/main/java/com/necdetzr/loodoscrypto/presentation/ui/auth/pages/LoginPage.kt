@@ -63,7 +63,9 @@ fun LoginPage(
     var isLoadings by remember{
         mutableStateOf(false)
     }
-    var checked by remember {mutableStateOf(false)}
+    val rememberMe by dataStoreManager.rememberMe.collectAsState(initial = false)
+    var checked by remember { mutableStateOf(rememberMe) }
+
     var wasLoginAttempted by remember {mutableStateOf(false)}
     val loginState by viewModel.loginState.collectAsState()
     var loginError by remember { mutableStateOf<String?>(null) }
@@ -75,6 +77,7 @@ fun LoginPage(
             result.onSuccess {
                 loginError = null
                 wasLoginAttempted = false
+                scope.launch { dataStoreManager.setRemember(checked) }
                 Timber.d("Remember me value = $checked")
                 navController.navigate("main"){
                     popUpTo("login"){
@@ -142,10 +145,7 @@ fun LoginPage(
                     checked =  checked,
                      onCheckedChange = { isChecked->
                         checked =isChecked
-                        scope.launch{
-                            dataStoreManager.setRemember(checked)
 
-                        }
                         }
 
 
