@@ -26,7 +26,8 @@ fun BottomNavBar(navController: NavHostController) {
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.background, // MaterialTheme background doesn't work!!
-        tonalElevation = 10.dp
+        tonalElevation = 10.dp,
+        windowInsets = NavigationBarDefaults.windowInsets
     ) {
         items.forEach { item ->
             val isSelected = currentRoute == item.route
@@ -54,12 +55,12 @@ fun BottomNavBar(navController: NavHostController) {
                     Icon(
                         imageVector = item.icon,
                         contentDescription = null,
-                        tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        tint =  MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(if (isSelected) 28.dp else 24.dp)
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.Transparent
+                    indicatorColor = MaterialTheme.colorScheme.primaryContainer
                 )
             )
         }
