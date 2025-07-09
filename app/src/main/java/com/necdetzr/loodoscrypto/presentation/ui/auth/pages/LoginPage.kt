@@ -147,9 +147,6 @@ fun LoginPage(
                         checked =isChecked
 
                         }
-
-
-
                 )
 
                 Text(
