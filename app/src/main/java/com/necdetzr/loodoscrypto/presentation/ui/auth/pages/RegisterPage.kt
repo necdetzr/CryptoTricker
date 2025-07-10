@@ -54,8 +54,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterPage(
-    navController: NavHostController,
-    authViewModel: AuthViewModel = hiltViewModel()
+    authViewModel: AuthViewModel = hiltViewModel(),
+    onNavigateToMain:()->Unit,
+    onNavigateToLogin:()->Unit
 ){
     var email by remember { mutableStateOf("") }
     var password by remember {mutableStateOf("")}
@@ -78,13 +79,7 @@ fun RegisterPage(
             result.onSuccess {
                 registerError = null
                 wasRegisterAttempted = false
-                navController.navigate("main"){
-                    popUpTo("login"){
-                        inclusive = true
-                        saveState = true
-                    }
-
-                }
+                onNavigateToMain()
             }
             result.onFailure { error->
                 registerError = error.message ?: "Invalid Email or Password"
@@ -211,12 +206,7 @@ fun RegisterPage(
                 Spacer(Modifier.width(4.dp))
                 Text(stringResource(R.string.sign_in), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground, modifier = Modifier.clickable(
                     onClick = {
-                        navController.navigate("login") {
-                            popUpTo("register") {
-                                inclusive = true
-                                saveState = true
-                            }
-                        }
+                        onNavigateToLogin()
                     }
 
                 ))

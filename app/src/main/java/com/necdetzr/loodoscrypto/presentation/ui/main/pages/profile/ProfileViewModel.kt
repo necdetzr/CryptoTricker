@@ -75,12 +75,16 @@ class ProfileViewModel @Inject constructor(
 
         }
     }
-    fun logOut(){
+    fun logOut(
+        callback:()-> Unit
+    ){
         authManager.signOut()
         viewModelScope.launch {
             dataStore.setRemember(false)
             Timber.d("LOGOUT VIEWMODEL ${dataStore.rememberMe.first()}")
+            callback.invoke()
         }
+        //callback ekle
 
     }
 }

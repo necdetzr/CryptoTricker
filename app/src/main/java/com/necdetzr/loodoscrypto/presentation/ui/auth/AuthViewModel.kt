@@ -16,18 +16,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val authManager:FirebaseAuthManager,
+    private val authManager: FirebaseAuthManager,
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
+
     private val _registerState = MutableStateFlow<Result<Unit>?>(null)
     val registerState: StateFlow<Result<Unit>?> = _registerState
+
     private val _loginState = MutableStateFlow<Result<Unit>?>(null)
     val loginState: StateFlow<Result<Unit>?> = _loginState
 
+    val rememberMe = dataStoreManager.rememberMe
 
-    fun register(name: String, surname: String, email: String, password: String) {
+    fun setRememberMe(value: Boolean) {
         viewModelScope.launch {
-            _registerState.value = authManager.register(name, surname, email, password)
-
+            dataStoreManager.setRemember(value)
         }
     }
 
@@ -37,4 +40,9 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun register(name: String, surname: String, email: String, password: String) {
+        viewModelScope.launch {
+            _registerState.value = authManager.register(name, surname, email, password)
+        }
+    }
 }
