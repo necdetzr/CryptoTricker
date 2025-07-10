@@ -21,9 +21,7 @@ class AppNavigationActions(private val navController: NavHostController){
         }
     }
     fun logOut(){
-        navController.navigate("auth"){
-            popUpTo(0)
-        }
+        navController.navigate("auth")
     }
     fun navigateToSearch(){
         navController.navigate(TopLevelRoute.SEARCH.route){

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun CryptoApplication(authViewModel: AuthViewModel,contentPaddingValues: PaddingValues,dataStoreManager: DataStoreManager) {
+fun CryptoApplication(contentPaddingValues: PaddingValues,dataStoreManager: DataStoreManager) {
     val darkMode by dataStoreManager.darkMode.collectAsState(initial = false)
 
     LoodosCryptoTheme(darkTheme = darkMode) {
@@ -23,7 +23,7 @@ fun CryptoApplication(authViewModel: AuthViewModel,contentPaddingValues: Padding
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            AppNav(authViewModel,contentPaddingValues,dataStoreManager)
+            AppNav(dataStoreManager)
 
         }
 

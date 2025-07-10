@@ -53,6 +53,8 @@ fun ProfilePage(
     val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
     var openAlertDialog by remember{mutableStateOf(false)}
+    //logout burda
+
 
 
     Scaffold(
@@ -151,9 +153,14 @@ fun ProfilePage(
             if(openAlertDialog){
                 WarningPopUp(
                     onAcceptRequest = {
-                        viewModel.logOut()
+                        viewModel.logOut(
+                            callback = {
+                                onNavigateToLogOut()
+                            }
+                        )
                         openAlertDialog = false
-                        onNavigateToLogOut()},
+
+                                      },
                     onDismissRequest = {openAlertDialog = false},
                     title = "Log Out?",
                     text = "Are you sure to log out from application?",

@@ -31,7 +31,8 @@ import com.necdetzr.loodoscrypto.presentation.ui.components.AuthButton
 
 @Composable
 fun WelcomePage(
-    navController: NavHostController
+    onNavigateToRegister:()-> Unit,
+    onNavigateToLogin:()->Unit,
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -68,12 +69,8 @@ fun WelcomePage(
             AuthButton(
                 text = stringResource(id = R.string.signup),
                 onClick = {
-                    println("Sign up button clicked") // Debug log
 
-                        navController.navigate("register") {
-                            launchSingleTop = true
-                        }
-                        println("Navigation to register attempted") // Debug log
+                        onNavigateToRegister()
 
                 },
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -83,9 +80,7 @@ fun WelcomePage(
             Text(stringResource(id = R.string.or), style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(20.dp))
             AuthButton(
-                onClick = {navController.navigate("login"){
-                    launchSingleTop = true
-                } },
+                onClick = {onNavigateToLogin() },
                 text = stringResource(id = R.string.sign_in),
 
                 containerColor = MaterialTheme.colorScheme.onPrimaryContainer,

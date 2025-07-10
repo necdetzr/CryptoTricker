@@ -13,15 +13,12 @@ fun NavGraphBuilder.homeSection(
     onNavigateToFavorite: () -> Unit,
     onNavigateToMarket: () -> Unit,
     onNavigateToSearch: () -> Unit,
-){
-    composable(TopLevelRoute.HOME.route){
+) {
+    composable(TopLevelRoute.HOME.route) {
         HomePage(
             onNavigateToCoin = onNavigateToCoin,
             onNavigateToFavorite = onNavigateToFavorite,
-
-
             onNavigateToMarket = onNavigateToMarket,
-
             onNavigateToSearch = onNavigateToSearch
         )
 
@@ -29,33 +26,31 @@ fun NavGraphBuilder.homeSection(
 }
 
 fun NavGraphBuilder.searchSection(
-    onNavigateToCoin:(String)->Unit
+    onNavigateToCoin: (String) -> Unit
 
-){
-    composable(TopLevelRoute.SEARCH.route){
+) {
+    composable(TopLevelRoute.SEARCH.route) {
         SearchPage(
             onNavigateToCoin = onNavigateToCoin
-
         )
     }
 
 }
 
 fun NavGraphBuilder.marketSection(
-    onNavigateToCoin:(String)->Unit
-){
+    onNavigateToCoin: (String) -> Unit
+) {
     composable(TopLevelRoute.MARKET.route) {
         MarketPage(
-            onNavigateToCoin =onNavigateToCoin
-
+            onNavigateToCoin = onNavigateToCoin
         )
     }
 }
 
 fun NavGraphBuilder.profileSection(
-    onNavigateToLogOut:()->Unit
-){
-    composable(TopLevelRoute.PROFILE.route){
+    onNavigateToLogOut: () -> Unit
+) {
+    composable(TopLevelRoute.PROFILE.route) {
         ProfilePage(onNavigateToLogOut = onNavigateToLogOut)
     }
 }
