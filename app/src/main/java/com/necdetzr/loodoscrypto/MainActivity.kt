@@ -45,7 +45,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val authViewModel : AuthViewModel = hiltViewModel()
 
             LoodosCryptoTheme {
 
@@ -54,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     containerColor = MaterialTheme.colorScheme.background
                 ) { innerPadding ->
 
-                    CryptoApplication(authViewModel,innerPadding,dataStoreManager)
+                    CryptoApplication(innerPadding,dataStoreManager)
                 }
             }
         }
