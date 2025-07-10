@@ -1,90 +1,113 @@
 package com.necdetzr.loodoscrypto.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.FirebaseAuth
 import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
-import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel
-import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.LoginPage
-import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.RegisterPage
-import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.WelcomePage
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.home.HomePage
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.market.MarketPage
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.profile.ProfilePage
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.search.SearchPage
-import kotlinx.coroutines.flow.first
-import timber.log.Timber
+import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.SplashPage
+import com.necdetzr.loodoscrypto.presentation.ui.components.BottomNavBar
+import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.detail.CoinDetailPage
+import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.favorite.FavoritePage
+
 
 
 @Composable
-fun AppNav(authViewModel: AuthViewModel, contentPadding: PaddingValues,dataStoreManager: DataStoreManager) {
+fun AppNav(dataStoreManager: DataStoreManager) {
     val navController = rememberNavController()
-    val isRemembered by dataStoreManager.rememberMe.collectAsState(initial = false)
-    val currentUser = FirebaseAuth.getInstance().currentUser
+    val appState = rememberAppState(navController)
 
-    LaunchedEffect(Unit) {
-        Timber.d("APPANV REMEMBR $isRemembered")
-
-//Recomposition..
-
-        if(isRemembered && currentUser != null){
-            Timber.d("Remembered = $isRemembered")
-            navController.navigate("main"){
-                popUpTo(0)
-
-            }
-        }else{
-            navController.navigate("auth"){
-                popUpTo(0)
+    Scaffold(
+        bottomBar = {
+            if (appState.shouldShowBar) {
+                BottomNavBar(appState.navController)
             }
         }
-    }
+    ) { innerPadding ->
 
+        NavHost(
+            navController = navController,
+            startDestination = "splash",
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            // AUTH GRAPH
+            navigation(startDestination = "welcome", route = "auth") {
+                welcome(
+                    onNavigateToLogin = { navController.navigate("login") },
+                    onNavigateToRegister = { navController.navigate("register") }
+                )
 
-    NavHost(
-        navController = navController,
-        startDestination = "splash",
-    ) {
-
-        navigation(startDestination = "welcome", route = "auth") {
-            composable("welcome") {
-                WelcomePage(navController)
-            }
-            composable("login") {
-                LoginPage(navController, authViewModel,dataStoreManager)
-            }
-            composable("register") {
-                RegisterPage(navController)
-            }
-        }
-
-
-        composable("main") {
-            MainNav(
-
-                {
-                    navController.navigate("auth"){
-                        popUpTo(0)
+                login(
+                    onNavigateToLogin = { navController.navigate("login") },
+                    onNavigateToMain = {
+                        navController.navigate("main") {
+                            popUpTo("auth") { inclusive = true }
+                        }
                     }
+                )
+
+                register(
+                    onNavigateToLogin = { navController.popBackStack("login", false) },
+                    onNavigateToMain = {
+                        navController.navigate("main") {
+                            popUpTo("auth") { inclusive = true }
+                        }
+                    }
+                )
+            }
+
+            // MAIN GRAPH
+            navigation(startDestination = TopLevelRoute.HOME.route, route = "main") {
+                homeSection(
+                    onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail,
+                    onNavigateToFavorite = appState.navigationDestination::navigateToFavorite,
+                    onNavigateToMarket = appState.navigationDestination::navigateToMarket,
+                    onNavigateToSearch = appState.navigationDestination::navigateToSearch
+                )
+                searchSection(
+                    onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
+                )
+                marketSection(
+                    onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
+                )
+                profileSection(
+                    onNavigateToLogOut = {
+                        navController.navigate("auth") {
+                            popUpTo("main") { inclusive = true }
+                        }
+                    }
+                )
+
+                composable("favorites") {
+                    FavoritePage(navController = navController)
                 }
-            )
-        }
-        composable("splash") {
+                composable("detail/{coinId}") { backStackEntry ->
+                    val coinId = backStackEntry.arguments?.getString("coinId") ?: ""
+                    CoinDetailPage(coinId = coinId, navController = navController)
+                }
+            }
+
+            composable("splash") {
+                SplashPage(
+                    dataStoreManager = dataStoreManager,
+                    onNavigateToMain = {
+                        navController.navigate("main") {
+                            popUpTo("splash") { inclusive = true }
+                        }
+                    },
+                    onNavigateToAuth = {
+                        navController.navigate("auth") {
+                            popUpTo("splash") { inclusive = true }
+                        }
+                    }
+                )
+            }
 
         }
-
     }
 }
-
