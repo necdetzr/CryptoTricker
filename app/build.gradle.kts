@@ -99,7 +99,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     //Firestore
     implementation ("com.google.firebase:firebase-firestore-ktx:24.10.3")
-
+    implementation(project(":feature:settings"))
+    implementation(project(":core:datastore"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
