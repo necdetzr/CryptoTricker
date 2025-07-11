@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.settings.ui.settings
 import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.SplashPage
 import com.necdetzr.loodoscrypto.presentation.ui.components.BottomNavBar
@@ -80,7 +81,25 @@ fun AppNav(dataStoreManager: DataStoreManager) {
                         navController.navigate("auth") {
                             popUpTo("main") { inclusive = true }
                         }
+                    },
+                    onNavigateToSettings = {
+                        navController.navigate("settings")
                     }
+                )
+                settings(
+                    navigateLogin = {
+                        navController.navigate("welcome"){
+                            popUpTo("main"){inclusive = true}
+                        }
+                    },
+                    navigateBack = {
+                        navController.navigate("profile"){
+                            popUpTo("settings"){inclusive = true}
+                        }
+                    }
+
+
+
                 )
 
                 composable("favorites") {
@@ -91,6 +110,7 @@ fun AppNav(dataStoreManager: DataStoreManager) {
                     CoinDetailPage(coinId = coinId, navController = navController)
                 }
             }
+
 
             composable("splash") {
                 SplashPage(
