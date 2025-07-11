@@ -6,12 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowRight
-import androidx.compose.material.icons.rounded.DarkMode
-import androidx.compose.material.icons.rounded.DoorBack
-import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.rounded.ArrowRight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,25 +21,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.firebase.Firebase
-import com.google.firebase.analytics.FirebaseAnalytics
+import com.example.settings.ui.components.SettingsCard
 import com.necdetzr.loodoscrypto.CryptoApp
 import com.necdetzr.loodoscrypto.R
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.ProfileCard
 import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.SettingsCard
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.WarningPopUp
-import com.necdetzr.loodoscrypto.utils.OptionsFunctions.restartAppWithLocale
-import kotlinx.coroutines.launch
 
 @Composable
 fun ProfilePage(
     viewModel: ProfileViewModel = hiltViewModel(),
-    onNavigateToLogOut: () -> Unit
+    onNavigateToLogOut: () -> Unit,
+    onNavigateToSettings:()->Unit,
 ) {
     val context = LocalContext.current
     val activity = context as Activity
@@ -74,7 +64,7 @@ fun ProfilePage(
             Spacer(Modifier.height(20.dp))
             Section(stringResource(R.string.general_settings))
             Spacer(Modifier.height(12.dp))
-            SettingsCard(
+            /*SettingsCard(
                 titleIcon = Icons.Rounded.Language,
                 title = stringResource(R.string.language_settings),
                 onClick = {
@@ -167,7 +157,14 @@ fun ProfilePage(
                     firstButton = "Cancel",
                     secondButton = "Log Out"
                 )
-            }
+            }*/
+            SettingsCard(
+                title = "Go Settings",
+                titleIcon = Icons.Default.Settings,
+                onClick = onNavigateToSettings,
+                buttonIcon = Icons.Rounded.ArrowRight
+            )
+
 
 
             Spacer(Modifier.height(32.dp))
