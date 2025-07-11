@@ -48,9 +48,13 @@ fun NavGraphBuilder.marketSection(
 }
 
 fun NavGraphBuilder.profileSection(
-    onNavigateToLogOut: () -> Unit
+    onNavigateToLogOut: () -> Unit,
+    onNavigateToSettings:()->Unit,
 ) {
     composable(TopLevelRoute.PROFILE.route) {
-        ProfilePage(onNavigateToLogOut = onNavigateToLogOut)
+        ProfilePage(
+            onNavigateToLogOut = onNavigateToLogOut,
+            onNavigateToSettings = onNavigateToSettings
+        )
     }
 }
