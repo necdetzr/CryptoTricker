@@ -39,7 +39,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.camera.core)
-    implementation(libs.androidx.room.compiler.processing.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

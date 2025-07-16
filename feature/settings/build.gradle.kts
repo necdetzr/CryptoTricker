@@ -41,29 +41,19 @@ android {
 }
 
 dependencies {
-    //Coil
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    //Data Store
-    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
     kapt("com.google.dagger:hilt-compiler:2.51.1") // Hilt compiler sürümünü plugin sürümüne göre uyumlu seç
 
-    //Dependencies
-    implementation("androidx.navigation:navigation-compose:2.9.0")
+
     //Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
-    //Firebase Analytics
-    implementation("com.google.firebase:firebase-analytics")
-    //Firebase Auth
-    implementation("com.google.firebase:firebase-auth:22.3.0")
-    // Firebase Crashlytics and Analytics
-    implementation("com.google.firebase:firebase-crashlytics-ndk")
-    implementation("com.google.firebase:firebase-analytics-ktx:22.5.0")
-    //Firebase Remote Config
-    implementation("com.google.firebase:firebase-config")
+
+
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation(project(":analytics"))
+    implementation(project(":core:common"))
     //Timber
     implementation ("com.jakewharton.timber:timber:5.0.1")
 
@@ -73,10 +63,7 @@ dependencies {
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
-    //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    //Gson
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     //Material Icons
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     //Firestore
