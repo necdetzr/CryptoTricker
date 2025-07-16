@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
+import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseAuthManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

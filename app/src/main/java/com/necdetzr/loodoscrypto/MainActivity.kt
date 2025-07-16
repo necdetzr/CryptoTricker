@@ -12,7 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
+import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.loodoscrypto.navigation.AppNav
 import com.necdetzr.loodoscrypto.presentation.theme.LoodosCryptoTheme
 import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel

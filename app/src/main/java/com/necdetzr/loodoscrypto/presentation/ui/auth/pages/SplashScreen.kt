@@ -4,7 +4,7 @@ import android.window.SplashScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
+import com.necdetzr.datastore.model.DataStoreManager
 
 @Composable
 fun SplashPage(
@@ -12,8 +12,8 @@ fun SplashPage(
     onNavigateToMain: () -> Unit,
     onNavigateToAuth: () -> Unit
 ) {
+    // TODO: Add Splash Screen with 2 sec delay. 
     val isRememberedState = dataStoreManager.rememberMe.collectAsState(initial = null)
-
     LaunchedEffect(isRememberedState.value) {
         when (isRememberedState.value) {
             true -> onNavigateToMain()

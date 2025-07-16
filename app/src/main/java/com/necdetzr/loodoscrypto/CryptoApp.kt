@@ -14,7 +14,7 @@ class CryptoApp : Application() {
         private set
     override fun onCreate() {
         super.onCreate()
-        analyticsHelper = AnalyticsManager(applicationContext)
+        analyticsHelper = AnalyticsManager()
         Timber.plant(Timber.DebugTree())
 
     }
