@@ -11,6 +11,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
     onNavigateToLogin:()-> Unit,
     onNavigateToBack:()->Unit,
+
 ){
     val context = LocalContext.current
 
@@ -18,13 +19,15 @@ fun SettingsScreen(
     
     SettingsPage(
         expanded = uiState.expanded,
-        onExpandedChange = {viewModel.expandLanguage(it)},
+        onExpandedChange = {expanded->
+            viewModel.onEvent(SettingsEvent.ExpandLanguage(expanded))
+                           },
         darkModeChecked = uiState.darkModeChecked,
-        onDarkModeToggle = {viewModel.setDarkMode()},
-        onLanguageChange = { lang-> viewModel.changeLang(lang,context) },
-        onLogOutClick ={viewModel.showDialog(true)},
+        onDarkModeToggle = {viewModel.onEvent(SettingsEvent.SetDarkMode)},
+        onLanguageChange = { lang-> viewModel.onEvent(SettingsEvent.ChangeLanguage(lang,context)) },
+        onLogOutClick ={viewModel.onEvent(SettingsEvent.ShowDialog(true))},
         showAlertDialog = uiState.showDialog,
-        onDismissDialog = {viewModel.showDialog(false)},
+        onDismissDialog = {viewModel.onEvent(SettingsEvent.ShowDialog(false))},
         onConfirmLogout = {viewModel.logOut {
             viewModel.showDialog(false)
             onNavigateToLogin()

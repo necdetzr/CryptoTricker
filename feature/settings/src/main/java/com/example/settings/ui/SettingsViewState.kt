@@ -1,9 +1,12 @@
 package com.example.settings.ui
 
+import com.necdetzr.common.base.IViewState
 
 
 data class SettingsViewState(
     val expanded:Boolean = false,
     val showDialog:Boolean = false,
-    val darkModeChecked:Boolean = false
-)
+    val darkModeChecked:Boolean = false,
+    override val loading:Boolean = false,
+    override val showErrorModal: Boolean = false,
+) : IViewState
