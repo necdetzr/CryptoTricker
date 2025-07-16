@@ -6,12 +6,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.navigation.AppNav
 import com.necdetzr.loodoscrypto.presentation.theme.LoodosCryptoTheme
 import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.necdetzr.datastore.model.DataStoreManager
 
 
 @Composable

@@ -5,7 +5,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.gson.Gson
 import com.necdetzr.loodoscrypto.data.api.CoinApi
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseAuthManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseFirestoreManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseRemoteConfigManager
@@ -32,11 +31,7 @@ class NetworkModule {
             .build()
 
     }
-    @Singleton
-    @Provides
-    fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager{
-        return DataStoreManager(context)
-    }
+
     @Singleton
     @Provides
     fun provideCoinApi(retrofit: Retrofit): CoinApi {

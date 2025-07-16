@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.settings.ui.settings
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
+import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.SplashPage
 import com.necdetzr.loodoscrypto.presentation.ui.components.BottomNavBar
 import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.detail.CoinDetailPage

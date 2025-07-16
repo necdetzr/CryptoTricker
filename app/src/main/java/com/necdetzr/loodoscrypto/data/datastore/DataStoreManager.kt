@@ -14,7 +14,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import javax.inject.Inject
 
-
+/*
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class DataStoreManager @Inject constructor(@ApplicationContext private val context: Context){
@@ -25,12 +25,7 @@ class DataStoreManager @Inject constructor(@ApplicationContext private val conte
         .map { it[REMEMBER] ?: false}
     val darkMode:Flow<Boolean> = context.dataStore.data
         .map { it[DARK_MODE] ?: false}
-    suspend fun setLanguage(code:String){
-        context.dataStore.edit{preferences->
-            preferences[LANGUAGE] = code
 
-        }
-    }
     suspend fun setRemember(remember:Boolean){
         Timber.d("Remember setted as $remember")
 
@@ -38,14 +33,10 @@ class DataStoreManager @Inject constructor(@ApplicationContext private val conte
             preferences[REMEMBER] = remember
         }
     }
-    suspend fun setDarkMode(darkMode:Boolean){
-        Timber.d("Dark Mode setted as $darkMode")
-        context.dataStore.edit { preferences->
-            preferences[DARK_MODE] = darkMode
-        }
-    }
+
 
 
 
 }
 
+*/

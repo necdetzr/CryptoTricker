@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.necdetzr.loodoscrypto.R
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.presentation.theme.Blue
 import com.necdetzr.loodoscrypto.presentation.theme.DarkBlue
 import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel

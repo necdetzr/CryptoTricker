@@ -2,7 +2,6 @@ package com.necdetzr.loodoscrypto.presentation.ui.main.pages.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.necdetzr.loodoscrypto.data.datastore.DataStoreManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseAuthManager
 import com.necdetzr.loodoscrypto.data.local.FirebaseRemoteConfigManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val authManager: FirebaseAuthManager,
-    private val dataStore: DataStoreManager,
     private val remoteConfigManager: FirebaseRemoteConfigManager
 ): ViewModel() {
 
@@ -34,11 +32,6 @@ class ProfileViewModel @Inject constructor(
             remoteConfigManager.initializeRemoteConfig()
             fetchConfig()
 }
-        viewModelScope.launch {
-            dataStore.darkMode.collect { dark ->
-                _uiState.update { it.copy(darkMode = dark) }
-            }
-        }
 
     }
     private suspend fun fetchConfig(){
@@ -67,24 +60,5 @@ class ProfileViewModel @Inject constructor(
 
 
     }
-    fun switchDarkMode(){
-        val newDarkModeValue = !_uiState.value.darkMode
-        _uiState.update { it.copy(darkMode = newDarkModeValue) }
-        viewModelScope.launch {
-            dataStore.setDarkMode(newDarkModeValue)
 
-        }
-    }
-    fun logOut(
-        callback:()-> Unit
-    ){
-        authManager.signOut()
-        viewModelScope.launch {
-            dataStore.setRemember(false)
-            Timber.d("LOGOUT VIEWMODEL ${dataStore.rememberMe.first()}")
-            callback.invoke()
-        }
-        //callback ekle
-
-    }
 }
