@@ -1,4 +1,7 @@
 pluginManagement {
+    includeBuild("build-logic")
+
+
     repositories {
         google {
             content {
@@ -29,3 +32,16 @@ include(":feature:settings")
 include(":core:designsystem")
 include(":core:datastore")
 
+include(":feature:profile")
+include(":feature:home")
+include(":feature:search")
+include(":feature:market")
+include(":feature:login")
+include(":feature:register")
+include(":feature:splash")
+include(":feature:favorite")
+include(":feature:detail")
+include(":core:network")
+include(":core:monitor")
+include(":core:resources")
+include(":core:ui")
