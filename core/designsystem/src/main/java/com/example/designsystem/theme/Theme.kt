@@ -61,7 +61,8 @@ private val LightColorScheme = lightColorScheme(
     surfaceVariant = Color(0xFFF0F0F0),     // Daha alt seviye yüzey (örn. input arka planı)
     onSurfaceVariant = Color.DarkGray,      // Surface variant üstü yazı
 
-    outline = Color(0xFF444444),            // Kenarlıklar, divider'lar
+    outline = Color(0xFF444444),
+    outlineVariant = Color(0xFFD70000),// Kenarlıklar, divider'lar
 
     error = Color(0xFFB00020),              // Hatalı durum rengi (form hatası vb.)
     onError = Color.White,                  // Hata renginin üstü yazı rengi

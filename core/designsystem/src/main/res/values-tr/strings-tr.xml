@@ -49,6 +49,9 @@
     <string name="log_out">Çıkış Yap</string>
     <string name="profile_settings">Profil Ayarları</string>
     <string name="dark_mode">Karanlık Tema</string>
-
+    <string name="company">Loodos</string>
+    <string name="year">2025</string>
+    <string name="version">1.5.0</string>
+    <string name="settings">Ayarlar</string>
 
 </resources>
