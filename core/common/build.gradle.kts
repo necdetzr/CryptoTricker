@@ -1,45 +1,23 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.necdet.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.necdet.android.library.compose)
+
+}
+kotlin {
+    jvmToolchain(17)
 }
 
 android {
     namespace = "com.necdetzr.common"
-    compileSdk = 35
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    api(libs.androidx.lifecycle.runtime.compose)
+    api(libs.kotlinx.serialization.json)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.retrofit.converter.moshi)
+    api(libs.compose.ui)
     implementation(libs.androidx.lifecycle.viewmodel.android)
-    implementation(libs.androidx.camera.core)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

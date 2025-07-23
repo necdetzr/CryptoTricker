@@ -3,6 +3,8 @@ pluginManagement {
 
 
     repositories {
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -33,7 +35,6 @@ include(":core:designsystem")
 include(":core:datastore")
 
 include(":feature:profile")
-include(":feature:home")
 include(":feature:search")
 include(":feature:market")
 include(":feature:login")
@@ -45,3 +46,5 @@ include(":core:network")
 include(":core:monitor")
 include(":core:resources")
 include(":core:ui")
+include(":feature:home:component")
+include(":feature:home:ui")
