@@ -1,138 +1,152 @@
 package com.example.settings.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowRight
-import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.material.icons.rounded.DarkMode
-import androidx.compose.material.icons.rounded.DoorBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.DoorBack
 import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.example.designsystem.R
+import com.example.settings.data.SettingsItem
+import com.example.settings.ui.components.FooterSection
 import com.example.settings.ui.components.SettingsCard
+import com.example.settings.ui.components.WarningPopUp
+import com.necdetzr.designsystem.R
 import kotlinx.coroutines.launch
 
-import com.example.settings.ui.components.WarningPopUp
-
-
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsPage(
    expanded: Boolean,
    onExpandedChange: (Boolean) -> Unit,
    darkModeChecked: Boolean,
-   onDarkModeToggle: suspend () -> Unit,
-   onLanguageChange: suspend (String) -> Unit,
+   onDarkModeToggle: () -> Unit,
+   onLanguageChange: (String) -> Unit,
    onLogOutClick: () -> Unit,
    showAlertDialog: Boolean,
    onDismissDialog: () -> Unit,
    onConfirmLogout: () -> Unit,
-   onBackButton:()->Unit,
+   onBackButton: () -> Unit,
 ) {
-   val coroutineScope = rememberCoroutineScope()
-
-   Column(
-      modifier = Modifier.padding(24.dp)
-   ) {
-      Row(
-         horizontalArrangement = Arrangement.Center,
-         verticalAlignment = Alignment.CenterVertically
-      ) {
-         IconButton(
-            onClick = onBackButton
-         ) {
-            Icon(Icons.Default.ArrowBackIos, contentDescription = "back")
-         }
-         Text("Settings", style = MaterialTheme.typography.headlineSmall)
-
-      }
-      Spacer(Modifier.height(24.dp))
-      SettingsCard(
-         titleIcon = Icons.Rounded.Language,
-         title = stringResource(R.string.language_settings),
-         onClick = { onExpandedChange(true) },
-         buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight
+   val settingsList =
+      listOf(
+         SettingsItem(
+            title = stringResource(R.string.language_settings),
+            leadingIcon = Icons.Rounded.Language,
+            trailingIcon = Icons.AutoMirrored.Filled.ArrowForwardIos,
+            onClick = { onExpandedChange(true) }
+         ),
+         SettingsItem(
+            title =stringResource(R.string.dark_mode),
+            leadingIcon = Icons.Outlined.DarkMode,
+            trailingIcon = Icons.AutoMirrored.Filled.ArrowForwardIos,
+            onClick = { onDarkModeToggle()  },
+            onSwitchedChange = { onDarkModeToggle() },
+            switch = true,
+            checked = darkModeChecked
+         ),
+         SettingsItem(
+            title = stringResource(R.string.log_out),
+            leadingIcon = Icons.Outlined.DoorBack,
+            trailingIcon = Icons.AutoMirrored.Filled.ArrowForwardIos,
+            onClick = onLogOutClick
+         )
       )
 
-      DropdownMenu(
-         expanded = expanded,
-         onDismissRequest = { onExpandedChange(false) },
-         offset = DpOffset(x = 260.dp, y = (-160).dp)
+   Column(modifier = Modifier.fillMaxSize()) {
+      Box(
+         modifier = Modifier
+            .fillMaxWidth()
+            .height(64.dp)
+            .background(MaterialTheme.colorScheme.primary)
       ) {
-         DropdownMenuItem(
-            text = { Text("English") },
-            onClick = {
-               onExpandedChange(false)
-               coroutineScope.launch {
+         Box(
+            modifier = Modifier
+               .align(Alignment.CenterStart)
+               .padding(start = 8.dp)
+               .background(
+                  color = MaterialTheme.colorScheme.onPrimary,
+                  shape = CircleShape
+               )
+               .size(40.dp),
+            contentAlignment = Alignment.Center
+         ) {
+            IconButton(onClick = onBackButton) {
+               Icon(
+                  imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                  contentDescription = "Geri",
+                  tint = MaterialTheme.colorScheme.onPrimaryContainer
+               )
+            }
+         }
+
+         Text(
+            text = "Ayarlar",
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.align(Alignment.Center)
+         )
+      }
+
+      Column(
+         modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+      ) {
+
+
+
+         SettingsCard(settings = settingsList)
+
+         DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { onExpandedChange(false) },
+            offset = DpOffset(x = 260.dp, y = (0).dp)
+         ) {
+            DropdownMenuItem(
+               text = { Text("English") },
+               onClick = {
+                  onExpandedChange(false)
                   onLanguageChange("en")
                }
-            }
-         )
-         DropdownMenuItem(
-            text = { Text("Türkçe") },
-            onClick = {
-               onExpandedChange(false)
-               coroutineScope.launch {
+            )
+            DropdownMenuItem(
+               text = { Text("Türkçe") },
+               onClick = {
+                  onExpandedChange(false)
                   onLanguageChange("tr")
                }
-            }
-         )
-      }
+            )
+         }
 
-      Spacer(Modifier.height(12.dp))
+         if (showAlertDialog) {
+            WarningPopUp(
+               onAcceptRequest = onConfirmLogout,
+               onDismissRequest = onDismissDialog,
+               title = "Log Out?",
+               text = "Are you sure to log out from application?",
+               firstButton = "Cancel",
+               secondButton = "Log Out"
+            )
+         }
 
-      SettingsCard(
-         titleIcon = Icons.Rounded.DarkMode,
-         title = stringResource(R.string.dark_mode),
-         onClick = {},
-         buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight,
-         iconColor = MaterialTheme.colorScheme.primary,
-         textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-         switch = true,
-         onCheckedChange = {
-            coroutineScope.launch {
-               onDarkModeToggle()
-            }
-         },
-         checked = darkModeChecked
-      )
+         Spacer(Modifier.weight(1f))
 
-      Spacer(Modifier.height(12.dp))
-
-      SettingsCard(
-         titleIcon = Icons.Rounded.DoorBack,
-         title = stringResource(R.string.log_out),
-         onClick = onLogOutClick,
-         buttonIcon = Icons.AutoMirrored.Rounded.ArrowRight,
-         iconColor = MaterialTheme.colorScheme.error,
-         textColor = MaterialTheme.colorScheme.error
-      )
-
-      if (showAlertDialog) {
-         WarningPopUp(
-            onAcceptRequest = onConfirmLogout,
-            onDismissRequest = onDismissDialog,
-            title = "Log Out?",
-            text = "Are you sure to log out from application?",
-            firstButton = "Cancel",
-            secondButton = "Log Out"
+         FooterSection(
+            year = "2025",
+            company = "Loodos",
+            version = "1.5.0"
          )
       }
    }
