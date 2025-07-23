@@ -1,4 +1,3 @@
-package com.necdetzr.buildlogic
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.JavaVersion
@@ -7,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -21,7 +21,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
                 defaultConfig {
                     applicationId = "com.necdetzr.loodoscrypto"
-                    minSdk = 29
+                    minSdk = 26
                     targetSdk = 35
                     versionCode = 1
                     versionName = "1.0"
@@ -53,6 +53,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 packaging {
                     resources {
                         excludes += "/META-INF/{AL2.0,LGPL2.1}"
+                        excludes += "/META-INF/gradle/incremental.annotation.processors"
+
                     }
                 }
 
@@ -63,8 +65,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
 
             tasks.withType<KotlinCompile>().configureEach {
-                kotlinOptions {
-                    jvmTarget = "17"
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_17)
                 }
             }
         }
