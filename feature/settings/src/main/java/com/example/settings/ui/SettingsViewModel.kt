@@ -1,8 +1,10 @@
-package com.example.settings.ui
+package com.necdetzr.settings.ui
 
 import android.app.Activity
 import androidx.lifecycle.viewModelScope
 import com.example.analytics.AnalyticsHelper
+import com.example.settings.ui.SettingsEvent
+import com.example.settings.ui.SettingsViewState
 import com.example.settings.util.OptionsFunctions.restartAppWithLocale
 import com.necdetzr.common.base.BaseViewModel
 import com.necdetzr.datastore.model.DataStoreManager
@@ -26,17 +28,19 @@ class  SettingsViewModel @Inject constructor(
     }
     fun setDarkMode(){
        // _uiState.update { it.copy(darkModeChecked = !it.darkModeChecked) }
-        setState { copy(darkModeChecked = !darkModeChecked) }
         analyticsHelper.logEvent("dark_mode_changed")
         viewModelScope.launch {
-            dataStoreManager.setDarkMode(uiState.value.darkModeChecked)
+            val newValue = !uiState.value.darkModeChecked
+            setState { copy(darkModeChecked = newValue) }
+            dataStoreManager.setDarkMode(newValue)
 
         }
     }
+
     private fun getDarkMode(){
         viewModelScope.launch {
             dataStoreManager.darkMode.collect { darkMode->
-                setState { copy(darkModeChecked = !darkModeChecked) }
+                setState { copy(darkModeChecked = darkMode) }
             }
         }
     }

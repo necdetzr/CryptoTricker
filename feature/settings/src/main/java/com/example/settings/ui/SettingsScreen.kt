@@ -1,10 +1,12 @@
-package com.example.settings.ui
+package com.necdetzr.settings.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import com.example.settings.ui.SettingsEvent
+import com.example.settings.ui.SettingsPage
 
 @Composable
 fun SettingsScreen(

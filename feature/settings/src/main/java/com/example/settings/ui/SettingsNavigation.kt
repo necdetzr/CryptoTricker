@@ -1,6 +1,5 @@
-package com.example.settings.ui
+package com.necdetzr.settings.ui
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
