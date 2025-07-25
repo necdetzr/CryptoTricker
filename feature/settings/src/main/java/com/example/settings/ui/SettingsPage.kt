@@ -28,11 +28,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsPage(
-   expanded: Boolean,
-   onExpandedChange: (Boolean) -> Unit,
+   onLanguageButton:()->Unit,
    darkModeChecked: Boolean,
    onDarkModeToggle: () -> Unit,
-   onLanguageChange: (String) -> Unit,
    onLogOutClick: () -> Unit,
    showAlertDialog: Boolean,
    onDismissDialog: () -> Unit,
@@ -45,7 +43,8 @@ fun SettingsPage(
             title = stringResource(R.string.language_settings),
             leadingIcon = Icons.Rounded.Language,
             trailingIcon = Icons.AutoMirrored.Filled.ArrowForwardIos,
-            onClick = { onExpandedChange(true) }
+            onClick = { onLanguageButton()
+                       }
          ),
          SettingsItem(
             title =stringResource(R.string.dark_mode),
@@ -92,7 +91,7 @@ fun SettingsPage(
          }
 
          Text(
-            text = "Ayarlar",
+            text = stringResource(R.string.settings),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier.align(Alignment.Center)
@@ -109,26 +108,7 @@ fun SettingsPage(
 
          SettingsCard(settings = settingsList)
 
-         DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { onExpandedChange(false) },
-            offset = DpOffset(x = 260.dp, y = (0).dp)
-         ) {
-            DropdownMenuItem(
-               text = { Text("English") },
-               onClick = {
-                  onExpandedChange(false)
-                  onLanguageChange("en")
-               }
-            )
-            DropdownMenuItem(
-               text = { Text("Türkçe") },
-               onClick = {
-                  onExpandedChange(false)
-                  onLanguageChange("tr")
-               }
-            )
-         }
+
 
          if (showAlertDialog) {
             WarningPopUp(
