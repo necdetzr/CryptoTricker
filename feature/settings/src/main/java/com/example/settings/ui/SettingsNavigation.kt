@@ -6,11 +6,12 @@ import androidx.navigation.compose.composable
 
 
 
-fun NavGraphBuilder.settings(navigateLogin:()->Unit,navigateBack:()->Unit){
+fun NavGraphBuilder.settings(navigateLogin:()->Unit,navigateBack:()->Unit,navigateLanguage:()->Unit){
     composable("settings"){
         SettingsScreen(
             onNavigateToLogin = navigateLogin,
-            onNavigateToBack = navigateBack
+            onNavigateToBack = navigateBack,
+            onNavigateToLanguage = navigateLanguage
         )
     }
 }

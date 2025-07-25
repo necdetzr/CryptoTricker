@@ -45,24 +45,11 @@ class  SettingsViewModel @Inject constructor(
         }
     }
 
-    fun expandLanguage(expanded:Boolean){
-        //_uiState.update { it.copy(expanded = expanded) }
-        setState { copy(expanded = expanded) }
-        analyticsHelper.logEvent("language_expanded")
-    }
     fun showDialog(dialogShowed:Boolean){
        // _uiState.update { it.copy(showDialog = dialogShowed) }
         setState { copy(showDialog = dialogShowed) }
     }
-    fun changeLang(language: String, context: android.content.Context){
-        viewModelScope.launch {
-            dataStoreManager.setLanguage(language)
-            analyticsHelper.logEvent("language_change")
-            val activity = context as? Activity ?: return@launch
-            restartAppWithLocale(activity,language)
 
-        }
-    }
 
     fun logOut(onComplete: () -> Unit) {
         onComplete()
@@ -73,8 +60,6 @@ class  SettingsViewModel @Inject constructor(
         when(event){
             is SettingsEvent.SetDarkMode -> setDarkMode()
             is SettingsEvent.ShowDialog -> showDialog(event.isDialogShowed)
-            is SettingsEvent.ChangeLanguage -> changeLang(event.language,event.context)
-            is SettingsEvent.ExpandLanguage -> expandLanguage(event.isExpanded)
         }
     }
 
