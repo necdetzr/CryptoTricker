@@ -1,4 +1,4 @@
-package com.necdetzr.loodoscrypto.presentation.ui.main.pages.home
+package com.necdetzr.home.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,62 +11,40 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.LaunchedEffect
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.necdetzr.loodoscrypto.R
-import com.necdetzr.loodoscrypto.presentation.theme.Gray
-import com.necdetzr.loodoscrypto.presentation.ui.components.CustomTextField
-import com.necdetzr.loodoscrypto.presentation.ui.components.CoinSlider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHost
-import androidx.navigation.NavHostController
-import com.necdetzr.loodoscrypto.presentation.theme.Blue
-import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.CoinCard
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.ui.component.CustomTextField
+import com.example.ui.component.LinearProgressBar
+import com.example.ui.component.Section
+import com.necdetzr.home.component.domain.data.Coin
+import com.necdetzr.home.ui.components.CoinCard
+
 
 @Composable
 fun HomePage(
-    viewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToSearch: () -> Unit,
-    onNavigateToFavorite: () -> Unit,
-    onNavigateToMarket: () -> Unit,
-    onNavigateToCoin: (String) -> Unit,
-) {
-    val state by viewModel.uiState.collectAsState()
-
-    val coins = listOf(
-        R.drawable.solana,
-        R.drawable.bitcoin_svg,
-        R.drawable.usdtlogo,
-        R.drawable.dogecoin_logo,
-        R.drawable.ethereum_logo_2014_svg,
-        R.drawable.shiba_coin_logo
-    )
+    onNavigateToSearch:()->Unit,
+    onNavigateToMarket:()->Unit,
+    onNavigateToFavorite:()->Unit,
+    onNavigateToCoin:(String)->Unit,
+    isLoading:Boolean,
+    isError:Boolean,
+    coins:List<Coin>
+){
     Scaffold() { padding->
         Column(
             modifier = Modifier
@@ -85,23 +63,21 @@ fun HomePage(
 
                 ) {
                     Text(
-                        stringResource(R.string.hi_there),
+                        stringResource(com.necdetzr.designsystem.R.string.hi_there),
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Text(
-                        stringResource(R.string.which_crypto),
+                        stringResource(com.necdetzr.designsystem.R.string.which_crypto),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.width(260.dp)
                     )
                 }
-                CoinSlider(coins)
-
 
             }
             Spacer(modifier = Modifier.height(32.dp))
-            Section(firstTitle = stringResource(R.string.search_crypto_title))
+            Section(firstTitle = stringResource(com.necdetzr.designsystem.R.string.search_crypto_title))
             Spacer(modifier = Modifier.height(16.dp))
             CustomTextField(
                 modifier = Modifier.clickable(
@@ -112,12 +88,12 @@ fun HomePage(
                 icon = Icons.Default.Search,
                 enabled = false,
                 value = "",
-                placeholder = stringResource(R.string.search_crypto_placeholder),
+                placeholder = stringResource(com.necdetzr.designsystem.R.string.search_crypto_placeholder),
                 onValueChange = {},
 
                 )
             Spacer(Modifier.height(32.dp))
-            Section(firstTitle = stringResource(R.string.favorite_list))
+            Section(firstTitle = stringResource(com.necdetzr.designsystem.R.string.favorite_list))
             Spacer(Modifier.height(20.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -139,7 +115,7 @@ fun HomePage(
 
                 ) {
                     Text(
-                        stringResource(R.string.star_emoji),
+                        stringResource(com.necdetzr.designsystem.R.string.star_emoji),
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 20.dp)
                     )
 
@@ -149,12 +125,12 @@ fun HomePage(
                     modifier = Modifier.padding(4.dp)
                 ) {
                     Text(
-                        stringResource(R.string.my_fav_list),
+                        stringResource(com.necdetzr.designsystem.R.string.my_fav_list),
                         style = MaterialTheme.typography.headlineSmall
                     )
                     Spacer(Modifier.height(6.dp))
                     Text(
-                        stringResource(R.string.fav_list_subtext),
+                        stringResource(com.necdetzr.designsystem.R.string.fav_list_subtext),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -163,34 +139,32 @@ fun HomePage(
             }
             Spacer(Modifier.height(32.dp))
             Section(
-                firstTitle = stringResource(R.string.popular_cryptos),
-                lastTitle = stringResource(R.string.last_24h)
+                firstTitle = stringResource(com.necdetzr.designsystem.R.string.popular_cryptos),
+                lastTitle = stringResource(com.necdetzr.designsystem.R.string.last_24h)
             )
             Box(modifier = Modifier
                 .height(280.dp)
                 .fillMaxWidth()) {
-                if (state.isLoading) {
+                if (isLoading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                     ) {
                         LinearProgressBar()
                     }
-                } else if (state.isError) {
+                } else if (isError) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        ErrorCard(
-
-                        )
+                        //TODO: ADD ERROR CARD
                     }
                 } else {
                     LazyColumn(
                         modifier = Modifier.padding(vertical = 12.dp)
                     ) {
-                        items(items = state.coins) { coin ->
+                        items(items = coins) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin, onNavigateToCoin)
 
@@ -204,7 +178,7 @@ fun HomePage(
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    stringResource(R.string.see_all),
+                    stringResource(com.necdetzr.designsystem.R.string.see_all),
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp,
