@@ -8,5 +8,13 @@ data class LoginViewState(
     val email:String = "",
     val password:String = "",
     val loginState: Result<Unit>? = null,
-    val isRemember:Boolean = false
+    val isRemember:Boolean = false,
+    val loginStatus: LoginStatus = LoginStatus.Idle
 ): IViewState
+
+sealed class LoginStatus {
+    object Idle : LoginStatus()
+    object Loading : LoginStatus()
+    object Success : LoginStatus()
+    data class Error(val message: String) : LoginStatus()
+}

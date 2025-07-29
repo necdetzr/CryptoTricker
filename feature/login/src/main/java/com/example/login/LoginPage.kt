@@ -27,8 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.login.components.AuthPasswordTextField
 import com.example.ui.component.AuthButton
+import com.example.ui.component.AuthPasswordTextField
 import com.example.ui.component.CustomTextField
 import com.example.ui.component.LinearProgressBar
 import com.example.ui.component.RememberMe
@@ -40,12 +40,15 @@ fun LoginPage(
     onNavigateToRegister:()->Unit,
     onLoginClick:()->Unit,
     checked:Boolean,
-    onCheckedChange:(Boolean)->Unit
+    onCheckedChange:(Boolean)->Unit,
+    onEmailChange:(String)->Unit,
+    onPasswordChange:(String)->Unit,
+    email:String,
+    password:String,
+
 
 ){
-    var email by remember { mutableStateOf("") }
 
-    var password by remember { mutableStateOf("") }
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -77,13 +80,13 @@ fun LoginPage(
                 icon = Icons.Outlined.Email,
                 value = email,
                 placeholder = stringResource(R.string.email),
-                onValueChange = { email = it }
+                onValueChange =onEmailChange
             )
             Spacer(modifier = Modifier.height(20.dp))
             AuthPasswordTextField(
                 password,
                 stringResource(R.string.password),
-                onValueChange = { password = it }
+                onValueChange = onPasswordChange
             )
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -112,8 +115,8 @@ fun LoginPage(
                 AuthButton(
                     text = stringResource(R.string.sign_in),
                     onClick =onLoginClick,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             }
 
