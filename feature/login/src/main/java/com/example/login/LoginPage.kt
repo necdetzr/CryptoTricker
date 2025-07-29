@@ -1,6 +1,5 @@
-package com.necdetzr.loodoscrypto.presentation.ui.auth.pages
+package com.example.login
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
@@ -20,71 +18,38 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.necdetzr.loodoscrypto.R
-import com.necdetzr.loodoscrypto.presentation.theme.Blue
-import com.necdetzr.loodoscrypto.presentation.theme.DarkBlue
-import com.necdetzr.loodoscrypto.presentation.ui.auth.AuthViewModel
-import com.necdetzr.loodoscrypto.presentation.ui.components.AuthButton
-import com.necdetzr.loodoscrypto.presentation.ui.components.AuthPasswordTextField
-import com.necdetzr.loodoscrypto.presentation.ui.components.CustomTextField
-import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
-import com.necdetzr.loodoscrypto.presentation.ui.components.RememberMeCheckBox
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.RememberMe
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import timber.log.Timber
-
+import com.example.login.components.AuthPasswordTextField
+import com.example.ui.component.AuthButton
+import com.example.ui.component.CustomTextField
+import com.example.ui.component.LinearProgressBar
+import com.example.ui.component.RememberMe
+import com.necdetzr.designsystem.R
 
 @Composable
 fun LoginPage(
-    viewModel: AuthViewModel = hiltViewModel(),
-    onNavigateToMain: () -> Unit,
-    onNavigateToLogin: () -> Unit
-) {
+    isLoading:Boolean,
+    onNavigateToRegister:()->Unit,
+    onLoginClick:()->Unit,
+    checked:Boolean,
+    onCheckedChange:(Boolean)->Unit
+
+){
     var email by remember { mutableStateOf("") }
+
     var password by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
 
-    val rememberMe by viewModel.rememberMe.collectAsState(initial = false)
-    var checked by remember { mutableStateOf(rememberMe) }
-
-    var wasLoginAttempted by remember { mutableStateOf(false) }
-    val loginState by viewModel.loginState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
 
-    LaunchedEffect(loginState, wasLoginAttempted) {
-        loginState?.let { result ->
-            isLoading = false
-            result.onSuccess {
-                wasLoginAttempted = false
-                viewModel.setRememberMe(checked)
-                onNavigateToMain()
-            }
-            result.onFailure {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Invalid Email or Password")
-                }
-            }
-        }
-    }
+
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -96,14 +61,7 @@ fun LoginPage(
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // [Logo + Headings]
-            Image(
-                painter = painterResource(R.drawable.logo2_removebg_preview),
-                contentScale = ContentScale.Fit,
-                contentDescription = "Logo",
-                modifier = Modifier.size(140.dp)
-            )
-            Spacer(modifier = Modifier.height(10.dp))
+
             Text(
                 stringResource(R.string.sign_in_your_account_h1),
                 style = MaterialTheme.typography.headlineLarge
@@ -115,7 +73,6 @@ fun LoginPage(
             )
             Spacer(modifier = Modifier.height(20.dp))
 
-            // [Email & Password Fields]
             CustomTextField(
                 icon = Icons.Outlined.Email,
                 value = email,
@@ -130,7 +87,6 @@ fun LoginPage(
             )
             Spacer(modifier = Modifier.height(20.dp))
 
-            // [Remember Me & Forgot Password]
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -138,7 +94,7 @@ fun LoginPage(
             ) {
                 RememberMe(
                     checked = checked,
-                    onCheckedChange = { checked = it }
+                    onCheckedChange = onCheckedChange
                 )
                 Text(
                     text = stringResource(R.string.forgot_password),
@@ -149,18 +105,13 @@ fun LoginPage(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // [Sign In Button or Loading]
             if (isLoading) {
                 Spacer(Modifier.height(32.dp))
                 LinearProgressBar()
             } else {
                 AuthButton(
                     text = stringResource(R.string.sign_in),
-                    onClick = {
-                        isLoading = true
-                        wasLoginAttempted = true
-                        viewModel.login(email, password)
-                    },
+                    onClick =onLoginClick,
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -168,7 +119,6 @@ fun LoginPage(
 
             Spacer(Modifier.weight(1f))
 
-            // [Sign Up Link]
             Row {
                 Text(
                     stringResource(R.string.dont_have),
@@ -178,7 +128,7 @@ fun LoginPage(
                 Text(
                     stringResource(R.string.signup),
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                    modifier = Modifier.clickable { onNavigateToLogin() }
+                    modifier = Modifier.clickable { onNavigateToRegister() }
                 )
             }
 
