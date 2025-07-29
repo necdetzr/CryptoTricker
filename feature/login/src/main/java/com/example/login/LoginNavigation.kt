@@ -5,11 +5,13 @@ import androidx.navigation.compose.composable
 
 
 fun NavGraphBuilder.login(
-    onNavigateToRegister:()->Unit
+    onNavigateToRegister:()->Unit,
+    onNavigateToMain: () -> Unit
 ){
 composable("login") {
     LoginScreen(
-        onNavigateToRegister = onNavigateToRegister
+        onNavigateToRegister = onNavigateToRegister,
+        onNavigateToMain = onNavigateToMain
     )
 }
 }
