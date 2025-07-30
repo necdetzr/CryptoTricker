@@ -1,4 +1,4 @@
-package com.necdetzr.loodoscrypto.presentation.ui.main.pages.market
+package com.example.market
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,26 +16,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.Section
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import com.necdetzr.loodoscrypto.R
-import com.necdetzr.loodoscrypto.presentation.ui.components.LinearProgressBar
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.CoinCard
-import com.necdetzr.loodoscrypto.presentation.ui.main.components.ErrorCard
+import androidx.compose.ui.unit.dp
+import com.example.market.components.CoinCard
+import com.example.ui.component.ErrorCard
+import com.example.ui.component.LinearProgressBar
+import com.example.ui.component.Section
+import com.necdetzr.designsystem.R
+import com.necdetzr.home.component.domain.data.Coin
 
 @Composable
 fun MarketPage(
-    viewModel: MarketViewModel = hiltViewModel(),
     onNavigateToCoin:(String)->Unit,
-
+    isLoading:Boolean,
+    isError:Boolean,
+    topCoins: List<Coin>,
+    topLosers:List<Coin>,
+    topGainers:List<Coin>
 ){
-
-    val uiState by viewModel.uiState.collectAsState()
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
     ) { padding->
@@ -47,7 +46,7 @@ fun MarketPage(
             Section(stringResource(R.string.top_gainers), stringResource(R.string.last_24h))
             Spacer(Modifier.padding(4.dp))
             Box(modifier = Modifier.fillMaxWidth().height(260.dp)) {
-                if (uiState.isTopGainersLoading) {
+                if (isLoading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -55,7 +54,7 @@ fun MarketPage(
                         LinearProgressBar()
                     }
 
-                } else if (uiState.isError) {
+                } else if (isError) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -64,7 +63,7 @@ fun MarketPage(
                     }
                 } else {
                     LazyColumn {
-                        items(items = uiState.topCoins) { coin ->
+                        items(items = topGainers) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin,onNavigateToCoin)
 
@@ -79,7 +78,7 @@ fun MarketPage(
             Spacer(Modifier.padding(4.dp))
 
             Box(modifier = Modifier.fillMaxWidth().height(260.dp)) {
-                if (uiState.isTopLosersLoading) {
+                if (isLoading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -87,7 +86,7 @@ fun MarketPage(
                         LinearProgressBar()
                     }
 
-                } else if (uiState.isError) {
+                } else if (isError) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -96,7 +95,7 @@ fun MarketPage(
                     }
                 } else {
                     LazyColumn {
-                        items(items = uiState.topLosers) { coin ->
+                        items(items = topLosers) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin,onNavigateToCoin)
 
@@ -111,7 +110,7 @@ fun MarketPage(
             Spacer(Modifier.height(10.dp))
             Section(stringResource(R.string.top_market_values),stringResource(R.string.last_24h))
             Box(modifier = Modifier.fillMaxWidth().height(260.dp)) {
-                if (uiState.isTopCoinsLoading) {
+                if (isLoading) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -119,7 +118,7 @@ fun MarketPage(
                         LinearProgressBar()
                     }
 
-                } else if (uiState.isError) {
+                } else if (isError) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
@@ -128,7 +127,7 @@ fun MarketPage(
                     }
                 } else {
                     LazyColumn {
-                        items(items = uiState.topCoins) { coin ->
+                        items(items = topCoins) { coin ->
                             Spacer(Modifier.height(20.dp))
                             CoinCard(coin,onNavigateToCoin)
 
@@ -145,4 +144,4 @@ fun MarketPage(
         }
     }
 
-    }
+}
