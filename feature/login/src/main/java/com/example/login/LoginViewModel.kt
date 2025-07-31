@@ -31,18 +31,22 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    fun signIn(email:String,password:String){
+    fun signIn(email: String, password: String) {
         viewModelScope.launch {
             showLoading(true)
 
-            val loginState = authManager.login(email,password)
-            setState { if(loginState.isSuccess){
-                copy(loginStatus = LoginStatus.Success)
-            }else{
-                copy(loginStatus = LoginStatus.Error("Login Failed"))
+            val result = authManager.login(email, password)
+
+            setState {
+                copy(
+                    loading = false,
+                    loginStatus = if (result.isSuccess) {
+                        LoginStatus.Success
+                    } else {
+                        LoginStatus.Error("Login Failed")
+                    }
+                )
             }
-            }
-            showLoading(false)
         }
     }
     fun onEmailChange(email:String){

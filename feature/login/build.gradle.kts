@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.necdet.android.library.compose)
     alias(libs.plugins.necdet.android.hilt)
     alias(libs.plugins.necdet.android.firebase)
+    alias(libs.plugins.necdet.android.test)
 
 }
 
