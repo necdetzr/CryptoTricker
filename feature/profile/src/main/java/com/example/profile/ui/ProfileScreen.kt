@@ -15,7 +15,8 @@ fun ProfileScreen(
     ProfilePage(
         name = uiState.name ?: "Guest User",
         surname = uiState.surname ?: "Guest User",
-        email = uiState.email ?: "Guest User"
+        email = uiState.email ?: "Guest User",
+        onSettingsButton = onNavigateToSettings
     )
 
 }

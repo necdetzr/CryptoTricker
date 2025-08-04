@@ -12,13 +12,9 @@ class ProfileViewModel @Inject constructor(
 
 
 ) : BaseViewModel<ProfileViewState>(){
-    override fun createInitialState(): ProfileViewState {
-        TODO("Not yet implemented")
-    }
+    override fun createInitialState(): ProfileViewState = ProfileViewState()
 
-    override fun showLoading(isLoading: Boolean) {
-        TODO("Not yet implemented")
-    }
+    override fun showLoading(isLoading: Boolean) = setState { copy(loading = isLoading) }
     init {
         loadProfile()
     }
