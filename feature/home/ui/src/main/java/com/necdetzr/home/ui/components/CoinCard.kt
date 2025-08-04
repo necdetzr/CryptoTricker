@@ -41,7 +41,7 @@ fun CoinCard(
                 }
             ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.background //Material Theme doesn't work for White Background Color??
+            containerColor = MaterialTheme.colorScheme.surface
         )
     ) {
         Row(
