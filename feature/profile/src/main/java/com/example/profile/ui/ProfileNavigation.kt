@@ -6,6 +6,8 @@ import androidx.navigation.compose.composable
 
 fun NavGraphBuilder.profile(onNavigateToSettings:()->Unit){
     composable("profile"){
-        ProfileScreen()
+        ProfileScreen(
+            onNavigateToSettings = onNavigateToSettings
+        )
     }
 }
