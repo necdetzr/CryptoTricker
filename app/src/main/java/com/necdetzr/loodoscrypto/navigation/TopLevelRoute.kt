@@ -12,17 +12,6 @@ import androidx.compose.material.icons.rounded.TrendingUp
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.necdetzr.loodoscrypto.R
 
-//Routes for Bottom Navigation Bar
-/*sealed class TopLevelRoute(
-    val route:String,
-    val icon: ImageVector,
-    val label:Int
-) {
-    object Home : TopLevelRoute("home",Icons.Rounded.Home, R.string.home)
-    object Search : TopLevelRoute("search",Icons.Outlined.Search,R.string.search)
-    object Market : TopLevelRoute("market", Icons.Rounded.TrendingUp,R.string.market)
-    object Profile : TopLevelRoute("profile",Icons.Outlined.Person,R.string.profile)
-}*/
 
 enum class TopLevelRoute(
     val route:String,
@@ -32,7 +21,7 @@ enum class TopLevelRoute(
     HOME(
         route = "home",
         icon = Icons.Rounded.Home,
-        label = R.string.name
+        label = R.string.home
     ),
     SEARCH(
         route = "search",
