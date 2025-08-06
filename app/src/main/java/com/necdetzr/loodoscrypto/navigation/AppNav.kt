@@ -1,42 +1,38 @@
 package com.necdetzr.loodoscrypto.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.example.settings.ui.settings
+import com.example.detail.detail
+import com.example.favorite.ui.favorite
+import com.example.login.login
+import com.example.market.market
+import com.example.profile.ui.profile
+import com.example.register.register
+import com.example.search.search
+import com.necdetzr.settings.ui.settings
 import com.necdetzr.datastore.model.DataStoreManager
+import com.necdetzr.home.ui.home
+import com.necdetzr.language.language
 import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.SplashPage
-import com.necdetzr.loodoscrypto.presentation.ui.components.BottomNavBar
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.detail.CoinDetailPage
-import com.necdetzr.loodoscrypto.presentation.ui.main.pages.subpages.favorite.FavoritePage
-
+import com.necdetzr.welcome.welcome
 
 
 @Composable
-fun AppNav(dataStoreManager: DataStoreManager) {
-    val navController = rememberNavController()
-    val appState = rememberAppState(navController)
-
-    Scaffold(
-        bottomBar = {
-            if (appState.shouldShowBar) {
-                BottomNavBar(appState.navController)
-            }
-        }
-    ) { innerPadding ->
-
+fun AppNav(dataStoreManager: DataStoreManager,appState: AppState,navController: NavHostController) {
         NavHost(
             navController = navController,
             startDestination = "splash",
-            modifier = Modifier.padding(innerPadding)
         ) {
-            // AUTH GRAPH
             navigation(startDestination = "welcome", route = "auth") {
                 welcome(
                     onNavigateToLogin = { navController.navigate("login") },
@@ -44,19 +40,22 @@ fun AppNav(dataStoreManager: DataStoreManager) {
                 )
 
                 login(
-                    onNavigateToLogin = { navController.navigate("login") },
+                    onNavigateToRegister = {
+                        navController.navigate("register"){
+                            popUpTo("login"){inclusive = true}
+                        }
+                    },
                     onNavigateToMain = {
-                        navController.navigate("main") {
-                            popUpTo("auth") { inclusive = true }
+                        navController.navigate("main"){
+                            popUpTo(0){inclusive = true}
                         }
                     }
                 )
 
                 register(
-                    onNavigateToLogin = { navController.popBackStack("login", false) },
-                    onNavigateToMain = {
-                        navController.navigate("main") {
-                            popUpTo("auth") { inclusive = true }
+                    onNavigateToLogin = {
+                        navController.navigate("login"){
+                            popUpTo("register"){inclusive = true}
                         }
                     }
                 )
@@ -64,24 +63,20 @@ fun AppNav(dataStoreManager: DataStoreManager) {
 
             // MAIN GRAPH
             navigation(startDestination = TopLevelRoute.HOME.route, route = "main") {
-                homeSection(
+                home(
                     onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail,
                     onNavigateToFavorite = appState.navigationDestination::navigateToFavorite,
                     onNavigateToMarket = appState.navigationDestination::navigateToMarket,
                     onNavigateToSearch = appState.navigationDestination::navigateToSearch
                 )
-                searchSection(
+                search(
                     onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
                 )
-                marketSection(
+                market(
                     onNavigateToCoin = appState.navigationDestination::navigateToCoinDetail
                 )
-                profileSection(
-                    onNavigateToLogOut = {
-                        navController.navigate("auth") {
-                            popUpTo("main") { inclusive = true }
-                        }
-                    },
+                profile(
+
                     onNavigateToSettings = {
                         navController.navigate("settings")
                     }
@@ -96,19 +91,42 @@ fun AppNav(dataStoreManager: DataStoreManager) {
                         navController.navigate("profile"){
                             popUpTo("settings"){inclusive = true}
                         }
+                    },
+                    navigateLanguage = {
+                        navController.navigate("language"){
+
+                        }
                     }
 
 
 
+
+                )
+                language(
+                    navigateBack = {
+                        navController.navigate("settings"){
+                            popUpTo("language"){inclusive = true}
+                        }
+                    }
+                )
+                detail(
+
+
+                    onNavigateToBack = {
+                        navController.navigate("home")
+                    },
+
                 )
 
-                composable("favorites") {
-                    FavoritePage(navController = navController)
-                }
-                composable("detail/{coinId}") { backStackEntry ->
-                    val coinId = backStackEntry.arguments?.getString("coinId") ?: ""
-                    CoinDetailPage(coinId = coinId, navController = navController)
-                }
+                favorite(
+                    onBackButton = {
+                        navController.navigate("home")
+                    }
+
+                )
+
+
+
             }
 
 
@@ -130,4 +148,4 @@ fun AppNav(dataStoreManager: DataStoreManager) {
 
         }
     }
-}
+

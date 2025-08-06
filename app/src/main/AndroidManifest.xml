@@ -26,5 +26,9 @@
             </intent-filter>
         </activity>
     </application>
+<!--    <instrumentation-->
+<!--        android:name="com.necdetzr.testing.CryptoTestRunner"-->
+<!--        android:label="Crypto Test Runner"-->
+<!--        android:targetPackage="com.necdetzr.loodoscrypto" />-->
 
 </manifest>
