@@ -18,6 +18,7 @@ fun SearchScreen(
         isLoading = uiState.loading,
         isError = uiState.showErrorModal,
         onNavigateToCoin = onNavigateToCoin,
-        coins = uiState.coins
+        coins = uiState.coins,
+        filteredCoins = uiState.filteredCoins
     )
 }
