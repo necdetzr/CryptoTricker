@@ -1,17 +1,9 @@
 package com.necdetzr.loodoscrypto.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import androidx.navigation.compose.rememberNavController
 import com.example.detail.detail
 import com.example.favorite.ui.favorite
 import com.example.login.login
@@ -19,11 +11,11 @@ import com.example.market.market
 import com.example.profile.ui.profile
 import com.example.register.register
 import com.example.search.search
-import com.necdetzr.settings.ui.settings
+import com.example.splash.splash
 import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.home.ui.home
 import com.necdetzr.language.language
-import com.necdetzr.loodoscrypto.presentation.ui.auth.pages.SplashPage
+import com.necdetzr.settings.ui.settings
 import com.necdetzr.welcome.welcome
 
 
@@ -125,26 +117,21 @@ fun AppNav(dataStoreManager: DataStoreManager,appState: AppState,navController: 
 
                 )
 
-
-
             }
-
-
-            composable("splash") {
-                SplashPage(
-                    dataStoreManager = dataStoreManager,
-                    onNavigateToMain = {
-                        navController.navigate("main") {
-                            popUpTo("splash") { inclusive = true }
-                        }
-                    },
-                    onNavigateToAuth = {
-                        navController.navigate("auth") {
-                            popUpTo("splash") { inclusive = true }
-                        }
+            splash(
+                dataStoreManager = dataStoreManager,
+                onNavigateToMain = {
+                    navController.navigate("main") {
+                        popUpTo("splash") { inclusive = true }
                     }
-                )
-            }
+                },
+                onNavigateToAuth = {
+                    navController.navigate("auth") {
+                        popUpTo("splash") { inclusive = true }
+                    }
+                }
+
+            )
 
         }
     }
