@@ -7,6 +7,9 @@ data class SearchViewState(
     override val loading: Boolean = false,
     override val showErrorModal: Boolean = false,
     val coins: List<Coin>  = emptyList(),
-    val searchQuery:String = ""
+    val searchQuery:String = "",
+    val filteredCoins: List<Coin> = emptyList()
+
+
 
 ): IViewState

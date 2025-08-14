@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.search.components.CoinCard
+import com.example.ui.component.CryptoAppBar
 import com.example.ui.component.CustomTextField
 import com.example.ui.component.ErrorCard
 import com.example.ui.component.LinearProgressBar
@@ -36,16 +37,24 @@ fun SearchPage(
     isLoading:Boolean,
     isError:Boolean,
     onNavigateToCoin:(String)->Unit,
-    coins:List<Coin>
+    coins:List<Coin>,
+    filteredCoins:List<Coin>
 ){
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            CryptoAppBar(
+                isLeadingButton = false,
+                title = stringResource(R.string.all_cryptocurrencies)
+            )
+
+        }
     ) { padding->
+
         Column(
             modifier = Modifier.fillMaxSize().padding(12.dp),
         ) {
-            Text(stringResource(R.string.all_cryptocurrencies),style = MaterialTheme.typography.headlineSmall)
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(72.dp))
 
             CustomTextField(
                 icon = Icons.Default.Search,
@@ -68,13 +77,24 @@ fun SearchPage(
                     }
 
                 }else {
+                    if (filteredCoins.isEmpty()) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Text("There is no coin such as $searchQuery")
+                        }
+                    }
                     LazyColumn(
                         modifier = Modifier.padding(vertical = 12.dp)
 
                     ) {
-                        items(coins,key = {it.id}) { coin ->
-                            Spacer(Modifier.height(20.dp))
-                            CoinCard(coin, onNavigateToCoin )
+                        items(filteredCoins,key = {it.id}) { coin ->
+
+                                Spacer(Modifier.height(20.dp))
+                                CoinCard(coin, onNavigateToCoin)
+
                         }
 
                     }
