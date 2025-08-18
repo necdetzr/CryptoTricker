@@ -125,8 +125,8 @@ fun SettingsPage(
 
          FooterSection(
             year = "2025",
-            company = "Loodos",
-            version = "1.5.0"
+            company = "Necdetzr",
+            version = "0.0.1 alpha"
          )
       }
    }
