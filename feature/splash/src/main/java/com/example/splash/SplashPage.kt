@@ -4,6 +4,7 @@ import android.window.SplashScreen
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -20,6 +22,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,9 +34,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,15 +56,12 @@ fun SplashPage(
 ) {
     val isRememberedState = dataStoreManager.rememberMe.collectAsState(initial = null)
 
-    // Animasyon durumları
     var logoScale by remember { mutableFloatStateOf(0f) }
     var logoAlpha by remember { mutableFloatStateOf(0f) }
     var textAlpha by remember { mutableFloatStateOf(0f) }
     var progressAlpha by remember { mutableFloatStateOf(0f) }
 
-    // Animasyonları başlat
     LaunchedEffect(Unit) {
-        // Logo animasyonu
         launch {
             animate(
                 initialValue = 0f,
@@ -71,7 +73,6 @@ fun SplashPage(
             }
         }
 
-        // Text animasyonu (logo animasyonundan sonra)
         launch {
             delay(400)
             animate(
@@ -83,7 +84,6 @@ fun SplashPage(
             }
         }
 
-        // Progress bar animasyonu
         launch {
             delay(800)
             animate(
@@ -96,9 +96,8 @@ fun SplashPage(
         }
     }
 
-    // Navigasyon kontrolü
     LaunchedEffect(isRememberedState.value) {
-        delay(2500) // Biraz daha uzun splash süresi
+        delay(2500)
         when (isRememberedState.value) {
             true -> onNavigateToMain()
             false -> onNavigateToAuth()
@@ -123,7 +122,6 @@ fun SplashPage(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Ana Logo/Icon
             Card(
                 modifier = Modifier
                     .size(120.dp)
@@ -139,11 +137,10 @@ fun SplashPage(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Star, // Buraya kendi logonuzu koyabilirsiniz
-                        contentDescription = "Logo",
-                        modifier = Modifier.size(64.dp),
-                        tint = Color(0xFF667eea)
+                    Image(
+                       painter = painterResource(com.necdetzr.splash.R.drawable.logo),
+                        contentDescription = "",
+                        modifier = Modifier.clip(CircleShape)
                     )
                 }
             }
@@ -152,32 +149,29 @@ fun SplashPage(
 
             Text(
                 text = "CryptoTricker",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.background,
                 modifier = Modifier.alpha(textAlpha)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Alt başlık
             Text(
                 text = stringResource(R.string.welcome_loodos_h1),
-                fontSize = 16.sp,
-                color = Color.White.copy(alpha = 0.8f),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.background.copy(alpha = 0.8f),
                 modifier = Modifier.alpha(textAlpha)
             )
 
             Spacer(modifier = Modifier.height(64.dp))
 
-            // Loading indicator
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.alpha(progressAlpha)
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(32.dp),
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.background,
                     strokeWidth = 3.dp
                 )
 
@@ -185,13 +179,12 @@ fun SplashPage(
 
                 Text(
                     text = "Yükleniyor...",
-                    fontSize = 14.sp,
+                    style = MaterialTheme.typography.titleMedium,
                     color = Color.White.copy(alpha = 0.7f)
                 )
             }
         }
 
-        // Alt köşede versiyon bilgisi (opsiyonel)
         Box(
             modifier = Modifier
                 .fillMaxSize()

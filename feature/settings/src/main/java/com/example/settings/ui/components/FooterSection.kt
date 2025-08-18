@@ -29,11 +29,11 @@ fun FooterSection(
             style = MaterialTheme.typography.bodySmall
         )
         Spacer(Modifier.height(16.dp))
-        Text("Copyright ©$year",
+        Text("Copyright © $year",
             color = MaterialTheme.colorScheme.outline,
             style = MaterialTheme.typography.bodyMedium
         )
-        Text("This is a $company Teknoloji Gelişim ve Yatırım A.Ş.",
+        Text("This is a $company Teknoloji",
             color = MaterialTheme.colorScheme.outline,
             style = MaterialTheme.typography.bodyMedium
 

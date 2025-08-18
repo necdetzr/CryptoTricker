@@ -42,7 +42,7 @@ val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = Color(0xFF9CA3AF),
 
     outline = Color(0xFF6B7280),
-    outlineVariant = Color(0xFF94A3B8),
+    outlineVariant = Color(0xFF3B3C41),
 
     error = Color(0xFFF87171),
     onError = Color.Black,
