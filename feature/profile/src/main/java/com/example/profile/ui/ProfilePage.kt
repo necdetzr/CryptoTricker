@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -54,7 +55,7 @@ fun ProfilePage(
 
             Text(
                 text = stringResource(R.string.general_settings),
-                style = MaterialTheme.typography.headlineSmall.copy(
+                style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.SemiBold
                 ),
                 color = MaterialTheme.colorScheme.onBackground,
@@ -67,6 +68,22 @@ fun ProfilePage(
                 onClick = onSettingsButton,
                 title = stringResource(R.string.settings),
                 leadingIcon = Icons.Outlined.Settings
+            )
+            Spacer(Modifier.height(24.dp))
+            Text(
+                text = "Profile Settings",
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+            Spacer(Modifier.height(16.dp))
+
+            SettingsCard(
+                onClick = {},
+                title = "Profile Settings",
+                leadingIcon = Icons.Outlined.Person
             )
         }
     }
