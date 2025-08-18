@@ -1,7 +1,6 @@
 package com.necdetzr.home.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,16 +33,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import com.example.ui.component.CustomTextField
 import com.example.ui.component.ErrorCard
 import com.example.ui.component.LinearProgressBar
-import com.example.ui.component.Section
 import com.necdetzr.home.component.domain.data.Coin
 import com.necdetzr.home.ui.components.CoinCard
 
@@ -76,7 +74,7 @@ fun HomePage(
                             brush = Brush.verticalGradient(
                                 colors = listOf(
                                     MaterialTheme.colorScheme.primary,
-                                    MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
+                                    MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
                                 )
                             )
                         )
@@ -166,14 +164,20 @@ private fun ModernSearchSection(onNavigateToSearch: () -> Unit) {
 
         Card(
             modifier = Modifier
+                .shadow(
+                    elevation = 12.dp,
+                    shape = RoundedCornerShape(12.dp),
+                    spotColor = MaterialTheme.colorScheme.outline,
+                    ambientColor = MaterialTheme.colorScheme.outline
+                )
                 .fillMaxWidth()
-                .clickable(onClick = onNavigateToSearch),
+                .clickable(onClick = onNavigateToSearch)
+                ,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface
             ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 2.dp
-            ),
+
+
             shape = RoundedCornerShape(12.dp)
         ) {
             Row(
@@ -227,14 +231,20 @@ private fun ModernFavoritesSection(onNavigateToFavorite: () -> Unit) {
 
         Card(
             modifier = Modifier
+                .shadow(
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = 12.dp,
+                    spotColor = MaterialTheme.colorScheme.outlineVariant,
+                    ambientColor = MaterialTheme.colorScheme.outlineVariant
+                )
                 .fillMaxWidth()
-                .clickable(onClick = onNavigateToFavorite),
+                .clickable(onClick = onNavigateToFavorite)
+                ,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface
             ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 2.dp
-            ),
+
+
             shape = RoundedCornerShape(12.dp)
         ) {
             Row(
@@ -344,14 +354,20 @@ private fun ModernCryptosSection(
 
         Card(
             modifier = Modifier
+                .shadow(
+                    elevation = 12.dp,
+                    shape = RoundedCornerShape(12.dp),
+                    spotColor = MaterialTheme.colorScheme.outlineVariant,
+                    ambientColor = MaterialTheme.colorScheme.outlineVariant
+                )
                 .fillMaxWidth()
-                .height(320.dp),
+                .height(320.dp)
+                ,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface
             ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 2.dp
-            ),
+
+
             shape = RoundedCornerShape(12.dp)
         ) {
             Box(
