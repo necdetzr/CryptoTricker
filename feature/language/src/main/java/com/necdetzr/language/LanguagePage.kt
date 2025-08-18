@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.necdetzr.language.components.LanguageCard
 import com.necdetzr.language.data.LanguageItem
@@ -78,7 +79,7 @@ fun LanguagePage(
             }
 
             Text(
-                text = "Language",
+                text = stringResource(com.necdetzr.designsystem.R.string.language_settings),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.align(Alignment.Center)
