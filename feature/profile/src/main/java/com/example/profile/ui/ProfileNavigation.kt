@@ -4,10 +4,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 
-fun NavGraphBuilder.profile(onNavigateToSettings:()->Unit){
+fun NavGraphBuilder.profile(
+    onNavigateToSettings:()->Unit,
+    onNavigateToProfileSettings:()->Unit
+){
     composable("profile"){
         ProfileScreen(
-            onNavigateToSettings = onNavigateToSettings
+            onNavigateToSettings = onNavigateToSettings,
+            onNavigateToProfileSettings = onNavigateToProfileSettings
         )
     }
 }

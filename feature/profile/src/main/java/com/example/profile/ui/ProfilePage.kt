@@ -29,6 +29,7 @@ fun ProfilePage(
     surname: String,
     email: String,
     onSettingsButton: () -> Unit,
+    onProfileSettingsButton:()->Unit
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -81,7 +82,7 @@ fun ProfilePage(
             Spacer(Modifier.height(16.dp))
 
             SettingsCard(
-                onClick = {},
+                onClick = onProfileSettingsButton,
                 title = "Profile Settings",
                 leadingIcon = Icons.Outlined.Person
             )
