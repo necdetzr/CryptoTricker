@@ -1,43 +1,21 @@
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.necdet.android.feature)
+    alias(libs.plugins.necdet.android.library)
+    alias(libs.plugins.necdet.android.library.compose)
+    alias(libs.plugins.necdet.android.hilt)
+    alias(libs.plugins.necdet.android.firebase)
+
 }
 
 android {
     namespace = "com.necdetzr.settings.profile"
-    compileSdk = 35
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
-    testImplementation(libs.junit4)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
+    ksp(libs.hilt.compiler)
+    implementation(project(":analytics"))
+    implementation(project(":core:datastore"))
+    implementation(project(":core:common"))
+    implementation(libs.androidx.navigation.common.android)
 }
