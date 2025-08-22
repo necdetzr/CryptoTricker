@@ -23,8 +23,8 @@ fun BottomNavBar(navController: NavHostController) {
     val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationBar(
-        containerColor = MaterialTheme.colorScheme.background, // MaterialTheme background doesn't work!!
-        tonalElevation = 10.dp,
+        containerColor = MaterialTheme.colorScheme.background,
+        tonalElevation = 20.dp,
         windowInsets = NavigationBarDefaults.windowInsets
     ) {
         items.forEach { item ->

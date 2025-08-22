@@ -1,5 +1,6 @@
 package com.necdetzr.loodoscrypto.navigation
 
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,7 +16,8 @@ import com.example.splash.splash
 import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.home.ui.home
 import com.necdetzr.language.language
-import com.necdetzr.settings.ui.settings
+import com.necdetzr.settings.general.ui.settings
+import com.necdetzr.settings.profile.ui.profileSettings
 import com.necdetzr.welcome.welcome
 
 
@@ -71,6 +73,9 @@ fun AppNav(dataStoreManager: DataStoreManager,appState: AppState,navController: 
 
                     onNavigateToSettings = {
                         navController.navigate("settings")
+                    },
+                    onNavigateToProfileSettings = {
+                        navController.navigate("profileSettings")
                     }
                 )
                 settings(
@@ -89,10 +94,13 @@ fun AppNav(dataStoreManager: DataStoreManager,appState: AppState,navController: 
 
                         }
                     }
-
-
-
-
+                )
+                profileSettings(
+                    onNavigateToBack = {
+                        navController.navigate("profile"){
+                            popUpTo("profileSettings"){inclusive = true}
+                        }
+                    }
                 )
                 language(
                     navigateBack = {
@@ -113,6 +121,9 @@ fun AppNav(dataStoreManager: DataStoreManager,appState: AppState,navController: 
                 favorite(
                     onBackButton = {
                         navController.navigate("home")
+                    },
+                    onNavigateToCoin = {
+                        appState.navigationDestination::navigateToCoinDetail
                     }
 
                 )
