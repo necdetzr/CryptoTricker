@@ -12,7 +12,8 @@ plugins {
 
 dependencies {
     implementation(project(":analytics"))
-    implementation(project(":feature:settings"))
+    implementation(project(":feature:settings:general"))
+    implementation(project(":feature:settings:profile"))
     implementation(project(":feature:language"))
     implementation(project(":feature:profile"))
     implementation(project(":core:datastore"))
@@ -27,7 +28,7 @@ dependencies {
     implementation(project(":core:testing"))
     implementation(project(":feature:favorite"))
     implementation(project(":feature:welcome"))
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
+    implementation(project(":feature:splash"))
 
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.core.ktx)

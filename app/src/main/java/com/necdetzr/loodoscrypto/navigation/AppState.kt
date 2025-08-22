@@ -52,10 +52,10 @@
             @Composable get(){
                 val navBackStackEntry = navController.currentBackStackEntryAsState().value
                 val currentDestination = navBackStackEntry?.destination
-                return TopLevelRoute.entries.firstOrNull{topLevelRoute ->
-                    currentDestination?.route?.startsWith(topLevelRoute.route) == true
-
+                return TopLevelRoute.entries.firstOrNull { topLevelRoute ->
+                    currentDestination?.route == topLevelRoute.route
                 }
+
             }
 
         val shouldShowBar:Boolean

@@ -8,7 +8,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
-    onNavigateToSettings:()->Unit
+    onNavigateToSettings:()->Unit,
+    onNavigateToProfileSettings:()->Unit
 ){
     val uiState by viewModel.uiState.collectAsState()
 
@@ -16,7 +17,8 @@ fun ProfileScreen(
         name = uiState.name ?: "Guest User",
         surname = uiState.surname ?: "Guest User",
         email = uiState.email ?: "Guest User",
-        onSettingsButton = onNavigateToSettings
+        onSettingsButton = onNavigateToSettings,
+        onProfileSettingsButton = onNavigateToProfileSettings
     )
 
 }
