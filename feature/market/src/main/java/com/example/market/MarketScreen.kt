@@ -18,7 +18,7 @@ fun MarketScreen(
         isLoading = uiState.loading,
         isError = uiState.showErrorModal,
         topCoins = uiState.topCoins,
-        topLosers = uiState.topGainers,
+        topLosers = uiState.topLosers,
         topGainers = uiState.topGainers
     )
 }

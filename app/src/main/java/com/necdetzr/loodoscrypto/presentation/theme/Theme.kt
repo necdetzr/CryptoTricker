@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 val DarkColorScheme = darkColorScheme(
     primary = Color(0xFF818CF8),            // Açık indigo (dark mode'a uygun)

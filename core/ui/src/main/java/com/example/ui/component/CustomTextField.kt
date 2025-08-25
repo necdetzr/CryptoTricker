@@ -36,9 +36,10 @@ fun CustomTextField(
         singleLine = true,
         shape = RoundedCornerShape(12.dp),
 
+
         colors = OutlinedTextFieldDefaults.colors(
-           focusedContainerColor = MaterialTheme.colorScheme.background,
-            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+           focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
 

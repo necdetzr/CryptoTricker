@@ -7,6 +7,7 @@ import com.necdetzr.home.component.domain.usecase.GetTopCoinsUseCase
 import com.necdetzr.home.component.domain.usecase.GetTopGainersUseCase
 import com.necdetzr.home.component.domain.usecase.GetTopLosersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class MarketViewModel @Inject constructor(
     }
 
 
-    private fun getTopCoins(){
+     fun getTopCoins(){
         viewModelScope.launch {
             showLoading(true)
             try {
@@ -36,6 +37,7 @@ class MarketViewModel @Inject constructor(
                 setState {copy(topGainers = topCoins.sortedByDescending { it.priceChangePercentage24h }.take(10)) }
             }catch (e: Exception){
                 Timber.e("An error occupied while getting TopCoins: $e")
+                setState { copy(showErrorModal = true) }
             }
             showLoading(false)
         }

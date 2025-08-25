@@ -21,4 +21,5 @@ class FirebaseModule {
     fun providesFirebaseAuthManager(auth:FirebaseAuth): FirebaseAuthManager {
         return FirebaseAuthManager(auth)
     }
+
 }

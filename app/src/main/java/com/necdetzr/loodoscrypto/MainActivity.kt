@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.loodoscrypto.navigation.rememberAppState
 import com.necdetzr.loodoscrypto.presentation.theme.LoodosCryptoTheme
@@ -61,9 +62,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
 
-                    ) { paddingValues ->
+                    ) {it
 
-                    CryptoApplication(dataStoreManager,appState,paddingValues)
+                    CryptoApplication(dataStoreManager,appState)
                 }
             }
         }

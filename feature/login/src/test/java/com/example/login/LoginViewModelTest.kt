@@ -2,6 +2,7 @@ package com.example.login
 
 import com.example.network.manager.FirebaseAuthManager
 import com.necdetzr.datastore.model.DataStoreManager
+import com.necdetzr.testing.testing.utils.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -113,17 +114,4 @@ class LoginViewModelTest {
 
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
-class MainDispatcherRule : TestWatcher() {
-    private val dispatcher = StandardTestDispatcher()
 
-    override fun starting(description: Description?) {
-        Dispatchers.setMain(dispatcher)
-    }
-
-    override fun finished(description: Description?) {
-        Dispatchers.resetMain()
-    }
-
-    fun getTestDispatcher() = dispatcher
-}

@@ -28,17 +28,14 @@ import com.necdetzr.datastore.model.DataStoreManager
 import com.necdetzr.loodoscrypto.navigation.AppState
 import com.necdetzr.loodoscrypto.navigation.BottomNavBar
 
-
 @Composable
 fun CryptoApplication(
     dataStoreManager: DataStoreManager,
     appState: AppState,
-    paddingValues: PaddingValues
-    ) {
+) {
     val darkMode by dataStoreManager.darkMode.collectAsState(initial = false)
 
     LoodosCryptoTheme(darkTheme = darkMode) {
-
         Scaffold(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primary)
@@ -56,8 +53,6 @@ fun CryptoApplication(
                 appState = appState,
                 navController = appState.navController
             )
-
         }
-
     }
 }

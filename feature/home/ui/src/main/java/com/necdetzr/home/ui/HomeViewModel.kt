@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
                 setState { copy(topCoins = topCoins.sortedByDescending { it.marketCap }.take(10)) }
             }catch (e: Exception){
                 setState { copy(showErrorModal = true) }
-                Timber.e("Error while taken topCoins in Home Page")
+                Timber.e("Error while taken topCoins in Home Page = $e")
             }
 
             showLoading(false)

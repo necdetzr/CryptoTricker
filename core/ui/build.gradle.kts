@@ -15,6 +15,8 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
+
     implementation(project(":core:designsystem"))
 
 }

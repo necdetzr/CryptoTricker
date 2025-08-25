@@ -118,9 +118,14 @@ fun DetailPage(
             Spacer(Modifier.height(10.dp))
             Card(
                 modifier = Modifier.height(200.dp).fillMaxWidth()
-                    .verticalScroll(state = rememberScrollState()),
-                border = CardDefaults.outlinedCardBorder()
-
+                    .verticalScroll(state = rememberScrollState())
+                    .padding(24.dp),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 4.dp
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             ) {
                 if (isLoading) {
                     Column(

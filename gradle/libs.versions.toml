@@ -89,6 +89,8 @@ lifecycleViewmodelAndroidVersion = "2.9.2"
 navigationCommonAndroid = "2.9.2"
 
 [libraries]
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.10.1" }
+
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 agconnect-core = { module = "com.huawei.agconnect:agconnect-core", version.ref = "agconnectCore" }
 agcp = { module = "com.huawei.agconnect:agcp", version.ref = "agcp" }
@@ -168,6 +170,7 @@ netmera-fcm = { group = "com.netmera", name = "nmfcm", version.ref = "netmera" }
 netmera-hms = { group = "com.netmera", name = "nmhms", version.ref = "netmera" }
 paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version = "1.6.1" }
 
 
 # Dependencies of the included build-logic

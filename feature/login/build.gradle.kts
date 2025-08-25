@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
+    implementation(project(":core:testing"))
     implementation(libs.androidx.navigation.common.android)
 
 }

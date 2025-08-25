@@ -16,10 +16,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.market.components.CoinCard
+import com.example.ui.component.CryptoAppBar
 import com.example.ui.component.ErrorCard
 import com.example.ui.component.LinearProgressBar
 import com.example.ui.component.Section
@@ -36,13 +38,21 @@ fun MarketPage(
     topGainers:List<Coin>
 ){
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            CryptoAppBar(
+                isLeadingButton = false,
+                title = stringResource(R.string.crypto_marketplace)
+            )
+        }
     ) { padding->
+
+
         Column(
             modifier = Modifier.padding(12.dp).verticalScroll(state = rememberScrollState())
         ) {
-            Text(stringResource(R.string.crypto_marketplace), style = MaterialTheme.typography.headlineSmall)
-            Spacer(Modifier.height(40.dp))
+
+            Spacer(Modifier.height(80.dp))
             Section(stringResource(R.string.top_gainers), stringResource(R.string.last_24h))
             Spacer(Modifier.padding(4.dp))
             Box(modifier = Modifier.fillMaxWidth().height(260.dp)) {
@@ -58,6 +68,7 @@ fun MarketPage(
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         ErrorCard()
                     }
@@ -82,6 +93,7 @@ fun MarketPage(
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         LinearProgressBar()
                     }
@@ -90,6 +102,7 @@ fun MarketPage(
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         ErrorCard()
                     }
@@ -122,6 +135,7 @@ fun MarketPage(
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         ErrorCard()
                     }

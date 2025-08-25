@@ -1,15 +1,14 @@
 
 package com.example.analytics
 
-import android.content.Context
 import android.os.Bundle
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
+import javax.inject.Inject
 
 
-class AnalyticsManager(
-    context: Context
+class AnalyticsManager @Inject constructor(
 ) : AnalyticsHelper {
 
     private val firebaseAnalytics: FirebaseAnalytics = Firebase.analytics
