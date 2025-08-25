@@ -13,8 +13,13 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
 - 🖼️ Coil Async Image Builder
 - 🌐 DataStore Preference Management (Multilanguage Support)
 - 🚀 Usage of Coil and LazyColumn / LazyVerticalGrid for smoother UI and faster loading
-- Modular Navigation
-- 🌙 **Dark Mode:** Now users can use dark mode with Material3 Theme features! 
+
+
+
+## New Features!
+- 🌙 **Dark Mode:** Now users can use dark mode with Material3 Theme features!
+-  **Modular Navigation**
+-  **New UI!**
 
 ## 🎯 Use Cases
 - ✅ **Real-time Price Tracking:** Users can view live prices of multiple cryptocurrencies including Bitcoin, Ethereum, and altcoins.
@@ -27,24 +32,28 @@ Crypto Tricker is a Kotlin-based mobile application that allows users to track r
 ## 📸 Screenshots
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/ac1f48a3-aec7-47c7-b1ef-95512ae41f5d" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/facc8367-f4e6-4828-98ad-1c7f66a6ea94" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/7065fc1b-8025-4a68-8848-f2005019bede" width="200"/></td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150511" src="https://github.com/user-attachments/assets/955cd4eb-d46f-4049-808e-2a54fcc25303" />
+</td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150457" src="https://github.com/user-attachments/assets/cd683edc-a3dc-4c18-9d4d-f012114e681f" /></td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150336" src="https://github.com/user-attachments/assets/d8f776e3-9924-47e0-bbe8-6c102e4b6f8e" /></td>
+  </tr>
+
+
+  <tr>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150315" src="https://github.com/user-attachments/assets/ae9d0f0b-499b-489e-890c-a9cf93e0f2d3" /></td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150305" src="https://github.com/user-attachments/assets/5436cba2-0877-4008-b40a-071d76d2a6ac" /></td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150100" src="https://github.com/user-attachments/assets/4c09fac7-6352-4c84-891c-09e779a39746" /></td>
+  </tr>
+
+
+
+  <tr>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150236" src="https://github.com/user-attachments/assets/3c09a4b2-e202-4302-a6ea-1fa3133918ac" /></td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150256" src="https://github.com/user-attachments/assets/6c22b2ad-e748-4266-a942-b742dfac9555" /></td>
+    <td><img width="1080" height="2400" alt="Screenshot_20250825_150246" src="https://github.com/user-attachments/assets/1b6f55b7-7c38-426c-863e-f6646ce2bc87" /></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/8a993e13-ab43-4168-b006-2daa68d0b8d7" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/4c87e1a7-5a03-447b-a298-9eb36452eb83" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/819bf99c-0406-4bad-8fb9-4f3da1b86317" width="200"/></td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/7964a368-ebc2-4c34-80e8-f99ea8d36057" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/e4af8ff4-89e7-4954-b5f7-fb38b1292224" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/ff64980d-c853-40db-80b8-000df7056419" width="200"/></td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/cf3ad524-1b79-4f78-b06a-01b9e5a8f7de" width="200"/></td>
-    <td></td>
-    <td></td>
+
   </tr>
 </table>
 
