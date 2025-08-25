@@ -47,10 +47,17 @@ class  SettingsViewModel @Inject constructor(
     }
 
 
-    fun logOut(onComplete: () -> Unit) {
-        onComplete()
+    fun logOut() {
+
         analyticsHelper.logEvent("log_out")
+        viewModelScope.launch {
+            dataStoreManager.setRemember(false)
+            dataStoreManager.rememberMe.collect { remember->
+                setState { copy(remembered = false) }
+            }
+        }
     }
+
 
     fun onEvent(event: SettingsEvent){
         when(event){
