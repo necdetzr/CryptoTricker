@@ -23,10 +23,11 @@ fun SettingsScreen(
         onLogOutClick ={viewModel.onEvent(SettingsEvent.ShowDialog(true))},
         showAlertDialog = uiState.showDialog,
         onDismissDialog = {viewModel.onEvent(SettingsEvent.ShowDialog(false))},
-        onConfirmLogout = {viewModel.logOut {
-            viewModel.showDialog(false)
+        onConfirmLogout = {
+            viewModel.onEvent(SettingsEvent.ShowDialog(false))
+            viewModel.logOut()
             onNavigateToLogin()
-        }},
+                          },
         onBackButton = onNavigateToBack
 
     )
